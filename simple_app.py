@@ -14,6 +14,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import openai
+from openai import OpenAI
 import base64
 import io
 
@@ -486,10 +487,7 @@ def generate_hero_image():
                 proxies=None
             )
             
-            client = openai.OpenAI(
-                api_key=api_key,
-                http_client=custom_http_client
-            )
+            client = openai.OpenAI()
             print("✅ OpenAI client initialized successfully")
         except Exception as client_error:
             print(f"❌ Error initializing OpenAI client: {client_error}")

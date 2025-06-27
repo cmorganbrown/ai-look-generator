@@ -490,8 +490,22 @@ def generate_hero_image():
         # Try to initialize OpenAI client with explicit error handling
         try:
             print("🚀 Initializing OpenAI client...")
-            # Initialize OpenAI client without any proxy configuration
-            client = openai.OpenAI(api_key=api_key)
+            
+            # Import httpx to create a custom client without proxy settings
+            import httpx
+            
+            # Create a custom HTTP client without any proxy configuration
+            custom_http_client = httpx.Client(
+                timeout=httpx.Timeout(30.0),
+                # Explicitly set no proxies
+                proxies=None
+            )
+            
+            # Initialize OpenAI client with custom HTTP client
+            client = openai.OpenAI(
+                api_key=api_key,
+                http_client=custom_http_client
+            )
             print("✅ OpenAI client initialized successfully")
         except Exception as client_error:
             print(f"❌ Error initializing OpenAI client: {client_error}")

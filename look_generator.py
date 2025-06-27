@@ -20,10 +20,34 @@ class LookGenerator:
         
         if openai_api_key:
             # Initialize OpenAI client without any proxy configuration
-            self.openai_client = openai.OpenAI(api_key=openai_api_key)
+            try:
+                import httpx
+                custom_http_client = httpx.Client(
+                    timeout=httpx.Timeout(30.0),
+                    proxies=None
+                )
+                self.openai_client = openai.OpenAI(
+                    api_key=openai_api_key,
+                    http_client=custom_http_client
+                )
+            except Exception as e:
+                print(f"Error initializing OpenAI client: {e}")
+                self.openai_client = None
         elif os.getenv('OPENAI_API_KEY'):
             # Initialize OpenAI client without any proxy configuration
-            self.openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+            try:
+                import httpx
+                custom_http_client = httpx.Client(
+                    timeout=httpx.Timeout(30.0),
+                    proxies=None
+                )
+                self.openai_client = openai.OpenAI(
+                    api_key=os.getenv('OPENAI_API_KEY'),
+                    http_client=custom_http_client
+                )
+            except Exception as e:
+                print(f"Error initializing OpenAI client: {e}")
+                self.openai_client = None
         
         # Create directories for storing looks
         self.looks_dir = 'looks'

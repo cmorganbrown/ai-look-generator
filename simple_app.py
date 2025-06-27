@@ -563,38 +563,59 @@ Requirements:
         
         # Log the API call parameters
         print("🚀 API call parameters:")
-        print(f"  Model: gpt-4.1")
+        print(f"  Model: gpt-4-vision-preview")
         print(f"  Content items: {len(content)}")
         print(f"  Reference images: {len(content)-1}")
         
-        # Generate the image using GPT-4.1 with reference images
+        # Generate the image using GPT-4 Vision with reference images
         print("🎨 Calling OpenAI API...")
-        response = client.responses.create(
-            model="gpt-4.1",
-            input=[
+        response = client.chat.completions.create(
+            model="gpt-4-vision-preview",
+            messages=[
                 {
                     "role": "user",
                     "content": content
                 }
             ],
-            tools=[{"type": "image_generation"}]
+            max_tokens=1000
         )
         
         print("✅ API call successful!")
         
-        # Extract the generated image
-        image_generation_calls = [
-            output
-            for output in response.output
-            if output.type == "image_generation_call"
-        ]
-        
-        image_data = [output.result for output in image_generation_calls]
-        
-        if image_data:
-            # Get the first generated image
-            image_base64 = image_data[0]
-            print(f"🖼️ Generated image received")
+        # Extract the generated image URL from the response
+        if response.choices and response.choices[0].message.content:
+            # For GPT-4 Vision, we need to extract the image URL from the response
+            # The response will contain a description, but we need to generate the actual image
+            # Let's use DALL-E 3 for the actual image generation
+            print("🎨 Generating image with DALL-E 3...")
+            
+            # Create a DALL-E 3 prompt based on the products
+            dalle_prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these products together in a cohesive, stylish look.
+
+Products to include in the scene:
+{'; '.join([f"{i+1}. {product['title'][:50]}" for i, product in enumerate(products[:3])])}
+
+Style: The scene should look like a professional photo that would inspire someone to buy these products together. Use warm, inviting colors and create a sense of lifestyle and aspiration.
+
+Requirements:
+- High quality, photorealistic image
+- Professional photography style
+- Products should be naturally integrated into the scene
+- Warm, inviting lighting
+- Modern, elegant aesthetic
+- 1:1 aspect ratio, landscape orientation"""
+            
+            dalle_response = client.images.generate(
+                model="dall-e-3",
+                prompt=dalle_prompt,
+                n=1,
+                size="1024x1024",
+                quality="hd",
+                style="natural"
+            )
+            
+            image_url = dalle_response.data[0].url
+            print(f"🖼️ Generated image received: {image_url}")
             
             # Create images directory if it doesn't exist
             os.makedirs('static/generated_images', exist_ok=True)
@@ -603,8 +624,12 @@ Requirements:
             filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
             filepath = os.path.join('static/generated_images', filename)
             
+            # Download the image
+            image_response = requests.get(image_url)
+            image_response.raise_for_status()
+            
             with open(filepath, 'wb') as f:
-                f.write(base64.b64decode(image_base64))
+                f.write(image_response.content)
             
             print(f"💾 Saved image to: {filepath}")
             
@@ -622,8 +647,8 @@ Requirements:
                 'message': 'Hero image generated successfully!'
             })
         else:
-            print(f"❌ No image generated: {response.output.content}")
-            return jsonify({'success': False, 'error': 'No image was generated'})
+            print(f"❌ No response content: {response}")
+            return jsonify({'success': False, 'error': 'No response content from OpenAI'})
             
     except Exception as e:
         print(f"❌ Error generating hero image: {e}")

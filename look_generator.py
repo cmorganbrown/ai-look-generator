@@ -11,9 +11,18 @@ class LookGenerator:
     def __init__(self, openai_api_key=None):
         """Initialize the Look Generator with OpenAI API key"""
         self.openai_client = None
+        
+        # Clear any proxy environment variables that might cause issues
+        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
+        for var in proxy_vars:
+            if var in os.environ:
+                del os.environ[var]
+        
         if openai_api_key:
+            # Initialize OpenAI client without any proxy configuration
             self.openai_client = openai.OpenAI(api_key=openai_api_key)
         elif os.getenv('OPENAI_API_KEY'):
+            # Initialize OpenAI client without any proxy configuration
             self.openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
         
         # Create directories for storing looks

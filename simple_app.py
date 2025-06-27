@@ -463,6 +463,14 @@ def generate_hero_image():
             return jsonify({'success': False, 'error': 'OpenAI API key not configured. Please set OPENAI_API_KEY environment variable.'})
         
         print("🔑 OpenAI API key found")
+        
+        # Clear any proxy environment variables that might cause issues
+        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
+        for var in proxy_vars:
+            if var in os.environ:
+                del os.environ[var]
+        
+        # Initialize OpenAI client without any proxy configuration
         client = openai.OpenAI(api_key=api_key)
         
         # Create the prompt

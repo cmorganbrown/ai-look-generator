@@ -463,44 +463,23 @@ def generate_hero_image():
         with open(look_file, 'r') as f:
             look = json.load(f)
         
-        # Initialize OpenAI client (you'll need to set your API key)
+        # Initialize OpenAI client
         api_key = os.getenv('OPENAI_API_KEY')
         if not api_key:
             return jsonify({'success': False, 'error': 'OpenAI API key not configured. Please set OPENAI_API_KEY environment variable.'})
         
         print("🔑 OpenAI API key found")
+        client = openai.OpenAI(api_key=api_key)
         
-        # Clear any proxy environment variables that might cause issues
-        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
-        for var in proxy_vars:
-            if var in os.environ:
-                print(f"🗑️ Clearing {var}")
-                del os.environ[var]
-        
-        # Initialize OpenAI client with custom HTTP client
-        try:
-            print("🚀 Initializing OpenAI client...")
-            import httpx
-            
-            custom_http_client = httpx.Client(
-                timeout=httpx.Timeout(30.0),
-                proxies=None
-            )
-            
-            client = openai.OpenAI()
-            print("✅ OpenAI client initialized successfully")
-        except Exception as client_error:
-            print(f"❌ Error initializing OpenAI client: {client_error}")
-            return jsonify({'success': False, 'error': f'OpenAI client initialization failed: {str(client_error)}'})
-        
-        # Generate the image using the correct API
-        print("🎨 Calling OpenAI API...")
-        
-        # Create a detailed prompt
-        dalle_prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these products together in a cohesive, stylish look.
+        # Create the prompt
+        product_names = [p['title'][:50] for p in products[:3]]
+        prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these 3 products together 
+in a cohesive, stylish look.
 
 Products to include in the scene:
-{'; '.join([f"{i+1}. {product['title'][:50]}" for i, product in enumerate(products[:3])])}
+1. {product_names[0]}
+2. {product_names[1]} 
+3. {product_names[2]}
 
 Style: The scene should look like a professional photo that would inspire someone to buy these products together. Use warm, inviting colors and create a sense of lifestyle and aspiration.
 
@@ -511,53 +490,57 @@ Requirements:
 - Warm, inviting lighting
 - Modern, elegant aesthetic
 - 1:1 aspect ratio, landscape orientation"""
-
-        # Prepare content with text and product images
-        content = [{"type": "input_text", "text": dalle_prompt}]
         
-        # Add product images as reference images (up to 4 products)
-        for i, product in enumerate(products[:4]):
-            image_url = product.get('image_url', '')
-            if image_url:
-                try:
-                    # Download the product image
-                    response = requests.get(image_url)
-                    if response.status_code == 200:
-                        # Save temporarily to encode
-                        temp_image_path = f"temp_product_{i}.jpg"
-                        with open(temp_image_path, "wb") as f:
-                            f.write(response.content)
-                        
-                        # Encode the image
-                        base64_image = encode_image(temp_image_path)
-                        
-                        # Add to content
-                        content.append({
-                            "type": "input_image",
-                            "image_url": f"data:image/jpeg;base64,{base64_image}",
-                        })
-                        
-                        # Clean up temp file
-                        os.remove(temp_image_path)
-                except Exception as e:
-                    print(f"Error processing product image {i}: {e}")
-                    continue
+        print(f"📝 Generated prompt: {prompt[:200]}...")
         
-        # Use the correct API call
+        # Prepare the input content with reference images
+        content = [
+            {"type": "input_text", "text": prompt}
+        ]
+        
+        # Add the reference images
+        for i, product in enumerate(products[:3]):
+            try:
+                # Download and encode the image
+                response = requests.get(product['image_url'])
+                if response.status_code == 200:
+                    # Convert to base64
+                    image_data = base64.b64encode(response.content).decode('utf-8')
+                    content.append({
+                        "type": "input_image",
+                        "image_url": f"data:image/jpeg;base64,{image_data}"
+                    })
+                    print(f"  ✅ Added reference image {i+1}")
+                else:
+                    print(f"  ❌ Failed to download image {i+1}: HTTP {response.status_code}")
+            except Exception as e:
+                print(f"  ❌ Error processing image {i+1}: {e}")
+                continue
+        
+        print(f"🖼️ Prepared {len(content)-1} reference images")
+        
+        # Log the API call parameters
+        print("🚀 API call parameters:")
+        print(f"  Model: gpt-4.1")
+        print(f"  Content items: {len(content)}")
+        print(f"  Reference images: {len(content)-1}")
+        
+        # Generate the image using GPT-4.1 with reference images
+        print("🎨 Calling OpenAI API...")
         response = client.responses.create(
             model="gpt-4.1",
             input=[
                 {
                     "role": "user",
-                    "content": content,
+                    "content": content
                 }
             ],
-            tools=[{"type": "image_generation"}],
+            tools=[{"type": "image_generation"}]
         )
         
         print("✅ API call successful!")
         
-        # Extract image data from response
+        # Extract the generated image
         image_generation_calls = [
             output
             for output in response.output
@@ -566,36 +549,39 @@ Requirements:
         
         image_data = [output.result for output in image_generation_calls]
         
-        if not image_data:
-            raise Exception("No image generated")
-        
-        # Create images directory if it doesn't exist
-        os.makedirs('static/generated_images', exist_ok=True)
-        
-        # Save the generated image
-        filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
-        filepath = os.path.join('static/generated_images', filename)
-        
-        # Decode and save the base64 image data
-        image_base64 = image_data[0]
-        with open(filepath, "wb") as f:
-            f.write(base64.b64decode(image_base64))
-        
-        print(f"💾 Saved image to: {filepath}")
-        
-        # Update the look with the new image URL
-        look['image_url'] = f'/static/generated_images/{filename}'
-        
-        # Save updated look
-        with open(look_file, 'w') as f:
-            json.dump(look, f, indent=2)
-        
-        print("✅ Hero image generation completed successfully!")
-        return jsonify({
-            'success': True, 
-            'image_url': look['image_url'],
-            'message': 'Hero image generated successfully!'
-        })
+        if image_data:
+            # Get the first generated image
+            image_base64 = image_data[0]
+            print(f"🖼️ Generated image received")
+            
+            # Create images directory if it doesn't exist
+            os.makedirs('static/generated_images', exist_ok=True)
+            
+            # Save the image
+            filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
+            filepath = os.path.join('static/generated_images', filename)
+            
+            with open(filepath, 'wb') as f:
+                f.write(base64.b64decode(image_base64))
+            
+            print(f"💾 Saved image to: {filepath}")
+            
+            # Update the look with the new image URL
+            look['image_url'] = f'/static/generated_images/{filename}'
+            
+            # Save updated look
+            with open(look_file, 'w') as f:
+                json.dump(look, f, indent=2)
+            
+            print("✅ Hero image generation completed successfully!")
+            return jsonify({
+                'success': True, 
+                'image_url': look['image_url'],
+                'message': 'Hero image generated successfully!'
+            })
+        else:
+            print(f"❌ No image generated: {response.output.content}")
+            return jsonify({'success': False, 'error': 'No image was generated'})
             
     except Exception as e:
         print(f"❌ Error generating hero image: {e}")

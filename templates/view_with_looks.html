@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - Create Looks</title>
+    
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 120px; /* Space for floating tray */
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item.selected {
+            border: 3px solid #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* Product Selection Checkbox */
+        .product-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 2;
+            accent-color: #667eea;
+        }
+        
+        .product-checkbox:checked + .product-item {
+            border: 3px solid #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Floating Selection Tray */
+        .selection-tray {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 2px solid #667eea;
+            padding: 15px 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .selection-tray.show {
+            transform: translateY(0);
+        }
+        
+        .tray-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .selected-products {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            overflow-x: auto;
+            padding-right: 20px;
+        }
+        
+        .selected-product-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #667eea;
+            flex-shrink: 0;
+        }
+        
+        .tray-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .selected-count {
+            background: #667eea;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .create-look-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .create-look-btn.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .create-look-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .clear-selection {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-selection:hover {
+            background: #e9ecef;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header styles */
+        .page-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .page-title {
+            color: #7b189f;
+            font-size: 3em;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .filter-select {
+            padding: 8px 16px;
+            border: 2px solid #7b189f;
+            border-radius: 6px;
+            font-size: 16px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        /* Back button */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(123, 25, 159, 0.1);
+            color: #7b189f;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(123, 25, 159, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                padding-bottom: 120px;
+            }
+            
+            .selection-tray {
+                padding: 10px 15px;
+            }
+            
+            .tray-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .selected-products {
+                justify-content: center;
+                padding-right: 0;
+            }
+            
+            .tray-actions {
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="back-btn">← Back to Home</a>
+    
+    <div class="page-header">
+        <h1 class="page-title">{{ page_title }}</h1>
+        <div class="filter-section">
+            <label for="sourceFilter" class="filter-label">Filter by Source:</label>
+            <select id="sourceFilter" class="filter-select">
+                <option value="all">All Sources</option>
+                <option value="Pinterest">Pinterest Only</option>
+                <option value="Google">Google Only</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-item" data-source="{{ product.source }}" data-product-id="{{ loop.index }}">
+                <input type="checkbox" class="product-checkbox" id="product-{{ loop.index }}">
+                <a href="{{ product.url }}" target="_blank">
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                </a>
+                <div class="heart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <div class="source-logo">
+                    <img src="{{ product.source_logo }}" alt="{{ product.source }} Logo">
+                </div>
+                <div class="product-details">
+                    <h3>{{ product.title }}</h3>
+                    <p>{{ product.price }}</p>
+                    <button class="add-to-cart-button" onclick="window.open('{{ product.url }}', '_blank')">
+                        View Product
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Floating Selection Tray -->
+    <div class="selection-tray" id="selectionTray">
+        <div class="tray-content">
+            <div class="selected-products" id="selectedProducts">
+                <!-- Selected product thumbnails will be added here -->
+            </div>
+            <div class="tray-actions">
+                <span class="selected-count" id="selectedCount">0 selected</span>
+                <button class="clear-selection" id="clearSelection">Clear</button>
+                <button class="create-look-btn" id="createLookBtn">Create Look</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Product data passed from server
+        const productsData = {{ products|tojson }};
+        
+        // Product selection functionality
+        let selectedProducts = [];
+        const selectionTray = document.getElementById('selectionTray');
+        const selectedProductsContainer = document.getElementById('selectedProducts');
+        const selectedCount = document.getElementById('selectedCount');
+        const createLookBtn = document.getElementById('createLookBtn');
+        const clearSelectionBtn = document.getElementById('clearSelection');
+        
+        // Initialize checkboxes
+        document.querySelectorAll('.product-checkbox').forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                const productData = productsData[index];
+                const productId = this.id;
+                
+                if (this.checked) {
+                    selectedProducts.push({
+                        id: productId,
+                        ...productData
+                    });
+                } else {
+                    selectedProducts = selectedProducts.filter(p => p.id !== productId);
+                }
+                
+                updateSelectionTray();
+            });
+        });
+        
+        function updateSelectionTray() {
+            // Update count
+            selectedCount.textContent = `${selectedProducts.length} selected`;
+            
+            // Update thumbnails
+            selectedProductsContainer.innerHTML = '';
+            selectedProducts.forEach(product => {
+                const thumb = document.createElement('img');
+                thumb.src = product.image_url;
+                thumb.alt = product.title;
+                thumb.className = 'selected-product-thumb';
+                thumb.title = product.title;
+                selectedProductsContainer.appendChild(thumb);
+            });
+            
+            // Show/hide tray
+            if (selectedProducts.length > 0) {
+                selectionTray.classList.add('show');
+            } else {
+                selectionTray.classList.remove('show');
+            }
+            
+            // Enable/disable create button
+            if (selectedProducts.length >= 3) {
+                createLookBtn.classList.add('active');
+            } else {
+                createLookBtn.classList.remove('active');
+            }
+        }
+        
+        // Clear selection
+        clearSelectionBtn.addEventListener('click', function() {
+            selectedProducts = [];
+            document.querySelectorAll('.product-checkbox').forEach(cb => cb.checked = false);
+            updateSelectionTray();
+        });
+        
+        // Create look
+        createLookBtn.addEventListener('click', function() {
+            if (selectedProducts.length >= 3) {
+                const lookData = {
+                    products: selectedProducts,
+                    page_title: '{{ page_title }}',
+                    created_at: new Date().toISOString()
+                };
+                
+                // Send to backend
+                fetch('{{ url_for("generate_look") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(lookData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Look created successfully!');
+                        window.location.href = data.redirect_url;
+                    } else {
+                        alert('Error creating look: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error creating look. Please try again.');
+                });
+            }
+        });
+        
+        // Source filter functionality
+        document.getElementById('sourceFilter').addEventListener('change', function() {
+            const selectedSource = this.value;
+            const products = document.querySelectorAll('.product-item');
+            
+            products.forEach(product => {
+                const source = product.dataset.source;
+                if (selectedSource === 'all' || source === selectedSource) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

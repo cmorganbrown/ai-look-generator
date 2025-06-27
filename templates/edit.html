@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Landing Page - {{ search_term }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1><i class="fas fa-edit"></i> Edit Landing Page: "{{ search_term }}"</h1>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i>
+        <strong>Adding More Products:</strong> Upload new data files or paste content to add more products to this landing page. 
+        The new data will be combined with existing data to create an updated page.
+    </div>
+
+    <form method="POST" action="{{ url_for('update_page', filename=filename) }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="search_term">Search Term:</label>
+            <input type="text" id="search_term" name="search_term" value="{{ search_term }}" required class="form-control">
+        </div>
+
+        <!-- Pinterest Section -->
+        <div class="data-section">
+            <h3><i class="fab fa-pinterest"></i> Pinterest Data</h3>
+            
+            {% if pinterest_file %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Existing data found:</strong> {{ pinterest_file }}
+            </div>
+            {% endif %}
+            
+            <div class="input-method-tabs">
+                <div class="tab-buttons">
+                    <button type="button" class="tab-btn active" onclick="switchTab('pinterest', 'file')">
+                        <i class="fas fa-upload"></i> Upload File
+                    </button>
+                    <button type="button" class="tab-btn" onclick="switchTab('pinterest', 'paste')">
+                        <i class="fas fa-paste"></i> Paste JSON
+                    </button>
+                </div>
+                
+                <div id="pinterest-file" class="tab-content active">
+                    <div class="form-group">
+                        <label for="pinterest_file">Pinterest JSON File:</label>
+                        <input type="file" id="pinterest_file" name="pinterest_file" accept=".json,.html" class="form-control">
+                        <small class="form-text">Upload a Pinterest JSON file or HTML file</small>
+                    </div>
+                </div>
+                
+                <div id="pinterest-paste" class="tab-content">
+                    <div class="form-group">
+                        <label for="pinterest_content">Paste Pinterest JSON Content:</label>
+                        <textarea id="pinterest_content" name="pinterest_content" rows="10" class="form-control" 
+                                  placeholder="Paste your Pinterest JSON data here..."></textarea>
+                        <div class="button-group">
+                            <button type="button" onclick="formatJSON('pinterest_content')" class="btn btn-secondary">
+                                <i class="fas fa-code"></i> Format JSON
+                            </button>
+                            <button type="button" onclick="clearContent('pinterest_content')" class="btn btn-outline">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                            <button type="button" onclick="savePastedContent('pinterest_content', 'pinterest')" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save as File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Section -->
+        <div class="data-section">
+            <h3><i class="fab fa-google"></i> Google Shopping Data</h3>
+            
+            {% if google_file %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Existing data found:</strong> {{ google_file }}
+            </div>
+            {% endif %}
+            
+            <div class="input-method-tabs">
+                <div class="tab-buttons">
+                    <button type="button" class="tab-btn active" onclick="switchTab('google', 'file')">
+                        <i class="fas fa-upload"></i> Upload File
+                    </button>
+                    <button type="button" class="tab-btn" onclick="switchTab('google', 'paste')">
+                        <i class="fas fa-paste"></i> Paste HTML
+                    </button>
+                </div>
+                
+                <div id="google-file" class="tab-content active">
+                    <div class="form-group">
+                        <label for="google_file">Google Shopping HTML File:</label>
+                        <input type="file" id="google_file" name="google_file" accept=".html" class="form-control">
+                        <small class="form-text">Upload a Google Shopping HTML file</small>
+                    </div>
+                </div>
+                
+                <div id="google-paste" class="tab-content">
+                    <div class="form-group">
+                        <label for="google_content">Paste Google Shopping HTML Content:</label>
+                        <textarea id="google_content" name="google_content" rows="10" class="form-control" 
+                                  placeholder="Paste your Google Shopping HTML content here..."></textarea>
+                        <div class="button-group">
+                            <button type="button" onclick="formatHTML('google_content')" class="btn btn-secondary">
+                                <i class="fas fa-code"></i> Format HTML
+                            </button>
+                            <button type="button" onclick="clearContent('google_content')" class="btn btn-outline">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                            <button type="button" onclick="savePastedContent('google_content', 'google')" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save as File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i> Update Landing Page
+            </button>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+function switchTab(source, method) {
+    // Hide all tab contents for this source
+    document.querySelectorAll(`#${source}-file, #${source}-paste`).forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active class from all tab buttons for this source
+    document.querySelectorAll(`[onclick*="${source}"]`).forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab content
+    document.getElementById(`${source}-${method}`).classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+}
+
+function formatJSON(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    try {
+        const json = JSON.parse(textarea.value);
+        textarea.value = JSON.stringify(json, null, 2);
+    } catch (e) {
+        alert('Invalid JSON format');
+    }
+}
+
+function formatHTML(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    // Simple HTML formatting - you could use a more sophisticated formatter
+    textarea.value = textarea.value
+        .replace(/></g, '>\n<')
+        .replace(/\n\s*\n/g, '\n')
+        .trim();
+}
+
+function clearContent(textareaId) {
+    document.getElementById(textareaId).value = '';
+}
+
+function savePastedContent(textareaId, type) {
+    const textarea = document.getElementById(textareaId);
+    const content = textarea.value.trim();
+    
+    if (!content) {
+        alert('Please paste some content first.');
+        return;
+    }
+    
+    // Create a file input and trigger download
+    const blob = new Blob([content], { type: type === 'pinterest' ? 'application/json' : 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pasted_${type}_content.${type === 'pinterest' ? 'json' : 'html'}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    alert(`Content saved as ${a.download}. You can now upload this file using the file upload option above.`);
+}
+</script>
+
+<style>
+.data-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.input-method-tabs {
+    margin-top: 15px;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.button-group {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 15px;
+}
+</style>
+{% endblock %} 

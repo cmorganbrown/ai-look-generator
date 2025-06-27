@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}Create New Landing Page - Trend Generator{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1><i class="fas fa-plus"></i> Create New Landing Page</h1>
+    <p style="color: #666; margin-bottom: 30px;">
+        Upload your Pinterest JSON and Google HTML files, or paste content to generate a beautiful landing page for your trend.
+    </p>
+
+    <form action="{{ url_for('upload_and_generate') }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="search_term">
+                <i class="fas fa-search"></i> Search Term / Trend Name
+            </label>
+            <input type="text" 
+                   id="search_term" 
+                   name="search_term" 
+                   class="form-control" 
+                   placeholder="e.g., Storage Hacks, Dopamine Decor, Minimalist Living"
+                   required>
+            <small style="color: #666; margin-top: 5px; display: block;">
+                This will be the title of your landing page and used to name the generated file.
+            </small>
+        </div>
+
+        <!-- Pinterest Data Section -->
+        <div class="form-group">
+            <label>
+                <i class="fab fa-pinterest"></i> Pinterest Data
+            </label>
+            
+            <!-- File Upload Option -->
+            <div class="file-input" style="margin-bottom: 15px;">
+                <input type="file" 
+                       id="pinterest_file" 
+                       name="pinterest_file" 
+                       accept=".json"
+                       onchange="updateFileName(this, 'pinterest-label')">
+                <label for="pinterest_file" class="file-input-label" id="pinterest-label">
+                    <i class="fas fa-cloud-upload-alt"></i><br>
+                    Click to upload Pinterest JSON file<br>
+                    <small>or drag and drop here</small>
+                </label>
+            </div>
+
+            <!-- OR Divider -->
+            <div style="text-align: center; margin: 20px 0; position: relative;">
+                <hr style="border: none; border-top: 1px solid #ddd;">
+                <span style="background: white; padding: 0 15px; color: #666; font-size: 14px;">OR</span>
+            </div>
+
+            <!-- Paste Content Option -->
+            <div class="paste-area">
+                <textarea id="pinterest_content" 
+                          name="pinterest_content" 
+                          class="form-control paste-textarea" 
+                          placeholder="Paste your Pinterest JSON content here... (10K+ lines is normal)"
+                          rows="6"></textarea>
+                <div class="paste-controls">
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="clearTextarea('pinterest_content')">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="formatJSON('pinterest_content')">
+                        <i class="fas fa-code"></i> Format JSON
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-success" onclick="savePastedContent('pinterest_content', 'pinterest')">
+                        <i class="fas fa-save"></i> Save as File
+                    </button>
+                    <span class="char-count" id="pinterest-count">0 characters</span>
+                </div>
+            </div>
+            <small style="color: #666; margin-top: 5px; display: block;">
+                Upload a JSON file or paste the JSON content from Pinterest. This is optional but recommended.
+            </small>
+        </div>
+
+        <!-- Google Data Section -->
+        <div class="form-group">
+            <label>
+                <i class="fab fa-google"></i> Google Shopping Data
+            </label>
+            
+            <!-- File Upload Option -->
+            <div class="file-input" style="margin-bottom: 15px;">
+                <input type="file" 
+                       id="google_file" 
+                       name="google_file" 
+                       accept=".html"
+                       onchange="updateFileName(this, 'google-label')">
+                <label for="google_file" class="file-input-label" id="google-label">
+                    <i class="fas fa-cloud-upload-alt"></i><br>
+                    Click to upload Google HTML file<br>
+                    <small>or drag and drop here</small>
+                </label>
+            </div>
+
+            <!-- OR Divider -->
+            <div style="text-align: center; margin: 20px 0; position: relative;">
+                <hr style="border: none; border-top: 1px solid #ddd;">
+                <span style="background: white; padding: 0 15px; color: #666; font-size: 14px;">OR</span>
+            </div>
+
+            <!-- Paste Content Option -->
+            <div class="paste-area">
+                <textarea id="google_content" 
+                          name="google_content" 
+                          class="form-control paste-textarea" 
+                          placeholder="Paste your Google Shopping HTML content here... (10K+ lines is normal)"
+                          rows="6"></textarea>
+                <div class="paste-controls">
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="clearTextarea('google_content')">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="formatHTML('google_content')">
+                        <i class="fas fa-code"></i> Format HTML
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-success" onclick="savePastedContent('google_content', 'google')">
+                        <i class="fas fa-save"></i> Save as File
+                    </button>
+                    <span class="char-count" id="google-count">0 characters</span>
+                </div>
+            </div>
+            <small style="color: #666; margin-top: 5px; display: block;">
+                Upload an HTML file or paste the HTML content from Google Shopping. This is optional but recommended.
+            </small>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <h3><i class="fas fa-info-circle"></i> How to Get Your Data</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                <div>
+                    <h4><i class="fab fa-pinterest"></i> Pinterest Data</h4>
+                    <ol style="margin-left: 20px; color: #666;">
+                        <li>Search for your trend on Pinterest</li>
+                        <li>Open browser developer tools (F12)</li>
+                        <li>Go to Network tab and filter by "json"</li>
+                        <li>Scroll through Pinterest results</li>
+                        <li>Find the JSON response and copy its content</li>
+                        <li>Paste it in the textarea above or save as file</li>
+                    </ol>
+                </div>
+                <div>
+                    <h4><i class="fab fa-google"></i> Google Shopping Data</h4>
+                    <ol style="margin-left: 20px; color: #666;">
+                        <li>Search for your trend on Google Shopping</li>
+                        <li>Right-click and "View Page Source"</li>
+                        <li>Select all (Cmd+A) and copy (Cmd+C)</li>
+                        <li>Or use browser developer tools</li>
+                        <li>Paste the HTML content in the textarea above or save as file</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-success" style="font-size: 18px; padding: 15px 40px;">
+                <i class="fas fa-magic"></i> Generate Landing Page
+            </button>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary" style="font-size: 18px; padding: 15px 40px;">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+.paste-area {
+    position: relative;
+}
+
+.paste-textarea {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    resize: vertical;
+    min-height: 150px;
+}
+
+.paste-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.char-count {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+.paste-textarea:focus {
+    border-color: #7b189f;
+    box-shadow: 0 0 0 0.2rem rgba(123, 24, 159, 0.25);
+}
+
+.file-input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input input[type=file] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-input-label {
+    display: block;
+    padding: 40px 20px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.file-input-label:hover {
+    border-color: #7b189f;
+    background: #f0f0f0;
+}
+</style>
+
+<script>
+function updateFileName(input, labelId) {
+    const label = document.getElementById(labelId);
+    if (input.files && input.files[0]) {
+        const fileName = input.files[0].name;
+        label.innerHTML = `
+            <i class="fas fa-check-circle" style="color: #28a745;"></i><br>
+            <strong>${fileName}</strong><br>
+            <small>Click to change file</small>
+        `;
+    } else {
+        label.innerHTML = `
+            <i class="fas fa-cloud-upload-alt"></i><br>
+            Click to upload file<br>
+            <small>or drag and drop here</small>
+        `;
+    }
+}
+
+function clearTextarea(textareaId) {
+    document.getElementById(textareaId).value = '';
+    updateCharCount(textareaId);
+}
+
+function formatJSON(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    try {
+        const jsonObj = JSON.parse(textarea.value);
+        textarea.value = JSON.stringify(jsonObj, null, 2);
+        updateCharCount(textareaId);
+    } catch (e) {
+        alert('Invalid JSON format. Please check your content.');
+    }
+}
+
+function formatHTML(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    // Simple HTML formatting - you could use a more sophisticated formatter
+    let html = textarea.value;
+    html = html.replace(/></g, '>\n<');
+    html = html.replace(/\n\s*\n/g, '\n');
+    textarea.value = html;
+    updateCharCount(textareaId);
+}
+
+function savePastedContent(textareaId, type) {
+    const textarea = document.getElementById(textareaId);
+    const content = textarea.value.trim();
+    
+    if (!content) {
+        alert('Please paste some content first.');
+        return;
+    }
+    
+    // Create a file input and trigger download
+    const blob = new Blob([content], { type: type === 'pinterest' ? 'application/json' : 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pasted_${type}_content.${type === 'pinterest' ? 'json' : 'html'}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    alert(`Content saved as ${a.download}. You can now upload this file using the file upload option above.`);
+}
+
+function updateCharCount(textareaId) {
+    const textarea = document.getElementById(textareaId);
+    const count = textarea.value.length;
+    const countElement = document.getElementById(textareaId.replace('_content', '-count'));
+    countElement.textContent = `${count.toLocaleString()} characters`;
+    
+    // Color coding based on content length
+    if (count > 10000) {
+        countElement.style.color = '#28a745'; // Green for good amount of data
+    } else if (count > 1000) {
+        countElement.style.color = '#ffc107'; // Yellow for moderate data
+    } else {
+        countElement.style.color = '#dc3545'; // Red for little data
+    }
+}
+
+// Add event listeners for character counting
+document.addEventListener('DOMContentLoaded', function() {
+    const textareas = ['pinterest_content', 'google_content'];
+    textareas.forEach(id => {
+        const textarea = document.getElementById(id);
+        textarea.addEventListener('input', () => updateCharCount(id));
+        textarea.addEventListener('paste', () => {
+            setTimeout(() => updateCharCount(id), 100);
+        });
+    });
+});
+
+// Auto-resize textareas
+document.querySelectorAll('.paste-textarea').forEach(textarea => {
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.max(150, this.scrollHeight) + 'px';
+    });
+});
+
+// Drag and drop functionality for file inputs
+document.querySelectorAll('.file-input').forEach(function(fileInput) {
+    const label = fileInput.querySelector('.file-input-label');
+    const input = fileInput.querySelector('input[type=file]');
+    const labelId = label.id;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        label.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        label.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        label.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        label.style.backgroundColor = '#e9ecef';
+        label.style.borderColor = '#7b189f';
+    }
+
+    function unhighlight(e) {
+        label.style.backgroundColor = '';
+        label.style.borderColor = '';
+    }
+
+    label.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        input.files = files;
+        updateFileName(input, labelId);
+    }
+});
+</script>
+{% endblock %} 

@@ -2,6 +2,7 @@ import openai
 import os
 import json
 import uuid
+import base64
 from datetime import datetime
 from PIL import Image
 import requests
@@ -58,6 +59,20 @@ class LookGenerator:
             if not os.path.exists(directory):
                 os.makedirs(directory)
     
+    def encode_image(self, image_path):
+        """Encode image to base64"""
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+    
+    def create_file(self, image_path):
+        """Create a file for OpenAI API"""
+        with open(image_path, "rb") as image_file:
+            response = self.openai_client.files.create(
+                file=image_file,
+                purpose="vision"
+            )
+            return response.id
+    
     def generate_shoppable_look(self, selected_products, style_prompt=None, landing_page_name=None):
         """Generate a shoppable look from selected products"""
         
@@ -74,28 +89,74 @@ class LookGenerator:
         if not style_prompt:
             style_prompt = self._generate_style_prompt(selected_products)
         
-        # Build the full prompt for ChatGPT image generation
+        # Build the full prompt for image generation
         full_prompt = self._build_image_prompt(product_desc, style_prompt)
         
         try:
-            # Generate image using ChatGPT's image generation service
-            response = self.openai_client.images.generate(
-                model="dall-e-3",  # Using DALL-E 3 for high fidelity
-                prompt=full_prompt,
-                n=1,
-                size="1024x1024",
-                quality="hd",
-                style="natural"
+            # Prepare content with text and product images
+            content = [{"type": "input_text", "text": full_prompt}]
+            
+            # Add product images as reference images (up to 4 products)
+            for i, product in enumerate(selected_products[:4]):
+                image_url = product.get('image_url', '')
+                if image_url:
+                    try:
+                        # Download the product image
+                        response = requests.get(image_url)
+                        if response.status_code == 200:
+                            # Save temporarily to encode
+                            temp_image_path = f"temp_product_{i}.jpg"
+                            with open(temp_image_path, "wb") as f:
+                                f.write(response.content)
+                            
+                            # Encode the image
+                            base64_image = self.encode_image(temp_image_path)
+                            
+                            # Add to content
+                            content.append({
+                                "type": "input_image",
+                                "image_url": f"data:image/jpeg;base64,{base64_image}",
+                            })
+                            
+                            # Clean up temp file
+                            os.remove(temp_image_path)
+                    except Exception as e:
+                        print(f"Error processing product image {i}: {e}")
+                        continue
+            
+            # Generate image using the working gpt-4.1 model with responses.create
+            response = self.openai_client.responses.create(
+                model="gpt-4.1",
+                input=[
+                    {
+                        "role": "user",
+                        "content": content,
+                    }
+                ],
+                tools=[{"type": "image_generation"}],
             )
             
-            image_url = response.data[0].url
+            # Extract image data from response
+            image_generation_calls = [
+                output
+                for output in response.output
+                if output.type == "image_generation_call"
+            ]
             
-            # Download and save the image
+            image_data = [output.result for output in image_generation_calls]
+            
+            if not image_data:
+                raise Exception("No image generated")
+            
+            # Save the generated image
             look_id = str(uuid.uuid4())
             image_filename = f"{look_id}.png"
             image_path = os.path.join(self.looks_images_dir, image_filename)
             
-            self._download_and_save_image(image_url, image_path)
+            # Decode and save the base64 image data
+            image_base64 = image_data[0]
+            with open(image_path, "wb") as f:
+                f.write(base64.b64decode(image_base64))
             
             # Create look data
             look_data = {

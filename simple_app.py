@@ -514,14 +514,14 @@ def generate_hero_image():
             print(f"❌ Full traceback: {traceback.format_exc()}")
             return jsonify({'success': False, 'error': f'OpenAI client initialization failed: {str(client_error)}'})
         
-        # Create the prompt
-        product_names = [p['title'][:50] for p in products[:3]]
-        prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these 3 products together in a cohesive, stylish look.
+        # Generate the image using DALL-E 3
+        print("🎨 Calling OpenAI API...")
+        
+        # Create a detailed prompt for DALL-E 3
+        dalle_prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these products together in a cohesive, stylish look.
 
 Products to include in the scene:
-1. {product_names[0]}
-2. {product_names[1]} 
-3. {product_names[2]}
+{'; '.join([f"{i+1}. {product['title'][:50]}" for i, product in enumerate(products[:3])])}
 
 Style: The scene should look like a professional photo that would inspire someone to buy these products together. Use warm, inviting colors and create a sense of lifestyle and aspiration.
 
@@ -533,97 +533,50 @@ Requirements:
 - Modern, elegant aesthetic
 - 1:1 aspect ratio, landscape orientation"""
         
-        print(f"📝 Generated prompt: {prompt[:200]}...")
-        
-        # Prepare the input content with reference images
-        content = [
-            {"type": "input_text", "text": prompt}
-        ]
-        
-        # Add the reference images
-        for i, product in enumerate(products[:3]):
-            try:
-                # Download and encode the image
-                response = requests.get(product['image_url'])
-                if response.status_code == 200:
-                    # Convert to base64
-                    image_data = base64.b64encode(response.content).decode('utf-8')
-                    content.append({
-                        "type": "input_image",
-                        "image_url": f"data:image/jpeg;base64,{image_data}"
-                    })
-                    print(f"  ✅ Added reference image {i+1}")
-                else:
-                    print(f"  ❌ Failed to download image {i+1}: HTTP {response.status_code}")
-            except Exception as e:
-                print(f"  ❌ Error processing image {i+1}: {e}")
-                continue
-        
-        print(f"🖼️ Prepared {len(content)-1} reference images")
-        
-        # Log the API call parameters
-        print("🚀 API call parameters:")
-        print(f"  Model: gpt-4.1")
-        print(f"  Content items: {len(content)}")
-        print(f"  Reference images: {len(content)-1}")
-        
-        # Generate the image using GPT-4.1 with reference images
-        print("🎨 Calling OpenAI API...")
-        response = client.responses.create(
-            model="gpt-4.1",
-            input=[
-                {
-                    "role": "user",
-                    "content": content
-                }
-            ],
-            tools=[{"type": "image_generation"}]
+        response = client.images.generate(
+            model="dall-e-3",
+            prompt=dalle_prompt,
+            n=1,
+            size="1024x1024",
+            quality="hd",
+            style="natural"
         )
         
         print("✅ API call successful!")
         
-        # Extract the generated image
-        image_generation_calls = [
-            output
-            for output in response.output
-            if output.type == "image_generation_call"
-        ]
+        # Extract the generated image URL
+        image_url = response.data[0].url
+        print(f"🖼️ Generated image received: {image_url}")
         
-        image_data = [output.result for output in image_generation_calls]
+        # Create images directory if it doesn't exist
+        os.makedirs('static/generated_images', exist_ok=True)
         
-        if image_data:
-            # Get the first generated image
-            image_base64 = image_data[0]
-            print(f"🖼️ Generated image received")
-            
-            # Create images directory if it doesn't exist
-            os.makedirs('static/generated_images', exist_ok=True)
-            
-            # Save the image
-            filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
-            filepath = os.path.join('static/generated_images', filename)
-            
-            with open(filepath, 'wb') as f:
-                f.write(base64.b64decode(image_base64))
-            
-            print(f"💾 Saved image to: {filepath}")
-            
-            # Update the look with the new image URL
-            look['image_url'] = f'/static/generated_images/{filename}'
-            
-            # Save updated look
-            with open(look_file, 'w') as f:
-                json.dump(look, f, indent=2)
-            
-            print("✅ Hero image generation completed successfully!")
-            return jsonify({
-                'success': True, 
-                'image_url': look['image_url'],
-                'message': 'Hero image generated successfully!'
-            })
-        else:
-            print(f"❌ No image generated: {response.output.content}")
-            return jsonify({'success': False, 'error': 'No image was generated'})
+        # Save the image
+        filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
+        filepath = os.path.join('static/generated_images', filename)
+        
+        # Download the image
+        image_response = requests.get(image_url)
+        image_response.raise_for_status()
+        
+        with open(filepath, 'wb') as f:
+            f.write(image_response.content)
+        
+        print(f"💾 Saved image to: {filepath}")
+        
+        # Update the look with the new image URL
+        look['image_url'] = f'/static/generated_images/{filename}'
+        
+        # Save updated look
+        with open(look_file, 'w') as f:
+            json.dump(look, f, indent=2)
+        
+        print("✅ Hero image generation completed successfully!")
+        return jsonify({
+            'success': True, 
+            'image_url': look['image_url'],
+            'message': 'Hero image generated successfully!'
+        })
             
     except Exception as e:
         print(f"❌ Error generating hero image: {e}")

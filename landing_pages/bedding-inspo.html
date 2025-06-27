@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedding Inspo - Pinterest & Google Products</title>
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Bedding Inspo</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="container">
+        <div class="product-grid">
+            
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/home/pdp/make-it-real-linen-blend-bed-canopy-mkei1039.html">
+                <img src="https://i.pinimg.com/originals/30/83/8e/30838e8cea4ba7d27089a55136a17266.jpg" alt="Linen Blend Bed Canopy">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Linen Blend Bed Canopy</h3>
+                <p>$36.98</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/ABESNA--Soft-3-Piece-Rainbow-Comforter-Set-With-2-Pillow-Covers-Cartoon-Love-Hearts-Suns-And-Stars-Bedding-Set-For-Kids-B0DT-L1221-K~ACSN1690.html?refid=PSO49B2B-ACSN1690_112601648_112601649&PiID[]=112601648&PiID[]=112601649">
+                <img src="https://i.pinimg.com/originals/78/04/57/7804578dca0570d87b3b92eaa93770af.jpg" alt="ABESNA Soft 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>ABESNA Soft 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers</h3>
+                <p>$125.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Coma-Inducer--Coma-Inducer-Corn-Silk-Beige-Oversized-Comforter-J1J627CS-L1221-K~AAOW2377.html?refid=PSO49B2B-AAOW2377_53903918&PiID[]=53903918">
+                <img src="https://i.pinimg.com/originals/7c/28/d4/7c28d48be8896ef7f923dffcbbdfff61.jpg" alt="Coma Inducer Corn Silk Oversized Comforter whiteBox Stitch/Polyester/Polyfill/Silk/Satin in Beige | Twin Comforter | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Coma Inducer Corn Silk Oversized Comforter whiteBox Stitch/Polyester/Polyfill/Silk/Satin in Beige...</h3>
+                <p>$107.93</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/dboze-heavy-korean-mink-blanket-w000250038.html">
+                <img src="https://i.pinimg.com/originals/15/28/fa/1528fa02c0b03c328797fadde3f76b1e.jpg" alt="Dboze Waffle Blanket">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Dboze Waffle Blanket</h3>
+                <p>$62.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Coma-Inducer--Unicorn-Dreamz-Coma-Inducer-Tie-Dye-Oversized-Comforter-Set-B1BUNCRN-L1221-K~AAOW2401.html?refid=PSO49B2B-AAOW2401_57344944_75959373&PiID[]=57344944&PiID[]=75959373">
+                <img src="https://i.pinimg.com/originals/97/42/77/974277b9e664bf6326e9723e980cb8d0.jpg" alt="Unicorn Dreamz Coma Inducer Tie Dye Oversized Comforter Set Polyester/Polyfill/Microfiber">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Unicorn Dreamz Coma Inducer Tie Dye Oversized Comforter Set Polyester/Polyfill/Microfiber</h3>
+                <p>$167.19</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Isabelle-and-Max%E2%84%A2--Rainbow-Design-Upholstered-Twin-Platform-Bed-X223361008-L12-K~W112250997.html?refid=PSO49B2B-W112250997">
+                <img src="https://i.pinimg.com/originals/c4/90/17/c4901744f00822da278dd339bff4e5c4.jpg" alt="Isabelle & Max™ Rainbow Design Twin Platform Bed indigoUpholstered/Velvet, Wood in Colorful | 38" H X 41.33" W X 80.3" L | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Isabelle & Max™ Rainbow Design Twin Platform Bed indigoUpholstered/Velvet, Wood in Colorful | 38"...</h3>
+                <p>$285.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Willa-Arlo%E2%84%A2-Interiors--Glastonbury-Upholstered-Wingback-Bed-4-Drawers-Storage-Bed-with-LED-Light-X221359314-L12-K~W110248203.html?refid=PSO49B2B-W110248203_621776235_646546383&PiID[]=621776235&PiID[]=646546383">
+                <img src="https://i.pinimg.com/originals/f3/29/3e/f3293e5a2c92858bfa55fa7bb79957f8.jpg" alt="Willa Arlo™ Interiors Glastonbury Wingback Bed, 4 Drawers Storage Bed w/ LED Light Upholstered/Metal in Pink | Full/Double | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Willa Arlo™ Interiors Glastonbury Wingback Bed, 4 Drawers Storage Bed w/ LED Light Upholstered/Me...</h3>
+                <p>$369.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/LIYU--Stylish-Printed-Comforter-Set-with-Matching-Throw-Pillow-for-a-Cozy-Bedroom-Look.-LIYUB035-L1221-K~LYUA1443.html?refid=PSO49B2B-LYUA1443_106857028_106857030&PiID[]=106857028&PiID[]=106857030">
+                <img src="https://i.pinimg.com/originals/b8/4e/fb/b84efbbd019732d88b03384d8ef5eb62.jpg" alt="LIYU Stylish Printed Comforter Set w/ Matching Throw Pillow for a Cozy Bedroom Look. blue/whitePolyester">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>LIYU Stylish Printed Comforter Set w/ Matching Throw Pillow for a Cozy Bedroom Look. blue/whitePo...</h3>
+                <p>$131.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Lark-Manor--Tousignant-Quilt-Set-LRKM3542-L1221-K~LRKM3542.html?refid=PINTO49-LRKM3542_23541553_35273964&PiID[]=23541553&PiID[]=35273964">
+                <img src="https://i.pinimg.com/originals/4a/01/99/4a0199713d705bf2b4149a95bd905f96.jpg" alt="Kemmy Microfiber Reversible Quilt Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Kemmy Microfiber Reversible Quilt Set</h3>
+                <p>$91.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/House-of-Hampton%C2%AE--Germain-Reversible-Comforter-Set-X111910231-L1221-K~W000809120.html?refid=GX434578940059-W000809120_954400694_954400698&device=m&ptid=905347878145&network=g&targetid=pla-905347878145&channel=GooglePLA&ireid=34968014&fdid=1817&PiID[]=954400698&PiID[]=954400694&gclid=CjwKCAjw64eJBhAGEiwABr9o2KpBsYLjqCDLEwPgJjQUqzQ-CDSNLU_tP0m1XGQg3T9wXR2OF0AOcBoCV9AQAvD_BwE">
+                <img src="https://i.pinimg.com/originals/50/ee/68/50ee6887105e84dcd284d6eeac9aaa3e.jpg" alt="Comforter Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Comforter Set</h3>
+                <p>$71.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Gemma-Violet--Connors-Childrens-Lamp-LED-Modern-Ceiling-Light-for-Childrens-Room-Girls-Bedroom-Dimmable-X113466548-L6086-K~W002355437.html?refid=PSO49B2B-W002355437">
+                <img src="https://i.pinimg.com/originals/3a/e7/10/3ae7109a36e67792da4d3bd48eeb4120.jpg" alt="Gemma Violet Connors Children's Lamp LED Modern Ceiling Light for Children's Room Girls Bedroom Dimmable 2.36 H x 20.47 W x 13.78 D in/whiteAcrylic | 2.36" H X 20.47" W X 13.78" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Gemma Violet Connors Children's Lamp LED Modern Ceiling Light for Children's Room Girls Bedroom D...</h3>
+                <p>$127.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/ABESNA--Comforters-Cover-Ultra-Soft-Plush-Bedding-Sets-2-Pieces-1-Faux-Fur-Comforter-Cover-1-Fuzzy-Pillow-Case-Girls-Shaggy-Bed-Set-B0-L1221-K~ACSN1666.html?refid=PSO49B2B-ACSN1666_112398859_112398868&PiID[]=112398859&PiID[]=112398868">
+                <img src="https://i.pinimg.com/originals/0e/71/e6/0e71e60fbf1dc066a2f6b78aba985297.jpg" alt="ABESNA Comforters Cover">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>ABESNA Comforters Cover</h3>
+                <p>$179.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Evolive---4-Piece-Comforter-Set-KisspomTC-L1221-K~W005406995.html?refid=PSO49-W005406995_699151798_699155692&PiID[]=699155692&utm_source=pinterest&utm_medium=social&piid=699155692,699155691">
+                <img src="https://i.pinimg.com/originals/1e/a2/9d/1ea29d9469ee721eebcf4827aa24a9e9.jpg" alt="Baffle Box Stitch Comforter Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Baffle Box Stitch Comforter Set</h3>
+                <p>$49.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/rugs/pdp/mercer41-rectangle-magdelana-rectangle-4-x-6-area-rug-with-non-slip-backing-w100245484.html">
+                <img src="https://i.pinimg.com/originals/a7/a8/2d/a7a82d5a13445fd66fd474a9f70acb68.jpg" alt="Rectangle Magdelana Rectangle 4' X 6' Area Rug with Non-Slip Backing">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rectangle Magdelana Rectangle 4' X 6' Area Rug with Non-Slip Backing</h3>
+                <p>$87.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Homechoice-International-Group--3pc-Comforter-Set-All-Season-Reversible-Down-Alternative-Comforter-with-Two-Shams-Quilted-Duvet-Insert-with-Corner-Tabs-Box-Stitched-Blanket-Breathable-Soft-Fluffy-ATDOWNALTCF-L1221-K~W100782003.html?refid=PSO49-W100782003_252941302_252941304&PiID[]=252941304&utm_source=pinterest&utm_medium=social">
+                <img src="https://i.pinimg.com/originals/f7/d7/0c/f7d70c8ce13ed193189255e70a1d900e.jpg" alt="3pc Comforter Set - All Season Reversible Down Alternative Comforter with Two Shams - Breathable, Soft, Fluffy">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>3pc Comforter Set - All Season Reversible Down Alternative Comforter with Two Shams - Breathable,...</h3>
+                <p>$33.53</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/KingSo--Bed-Canopy-MYPOA0077074-L525-K~NGSO2156.html?refid=PSO49-NGSO2156">
+                <img src="https://i.pinimg.com/originals/69/bf/f2/69bff244a2c91bcc0713a2e8657e40e8.jpg" alt="KingSo Bed Canopy | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>KingSo Bed Canopy | Wayfair</h3>
+                <p>$26.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Royale-Linens---Light-Pink-Microfiber-Reversible-Comforter-Set-9265040671-L1221-K~W006681191.html?refid=GX685127181968-W006681191_1780559947&device=c&ptid=2297099361787&network=g&targetid=aud-2308232541986:pla-2297099361787&channel=GooglePLA&ireid=165110034&fdid=1817&PiID[]=1780559947&gad_source=4&gclid=Cj0KCQjw_sq2BhCUARIsAIVqmQv1YezoiVQYmMHx3IPOQJsf-AnmgubHmLj9ExF1jAx4tQ3bYQpA4XwaAswoEALw_wcB">
+                <img src="https://i.pinimg.com/originals/02/e6/fc/02e6fc82c22efe361158a179054e383e.jpg" alt="Percale Channel Comforter Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Percale Channel Comforter Set</h3>
+                <p>$44.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Ebern-Designs--Tosca-Textured-Waves-Comforter-Set-X116174748-L1221-K~W005063637.html?refid=GX501166664135-W005063637_109707575_116195213&device=m&ptid=1245941847812&network=g&targetid=pla-1245941847812&channel=GooglePLA&ireid=100952638&fdid=1817&PiID[]=109707575&PiID[]=116195213&gclid=CjwKCAjw1uiEBhBzEiwAO9B_HWV9lcJEfKjeT0u0nKuYSaB5pHbb2qqnpDmaFDjFkg4ie1APMfyjCxoC1PQQAvD_BwE">
+                <img src="https://i.pinimg.com/originals/f3/b6/5f/f3b65fbbac1a0f121bfe3191c007e487.jpg" alt="Modern & Contemporary Microfiber / Polyester Baffle Box Stitch Comforter Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Modern & Contemporary Microfiber / Polyester Baffle Box Stitch Comforter Set</h3>
+                <p>$48.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Nayoroom--Bedding-Pink-White-Reversible-Duvet-Cover-Uni-Solid-Soft-Breathable-Microfiber-Bedding-Sets-WMMCSPKWH-L1221-K~OELA1411.html?refid=PSO49B2B-OELA1411_106693151&PiID[]=106693151">
+                <img src="https://i.pinimg.com/originals/0b/4c/85/0b4c855014cd5e7d74137c9e92e5746b.jpg" alt="Nayoroom Bedding White Reversible Duvet Cover Uni Solid Soft Breathable Microfiber Bedding Sets/whiteMicrofiber in Pink">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Nayoroom Bedding White Reversible Duvet Cover Uni Solid Soft Breathable Microfiber Bedding Sets/w...</h3>
+                <p>$43.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/ABESNA--Comforters-Cover-Ultra-Soft-Plush-Bedding-Sets-2-Pieces-1-Faux-Fur-Comforter-Cover-1-Fuzzy-Pillow-Case-Girls-Shaggy-Bed-Set-B0-L1221-K~ACSN1666.html?refid=PSO49B2B-ACSN1666_112398862_112398868&PiID[]=112398862&PiID[]=112398868">
+                <img src="https://i.pinimg.com/originals/32/ee/51/32ee51dcc2af4950c2bc82224b5b6248.jpg" alt="ABESNA Comforters Cover">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>ABESNA Comforters Cover</h3>
+                <p>$179.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Tache-Home-Fashion---Luxury-Comforter-Set-NEWBM1227-L1221-K~W005270619.html?refid=PSO49-W005270619_24440732&PiID[]=24440732">
+                <img src="https://i.pinimg.com/originals/8c/b1/5b/8cb15b81b961ba14e93ec1a028205dd0.jpg" alt="Luxury Comforter Set King Comforter + 5 Additional Pieces pinkPolyester / Polyfill/Microfiber">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Luxury Comforter Set King Comforter + 5 Additional Pieces pinkPolyester / Polyfill/Microfiber</h3>
+                <p>$206.89</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/CRS-APPLIANCES---Watercolor-Tie-Dye-Printed-Comforter-Set-with-Throw-Pillow-CMX0840RM-L1221-K~CSXA5949.html?refid=PSO49B2B-CSXA5949_110273676&PiID[]=110273676">
+                <img src="https://i.pinimg.com/originals/c2/57/c5/c257c54869cbb25483dca5cf085ccf8f.jpg" alt="CRS APPLIANCES, Watercolor Tie Dye Printed Comforter Set w/ Throw Pillow Polyester in Aqua | Full/Double">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>CRS APPLIANCES, Watercolor Tie Dye Printed Comforter Set w/ Throw Pillow Polyester in Aqua | Full...</h3>
+                <p>$143.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/ABESNA--Soft-3-Piece-Rainbow-Comforter-Set-With-2-Pillow-Covers-Cartoon-Love-Hearts-Suns-And-Stars-Bedding-Set-For-Kids-Full-Orange-B0DQS4SBTS39-L1221-K~ACSN1682.html?refid=PSO49B2B-ACSN1682">
+                <img src="https://i.pinimg.com/originals/6c/3a/0e/6c3a0ecb3aae061bc5b2aeb3e9231825.jpg" alt="ABESNA Soft 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers, Cartoon Love Hearts Suns & Stars Bedding Set For Kids | Full XL | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>ABESNA Soft 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers, Cartoon Love Hearts Suns & Stars Be...</h3>
+                <p>$125.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Byourbed--Coma-Inducer-Chunky-Bunny-with-Frosting-Oversized-Comforter-Set-U1UCBFRST-L1221-K~AAOW3136.html?refid=PSO49B2B-AAOW3136_107179671_107179673&PiID[]=107179671&PiID[]=107179673">
+                <img src="https://i.pinimg.com/originals/58/97/e3/5897e3c27fa077ffe20c51cb9baeb28e.jpg" alt="Byourbed Coma Inducer Chunky Bunny w/ Frosting Oversized Comforter Set Polyester/Polyfill">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Byourbed Coma Inducer Chunky Bunny w/ Frosting Oversized Comforter Set Polyester/Polyfill</h3>
+                <p>$203.38</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/ABESNA--3-Piece-Kids-Rainbow-Comforter-Set-With-2-Pillow-Covers-Cartoon-Love-Hearts-Suns-And-Stars-Bedding-Set-For-Kids-B0-L1221-K~ACSN1686.html?refid=PSO49B2B-ACSN1686_112601627_112601630&PiID[]=112601627&PiID[]=112601630">
+                <img src="https://i.pinimg.com/originals/dd/0f/50/dd0f50582826ac8d638446bb3f11b7d1.jpg" alt="ABESNA 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers, Cartoon Love Hearts Suns & Stars Bedding Set For Polyester/Polyfill/Microfiber">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>ABESNA 3 Piece Rainbow Comforter Set w/ 2 Pillow Covers, Cartoon Love Hearts Suns & Stars Bedding...</h3>
+                <p>$125.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart icon functionality
+            const heartIcons = document.querySelectorAll('.heart-icon');
+            heartIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                });
+            });
+            
+            // Filter functionality
+            const sourceFilter = document.getElementById('sourceFilter');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                
+                productItems.forEach(item => {
+                    const itemSource = item.getAttribute('data-source');
+                    if (selectedSource === 'all' || itemSource === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

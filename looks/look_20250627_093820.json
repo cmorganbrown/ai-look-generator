@@ -1,0 +1,50 @@
+{
+  "id": "look_20250627_093820",
+  "name": "Dark Moody Powder Room Look",
+  "landing_page": "Dark Moody Powder Room",
+  "products": [
+    {
+      "id": "product-3",
+      "description": "Diamond 24'' Single Bathroom Vanity with Top",
+      "image_url": "https://i.pinimg.com/originals/c6/2c/44/c62c4482553b30a7098c40dac96bccbd.jpg",
+      "price": "$1259.5",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Diamond 24'' Single Bathroom Vanity with Top",
+      "url": "https://www.wayfair.com/home-improvement/pdp/bemma-diamond-24-bathroom-vanity-set-klzl1151.html"
+    },
+    {
+      "id": "product-9",
+      "description": "Dutch Wallcoverings - Tree - 33''L x 21\"W Wallpaper Roll 21.0 W in black/yellowNon-Woven",
+      "image_url": "https://i.pinimg.com/originals/15/49/db/1549db37262866db06b65780be105731.png",
+      "price": "$111.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Dutch Wallcoverings - Tree - 33''L x 21\"W Wallpaper Roll",
+      "url": "https://www.wayfair.com/decor-pillows/pdp/red-barrel-studio-33-l-x-21-w-wallpaper-roll-w008701387.html?piid=248314762"
+    },
+    {
+      "id": "product-15",
+      "description": "Gracie 24'' Single Bathroom Vanity with Top",
+      "image_url": "https://i.pinimg.com/originals/23/8e/48/238e48aceabfa5ec9d68ddef79743520.jpg",
+      "price": "$1473.4",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Gracie 24'' Single Bathroom Vanity with Ceramic Top",
+      "url": "https://www.wayfair.com/home-improvement/pdp/bemma-gracie-24-single-bathroom-vanity-set-klzl1012.html?piid=51573317,51573318&categoryid=527058&placement=3&slot=1&sponsoredid=d33fbc97e0a63a035772e799b5d47f5ddf4137b3b61c678bca0ce279823c7192&_txid=I%2BF9OmTZnxmp94OA0lGzAg%3D%3D&isB2b=0&auctionId=16ab2b14-aa19-47b7-b723-6e596c125114"
+    },
+    {
+      "id": "product-19",
+      "description": "Ulah 3 - Light Dimmable Vanity Light",
+      "image_url": "https://i.pinimg.com/originals/1a/c6/b4/1ac6b45d225d89529180bb882084e37c.jpg",
+      "price": "$209.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Ulah 3 - Light Vanity Light 6.5 H x 23.6 W x 8.0 D in yellowGlass",
+      "url": "https://www.wayfair.com/Mercer41--Ulah-3-Light-Vanity-Light-X221364693-L6116-K~W110253582.html?refid=PSO49-W110253582"
+    }
+  ],
+  "product_count": 4,
+  "created_at": "2025-06-27T13:38:20.131Z",
+  "image_url": "/static/generated_images/hero_look_20250627_093820_20250627_093917.jpg"
+}

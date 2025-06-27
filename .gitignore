@@ -62,18 +62,13 @@ logs/
 *.tmp
 *.temp
 
-# Uploads and generated content (keep structure but ignore content)
-uploads/*.html
-uploads/*.json
-uploads/*.csv
-landing_pages/*.html
-looks/*.json
+# Generated images (keep structure but ignore content)
 generated_images/*.png
 generated_images/*.jpg
 generated_images/*.jpeg
 
-# Keep directories but ignore content
-!uploads/.gitkeep
-!landing_pages/.gitkeep
-!looks/.gitkeep
-!generated_images/.gitkeep 
+# Keep directories but ignore generated images
+!generated_images/.gitkeep
+
+# Keep all data files for persistence across deployments
+# uploads/, landing_pages/, and looks/ directories are now tracked 

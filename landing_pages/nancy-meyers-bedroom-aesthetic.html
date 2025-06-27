@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nancy Meyers Bedroom Aesthetic - Pinterest & Google Products</title>
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Nancy Meyers Bedroom Aesthetic</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="container">
+        <div class="product-grid">
+            
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/canora-grey-woodford-w112820447.html">
+                <img src="https://i.pinimg.com/originals/7b/ed/4e/7bed4e9ace189992e01daf6eff66e01e.jpg" alt="Woodford">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Woodford</h3>
+                <p>$1259.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Three-Posts--Plattsburgh-Panel-Bed-THRE3609-L12-K~THRE3609.html?refid=PINTO49-THRE3609_16256563&PiID[]=16256563">
+                <img src="https://i.pinimg.com/originals/14/ae/9e/14ae9e3874a5cb33d3933a6029115723.jpg" alt="Plattsburgh Panel Headboard Design, Standard Storage Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Plattsburgh Panel Headboard Design, Standard Storage Bed</h3>
+                <p>$1730</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Theodore-Alexander--Tavel-Solid-Wood-Bed-TA8-L12-K~FPLJ7543.html?refid=PSO49-FPLJ7543_89884094_89884096&PiID[]=89884094&PiID[]=89884096">
+                <img src="https://i.pinimg.com/originals/e4/77/bb/e477bb0607ba98befb6734c98ff56705.jpg" alt="Tavel Solid Wood Bed 89.0 H x 77.5 W x 89.25 D in brownWood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Tavel Solid Wood Bed 89.0 H x 77.5 W x 89.25 D in brownWood</h3>
+                <p>$4308</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Grain-Wood-Furniture--Montauk-Solid-Wood-Bed-GRNW1017-L12-K~GRNW1017.html?refid=GX444392682134-GRNW1017_15059048_31573409&device=c&ptid=888335654636&network=g&targetid=aud-354999624671:pla-888335654636&channel=GooglePLA&ireid=57425829&fdid=1817&PiID[]=15059048&PiID[]=31573409&gclid=Cj0KCQiA1pyCBhCtARIsAHaY_5cLCiIzc1Rf2eDPxH_182oiFZ7CAGpiIb5iT_MNrv8fAYXpNBUsqOIaAnK2EALw_wcB&piid=31573409,15059049">
+                <img src="https://i.pinimg.com/originals/94/50/1e/94501e6d81e38523931dc87cdf96c58d.png" alt="Montauk Solid Wood Panel Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Montauk Solid Wood Panel Bed</h3>
+                <p>$499</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/charlton-home-scarlett-dresser-for-bedroom-with-6-drawers-mid-century-modern-wooden-closet-storage-organizer-w111850180.html?piid=1797289290">
+                <img src="https://i.pinimg.com/originals/5f/f7/db/5ff7db3c1460787c49f55274b3cdc13a.jpg" alt="Scarlett Dresser For Bedroom With 6 Drawers, Mid Century Modern Wooden Closet Storage Organizer">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Scarlett Dresser For Bedroom With 6 Drawers, Mid Century Modern Wooden Closet Storage Organizer</h3>
+                <p>$449.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/okd-ojaswi-farmhouse-7-drawer-dresser-wood-rustic-dresser-chest-of-drawers-with-2-size-drawers-for-bedroom-living-room-odaa1200.html">
+                <img src="https://i.pinimg.com/originals/07/76/f2/0776f2b090494503cd1495c9c6146a1b.webp" alt="Ojaswi Farmhouse 7 - Drawer Dresser, Wood Rustic Dresser Chest of Drawers with 2 Size Drawers for Bedroom, Living Room">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Ojaswi Farmhouse 7 - Drawer Dresser, Wood Rustic Dresser Chest of Drawers with 2 Size Drawers for...</h3>
+                <p>$335.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Alcott-Hill%C2%AE--Chaviano-Nightstand-X221369174-L14-K~W110258063.html?refid=PSO49B2B-W110258063">
+                <img src="https://i.pinimg.com/originals/b1/57/8e/b1578e4fe5628b89cc3bc8a9e7f273f8.jpg" alt="Alcott Hill® Chaviano Nightstand 26.0 H x 27.3 W x 17.3 D in brown/greenWood in Natural;natural Wood | 26" H X 27.3" W X 17.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Alcott Hill® Chaviano Nightstand 26.0 H x 27.3 W x 17.3 D in brown/greenWood in Natural;natural W...</h3>
+                <p>$445.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/dream-cabinet-bedroom-retro-all-solid-wood-entrance-cabinet-solid-wood-accent-chest-xeam1438.html">
+                <img src="https://i.pinimg.com/originals/78/5b/a1/785ba1b974379f3f633771aaf17744fa.jpg" alt="Bedroom Retro All Solid Wood Entrance Cabinet 62.9'' W 8 - Drawer Dresser">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bedroom Retro All Solid Wood Entrance Cabinet 62.9'' W 8 - Drawer Dresser</h3>
+                <p>$3299.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Three-Posts%E2%84%A2--Kellyton-Upholstered-Bed-X116174631-L12-K~W005063520.html?refid=PINRET-w005063520&costid=PINRET&pin_campaign=626744761730&pin_adgroup=2680069649523&pin_productgroup=4260607798283&device=mobile&piid=1709090449">
+                <img src="https://i.pinimg.com/originals/81/fc/1f/81fc1faa792c5036e6392d06afbcc89d.jpg" alt="Kellyton Upholstered Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Kellyton Upholstered Bed</h3>
+                <p>$1380</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Greenland-Home-Fashions--Pavona-Jade-Duvet-Cover-Set-GL2205BDS-L1221-K~W110278143.html?refid=GX712250708845-W110278143_767083429&device=c&ptid=2391875265061&network=g&targetid=pla-2391875265061&channel=GooglePLA&ireid=266946002&fdid=1817&PiID[]=767083429&gad_source=1&gad_campaignid=10022275107&gbraid=0AAAAAD9ISC6Q7gEWKTASY594ux3UEnky4&gclid=CjwKCAjwz_bABhAGEiwAm-P8Ye_kB08qnTBiE2lW_5ZU58jNNSY7W9sMcbl5xL0KOuplR_3K0nbnbBoCci8QAvD_BwE">
+                <img src="https://i.pinimg.com/originals/ed/8a/4f/ed8a4fe85bf2a19dfcc39ec4dbd5fef2.jpg" alt="Pavona Jade Duvet Cover Set">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Pavona Jade Duvet Cover Set</h3>
+                <p>$66.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Lark-Manor%E2%84%A2--Blakesburg-Low-Profile-Four-Poster-Bed-X115872838-L12-K~W004761727.html?refid=GX492586240066-W004761727_993565724&device=c&ptid=1185791065850&network=g&targetid=pla-1185791065850&channel=GooglePLA&ireid=94054656&fdid=1817&PiID[]=993565724&gclid=Cj0KCQjw1bqZBhDXARIsANTjCPKQeSxhDbAfDE4dY_fG-OXdS3z_6MyXPbo6pXSp7mbK5a6jwsA8UTwaAmSHEALw_wcB&piid=993565698">
+                <img src="https://i.pinimg.com/originals/f3/f2/73/f3f2734ac309b2a851dc753408cae28c.png" alt="Blakesburg Upholstered Metal Four Poster Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Blakesburg Upholstered Metal Four Poster Bed</h3>
+                <p>$519.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/erin-gates-farmington-33-l-x-205-w-wallpaper-roll-zlx10004.html?piid=64017929">
+                <img src="https://i.pinimg.com/originals/25/1a/0a/251a0a7e94a4e4885096d5f8d1ee60ef.jpg" alt="Double Roll">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Double Roll</h3>
+                <p>$98.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Eastern-Accents--Suzette-Single-Reversible-Coverlet-Bedspread-7WCV33IV-L1221-K~FSSX4640.html?refid=PSM49-fssx4640_48543483&costid=PSM49&pin_campaign=626745365240&pin_adgroup=2680070595360&pin_productgroup=4260607844717&device=mobile">
+                <img src="https://i.pinimg.com/originals/73/7a/b6/737ab68ab29b6713b2af342f360a1ae5.jpg" alt="Suzette Farmhouse / Country Egyptian Cotton Cotton Coverlet">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Suzette Farmhouse / Country Egyptian Cotton Cotton Coverlet</h3>
+                <p>$518</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Madison-Park-Signature--Beckett-Low-Profile-Four-Poster-Bed-MPS115005-L12-K~BDIS1112.html?refid=GX478936279191-BDIS1112_20238597_53309535&device=m&ptid=1021080845505&network=g&targetid=aud-354999624631:pla-1021080845505&channel=GooglePLA&ireid=131974217&fdid=1817&PiID[]=20238597&PiID[]=53309535&gclid=Cj0KCQiA0MD_BRCTARIsADXoopbUTNprRK4L0JzHw233Wvy0958CJZH21HNDAmUlKPu_qp4XGrEHUn8aAsrjEALw_wcB&piid=53309535,20238597">
+                <img src="https://i.pinimg.com/originals/ac/39/60/ac396027cdc86ada399c3e37c4e516fa.jpg" alt="Beckett Solid Wood Low-Profile Bed Frame with Spindle Design">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Beckett Solid Wood Low-Profile Bed Frame with Spindle Design</h3>
+                <p>$893.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Eastern-Accents--Magnolia-Comforter-EAN7001-L1221-K~EAN7001.html?item_group_id=EAN7001">
+                <img src="https://i.pinimg.com/originals/fd/eb/2e/fdeb2e94592f4230ed4f84b57c6d313f.jpg" alt="Magnolia Farmhouse / Country Cotton Floral Comforter">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Magnolia Farmhouse / Country Cotton Floral Comforter</h3>
+                <p>$720</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/red-barrel-studio-floral-wallpaper-w100381556.html">
+                <img src="https://i.pinimg.com/originals/3a/9d/80/3a9d80bf322c67568016ecabf0f05d8c.jpg" alt="Floral Double Roll">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Floral Double Roll</h3>
+                <p>$2.13</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Amity-Home--Jessica-Single-Quilt-CC794-L1221-K~AMM2589.html?refid=PSO49B2B-AMM2589_20476737&PiID[]=20476737">
+                <img src="https://i.pinimg.com/originals/b4/ae/58/b4ae585d34be9a2b2ed35df366249573.jpg" alt="Amity Home Jessica Single Quilt, Cotton in Taupe | Queen Quilt | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Amity Home Jessica Single Quilt, Cotton in Taupe | Queen Quilt | Wayfair</h3>
+                <p>$162</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Ragene-6-Drawer-57.63-W-Double-Dresser-X117221702-L13-K~W006110691.html?refid=PSM49-w006110691&costid=PSM49&pin_campaign=626744903374&pin_adgroup=2680078439447&pin_productgroup=4260608274028&device=mobile&nbf_test_group=treatment#bg0og1x1h2-0">
+                <img src="https://i.pinimg.com/originals/9a/e6/52/9ae65267fca38f41069d74bd17febf8f.jpg" alt="Ragene 57.64'' W 6 - Drawer Dresser">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Ragene 57.64'' W 6 - Drawer Dresser</h3>
+                <p>$499.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Loon-Peak%C2%AE--Faheema-3Drawer-Nightstand-Side-Table-with-Storage-X211559098-L14-K~W100448987.html?refid=PSO49B2B-W100448987">
+                <img src="https://i.pinimg.com/originals/34/d3/ad/34d3adc5028cdc14d9ccee746611c165.jpg" alt="Loon Peak® Faheema 3-Drawer Nightstand, Side Table w/ Storage 26.0 H x 27.3 W x 17.3 D in brown/greenWood in Natural | 26" H X 27.3" W X 17.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Loon Peak® Faheema 3-Drawer Nightstand, Side Table w/ Storage 26.0 H x 27.3 W x 17.3 D in brown/g...</h3>
+                <p>$419.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/madison-park-signature-beckett-spindle-wood-2-drawer-accent-chest-with-lower-shelf-ncwb1202.html?cjdata=MXxOfDB8WXww&LTKLID=HpfCxvSBaQjqtF-McpnyOQ&LTKPAID=0&piid=102477917&cjevent=6759c03b363911f0814800a60a82b820&refID=CJ687298-CJ2975314&PID=CJ4441350&clickid=6759c03b363911f0814800a60a82b820">
+                <img src="https://i.pinimg.com/originals/70/bf/1d/70bf1dbb8a28e65ecc0efc546666dba6.jpg" alt="Beckett Spindle Wood 2-Drawer Accent Chest with Lower Shelf">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Beckett Spindle Wood 2-Drawer Accent Chest with Lower Shelf</h3>
+                <p>$339.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Jonathan-Charles-Fine-Furniture--4-Drawer-Accent-Chest-494844CWM-494844MAH-L157-K~JCFF1620.html?refid=PINTO49-JCFF1620_23515337&PiID[]=23515337">
+                <img src="https://i.pinimg.com/originals/6c/68/85/6c6885c797df1014b2541af069e9a620.jpg" alt="Regency Solid Wood Accent Chest">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Regency Solid Wood Accent Chest</h3>
+                <p>$3239.35</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/lighting/pdp/mercer41-thonda-197-modern-feather-shaped-crystal-ceiling-fan-with-lights-flush-mount-smart-celling-fan-w110247918.html">
+                <img src="https://i.pinimg.com/originals/20/7e/90/207e90edda06e11df055d3566fa1b05f.jpg" alt="Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan</h3>
+                <p>$155.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart icon functionality
+            const heartIcons = document.querySelectorAll('.heart-icon');
+            heartIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                });
+            });
+            
+            // Filter functionality
+            const sourceFilter = document.getElementById('sourceFilter');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                
+                productItems.forEach(item => {
+                    const itemSource = item.getAttribute('data-source');
+                    if (selectedSource === 'all' || itemSource === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

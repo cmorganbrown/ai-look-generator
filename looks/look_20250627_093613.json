@@ -1,0 +1,60 @@
+{
+  "id": "look_20250627_093613",
+  "name": "Home Garden Ideas Look",
+  "landing_page": "Home Garden Ideas",
+  "products": [
+    {
+      "id": "product-4",
+      "description": "Metal Planter Box with Trellis with Wheels",
+      "image_url": "https://i.pinimg.com/originals/93/19/1f/93191f935cc9e372707200983e9a7e86.jpg",
+      "price": "$196.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Latitude Run\u00ae Metal Planter Box with Trellis with Wheels & Reviews | Wayfair",
+      "url": "https://www.wayfair.com/home/pdp/latitude-run-metal-planter-box-with-trellis-with-wheels-w112033310.html?piid=1538421195"
+    },
+    {
+      "id": "product-9",
+      "description": "Cogburn Belmont Rectangle Planter Box",
+      "image_url": "https://i.pinimg.com/originals/af/96/3e/af963e5601940460283959f13a987d4d.jpg",
+      "price": "$119.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Sol 72 Outdoor\u2122 Cogburn Belmont Rectangle Planter Box | Wayfair",
+      "url": "https://www.wayfair.com/Sol-72-Outdoor%E2%84%A2--Cogburn-Planter-Box-X117228542-L349-K~W006117431.html?refid=GX549911646127-W006117431_1123550860_1129992202&device=m&ptid=1433567140443&network=g&targetid=pla-1433567140443&channel=GooglePLA&ireid=68184102&fdid=1817&PiID[]=1123550860&PiID[]=1129992202&gbraid=0AAAAAD9ISC5umVrgNcbMQXDiX0rbkjdpM&gclid=EAIaIQobChMI3JuvvoXQ9gIV1Rx9Ch36kg1xEAQYCiABEgKR-fD_BwE"
+    },
+    {
+      "id": "product-11",
+      "description": "Instadeck Outdoor Flooring Kit",
+      "image_url": "https://i.pinimg.com/originals/f0/ee/04/f0ee04d626f5ccbbb7960bf27257b3f0.jpg",
+      "price": "$251.54",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Barrette Outdoor Living Instadeck Outdoor Flooring Kit | Wayfair",
+      "url": "https://www.wayfair.com/Barrette-Outdoor-Living--Instadeck-Outdoor-Flooring-Kit-5101294-L3597-K~RODL1188.html?refid=GX685262545817-RODL1188_88293760&device=m&ptid=1838971808328&network=g&targetid=pla-1838971808328&channel=GooglePLA&ireid=247883255&fdid=1817&PiID[]=88293760&gad_source=1&gclid=Cj0KCQiAoeGuBhCBARIsAGfKY7zD0eEWpgyGHOS1WdpixZmOrR1DKWyn0Gs0GBWMu08h-mo6n36OwL4aAv84EALw_wcB"
+    },
+    {
+      "id": "product-19",
+      "description": "Lonara Raised Garden Bed",
+      "image_url": "https://i.pinimg.com/originals/d7/1a/87/d71a8734b3b8aaa7f3cc1c241a42028f.jpg",
+      "price": "$149.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Winston Porter Lonara Plastic Raised Garden Bed | Wayfair",
+      "url": "https://www.wayfair.com/DuraTrel-Inc.--Vinyl-Raised-Garden-11180-11181-L349-K~DTRL1052.html"
+    },
+    {
+      "id": "product-17",
+      "description": "Metal Lawn Edging",
+      "image_url": "https://i.pinimg.com/originals/27/a0/5f/27a05f46bd9182c435aab9307369658f.jpg",
+      "price": "$33.48",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Dakota Tin Garden Edging | Wayfair",
+      "url": "https://www.wayfair.com/Dakota-Tin--10-ft.-W-Garden-Lawn-Edging-CO-L3361-K~DKTN1002.html?refid=PINTO49-DKTN1002_48898361_48898366&PiID[]=48898361&PiID[]=48898366#bdxy6u71frv-1"
+    }
+  ],
+  "product_count": 5,
+  "created_at": "2025-06-27T13:36:13.847Z",
+  "image_url": "/static/generated_images/hero_look_20250627_093613_20250627_093707.jpg"
+}

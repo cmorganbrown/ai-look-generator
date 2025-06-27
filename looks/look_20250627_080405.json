@@ -1,0 +1,50 @@
+{
+  "id": "look_20250627_080405",
+  "name": "Home Garden Ideas Look",
+  "landing_page": "Home Garden Ideas",
+  "products": [
+    {
+      "id": "product-21",
+      "description": "Mahala Plant Stand",
+      "image_url": "https://i.pinimg.com/originals/52/98/05/5298057faa9575053c2b4b480bdb2782.jpg",
+      "price": "$103.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Trent Austin Design\u00ae Mahala Rectangular Multi-Tiered Plant Stand & Reviews | Wayfair",
+      "url": "https://www.wayfair.com/furniture/pdp/trent-austin-design-mahala-rectangular-multi-tiered-plant-stand-w009096448.html?piid=566110970"
+    },
+    {
+      "id": "product-20",
+      "description": "Hummingbird nests Woven from Straw",
+      "image_url": "https://i.pinimg.com/originals/ea/c0/29/eac0292a065af251645aded18ae7d396.jpg",
+      "price": "$102.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Arlmont & Co. Hummingbird nests Woven from Straw | Wayfair",
+      "url": "https://www.wayfair.com/Arlmont-and-Co.--Hummingbird-nests-Woven-from-Straw-X223773722-L696-K~W112662611.html?refid=PSO49-W112662611&utm_source=pinterest&utm_medium=social"
+    },
+    {
+      "id": "product-19",
+      "description": "Lonara Raised Garden Bed",
+      "image_url": "https://i.pinimg.com/originals/d7/1a/87/d71a8734b3b8aaa7f3cc1c241a42028f.jpg",
+      "price": "$149.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Winston Porter Lonara Plastic Raised Garden Bed | Wayfair",
+      "url": "https://www.wayfair.com/DuraTrel-Inc.--Vinyl-Raised-Garden-11180-11181-L349-K~DTRL1052.html"
+    },
+    {
+      "id": "product-17",
+      "description": "Metal Lawn Edging",
+      "image_url": "https://i.pinimg.com/originals/27/a0/5f/27a05f46bd9182c435aab9307369658f.jpg",
+      "price": "$33.48",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Dakota Tin Garden Edging | Wayfair",
+      "url": "https://www.wayfair.com/Dakota-Tin--10-ft.-W-Garden-Lawn-Edging-CO-L3361-K~DKTN1002.html?refid=PINTO49-DKTN1002_48898361_48898366&PiID[]=48898361&PiID[]=48898366#bdxy6u71frv-1"
+    }
+  ],
+  "product_count": 4,
+  "created_at": "2025-06-27T12:04:05.592Z",
+  "image_url": "/static/generated_images/hero_look_20250627_080405_20250627_082312.jpg"
+}

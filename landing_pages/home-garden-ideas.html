@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Garden Ideas - Pinterest & Google Products</title>
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Home Garden Ideas</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="container">
+        <div class="product-grid">
+            
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Aquascape--Medium-Pond-Kit-11-x-16-With-3Pl-3000-Pond-Pump-53035-L877-K~BCZH1239.html?refid=PINRET-bczh1239&costid=PINRET&pin_campaign=626744521233&pin_adgroup=2680069287207&pin_productgroup=4260607780635&device=desktop#bm0yn4lcxwl-0">
+                <img src="https://i.pinimg.com/originals/c4/5e/a7/c45ea783b0439d4e7e3176b6286086c5.jpg" alt="Medium Pond Kit 11' x 16' With 3-Pl 3000 Pond Pump">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Medium Pond Kit 11' x 16' With 3-Pl 3000 Pond Pump</h3>
+                <p>$3701.98</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/home/pdp/arlmont-co-metal-planter-box-with-trellis-with-wheels-w112026851.html">
+                <img src="https://i.pinimg.com/originals/52/ce/ff/52ceff7cd84a333574f0bd5772331769.jpg" alt="Metal Planter Box with Trellis with Wheels">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Metal Planter Box with Trellis with Wheels</h3>
+                <p>$194.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Three-Posts%E2%84%A2--Barros-Outdoor-Wood-Planter-Box-New-green-house-beauty-and-hope-Raised-Garden-Bed-X114328646-L349-K~W003217535.html?refid=MX79096327714160-W003217535_2102627043_2130398667&device=c&ptid=4582695814964597&targetid=pla-4582695814964597:aud-814618649&channel=BingPLA&network=o&PiID[]=2102627043&PiID[]=2130398667&query=Barros%20Outdoor%20Wood%20Planter%20Box%20New%20green%20house%20beauty%20and%20hope%20Raised%20Garden%20Bed&msclkid=e5376e67c9d41b687a8b06746c8ec0a9&utm_source=bing&utm_medium=cpc&utm_campaign=WF.P.US.G.Outdoor%20(SCA)&utm_term=4582695814964597&utm_content=49_349_-1~Planters">
+                <img src="https://i.pinimg.com/originals/c0/94/cc/c094cc99f3caa77573bfab894f62c776.jpg" alt="Barros Outdoor Wood Planter Box New green house beauty and hope Raised Garden Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Barros Outdoor Wood Planter Box New green house beauty and hope Raised Garden Bed</h3>
+                <p>$58.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Dakota-Tin--10-ft.-W-Garden-Lawn-Edging-CO-L3361-K~DKTN1002.html?refid=PINTO49-DKTN1002_48898361_48898366&PiID[]=48898361&PiID[]=48898366#bdxy6u71frv-1">
+                <img src="https://i.pinimg.com/originals/27/a0/5f/27a05f46bd9182c435aab9307369658f.jpg" alt="Metal Lawn Edging">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Metal Lawn Edging</h3>
+                <p>$33.48</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Little-Cottage-Company--Colonial-Gable-8-Ft.-W-x-12-Ft.-D-Greenhouse-PNK-L541-K~LCC1211.html?refid=FBDPA49-LCC1211&DPA_tag=FBRT49-UT1-CPC-R37-DTNS-ATC-BAU&fbclid=IwAR3bdR3-ombkrN3gQ9UcaZO2bMd796qWEmCIsrRIgTDlyl-Aj5ZsVtQD1wM">
+                <img src="https://i.pinimg.com/originals/0c/de/f3/0cdef35799d32b1651a35c7cb92be54a.png" alt="Colonial Gable Greenhouse">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Colonial Gable Greenhouse</h3>
+                <p>$6899</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/home/pdp/latitude-run-metal-planter-box-with-trellis-with-wheels-w112033310.html?piid=1538421195">
+                <img src="https://i.pinimg.com/originals/93/19/1f/93191f935cc9e372707200983e9a7e86.jpg" alt="Metal Planter Box with Trellis with Wheels">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Metal Planter Box with Trellis with Wheels</h3>
+                <p>$196.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/outdoor/pdp/hi-line-gift-ltd-resin-rock-level-fountain-with-halogen-light-hiln2132.html">
+                <img src="https://i.pinimg.com/originals/35/54/15/355415c085828dd27340d5cacf1c4d2b.jpg" alt="Resin Rock Level Fountain with Halogen Light">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Resin Rock Level Fountain with Halogen Light</h3>
+                <p>$579.02</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/trent-austin-design-mahala-rectangular-multi-tiered-plant-stand-w009096448.html?piid=566110970">
+                <img src="https://i.pinimg.com/originals/52/98/05/5298057faa9575053c2b4b480bdb2782.jpg" alt="Mahala Plant Stand">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Mahala Plant Stand</h3>
+                <p>$103.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/home/pdp/bumilgar-arani-weather-resistant-floor-fountain-with-light-w100544609.html">
+                <img src="https://i.pinimg.com/originals/68/c5/e9/68c5e9f2b51744b80c74d93709dbc7d4.jpg" alt="Bumilgar Arani Weather Resistant Floor Fountain w/ Light brown/, Resin in Gray | 21" H X 42.1" W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bumilgar Arani Weather Resistant Floor Fountain w/ Light brown/, Resin in Gray | 21" H X 42.1" W ...</h3>
+                <p>$555.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/DuraTrel-Inc.--Vinyl-Raised-Garden-11180-11181-L349-K~DTRL1052.html">
+                <img src="https://i.pinimg.com/originals/d7/1a/87/d71a8734b3b8aaa7f3cc1c241a42028f.jpg" alt="Lonara Raised Garden Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Lonara Raised Garden Bed</h3>
+                <p>$149.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Charlton-Home%C2%AE--Vitali-Resin-Muro-Elegante-Wall-Fountain-X111324167-L174-K~W000213056.html?refid=PSM49-w000213056&costid=PSM49&pin_campaign=626745365238&pin_adgroup=2680075820230&pin_productgroup=4260608135977&device=mobile">
+                <img src="https://i.pinimg.com/originals/33/0d/21/330d21761029b4e211e9053b96144064.jpg" alt="Vitali Weather Resistant Wall Base Fountain">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Vitali Weather Resistant Wall Base Fountain</h3>
+                <p>$177.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Rosalind-Wheeler--Aana-Concrete-Yoga-Frog-Fountain-DNOC4056-L174-K~CMNB3945.html?refid=PSO49B2B-CMNB3945_66203996&PiID[]=66203996">
+                <img src="https://i.pinimg.com/originals/0f/bb/eb/0fbbeb6b8c2278bbb075ae22ada4b70d.jpg" alt="Rosalind Wheeler Aana Concrete Yoga Frog Fountain 10.75 H x 17.25 W x 17.25 D in gray | 10.75" H X 17.25" W X 17.25" D">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rosalind Wheeler Aana Concrete Yoga Frog Fountain 10.75 H x 17.25 W x 17.25 D in gray | 10.75" H ...</h3>
+                <p>$349.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/storage-organization/pdp/outdoor-living-today-8-ft-w-x-8-ft-d-cedar-wood-sunshed-garden-shed-with-metal-roof-xql10034.html?piid=">
+                <img src="https://i.pinimg.com/originals/29/45/d5/2945d5cba0e2018bdcea5dc899066e8d.png" alt="8 ft. W x 8 ft. D Cedar Wood Sunshed Garden Shed with Metal Roof">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>8 ft. W x 8 ft. D Cedar Wood Sunshed Garden Shed with Metal Roof</h3>
+                <p>$5116.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/17-Stories--Rectangular-Etagere-Plant-Stand-X211521925-L53-K~W100410814.html?refid=PSM49-w100410814&costid=PSM49&pin_campaign=626746191643&pin_adgroup=2680080044271&pin_productgroup=4260608382570&device=mobile#72d9bzqbh8b-2">
+                <img src="https://i.pinimg.com/originals/b4/93/22/b49322f926f9cd9145fa28fffdbf8152.jpg" alt="Rectangular Etagere Plant Stand">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rectangular Etagere Plant Stand</h3>
+                <p>$125.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/outdoor/pdp/gracie-oaks-keoni-outdoor-raised-garden-bed-w110526347.html">
+                <img src="https://i.pinimg.com/originals/68/23/d3/6823d3534c359ec5604a641b0b8b128b.jpg" alt="Keoni Raised Garden Bed">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Keoni Raised Garden Bed</h3>
+                <p>$139.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Beachcrest-Home%E2%84%A2--Detail-of-Outdoor-Spa-Centre-by-Ingaivanova-Wrapped-Canvas-Photograph-X122418012-L1318-K~W011307901.html?refid=PSO49B2B-W011307901_1960371520&PiID[]=1960371520">
+                <img src="https://i.pinimg.com/originals/4d/da/48/4dda487b8e28bb205981b8be8a14bb9c.jpg" alt="Beachcrest Home™ Detail of Outdoor Spa Centre by Ingaivanova - Wrapped Canvas Photograph 12.0 H x 12.0 W x 1.25 D in blackCanvas | 12" H x 12" W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Beachcrest Home™ Detail of Outdoor Spa Centre by Ingaivanova - Wrapped Canvas Photograph 12.0 H x...</h3>
+                <p>$31.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Winston-Porter--Jenssy-Rock-3-Piece-Stepping-Stone-Set-X115761064-L7349-K~W004650953.html?refid=PSO49-W004650953">
+                <img src="https://i.pinimg.com/originals/51/45/1b/51451b26105e8b6fdd624e58624b0bc7.jpg" alt="Winston Porter Jenssy Rock 3 Piece Stepping Stone Set 0.5 H x 10.0 W x 10.0 D in brown/grayStone | 0.5" H X 10" W X 10" D | Way…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Winston Porter Jenssy Rock 3 Piece Stepping Stone Set 0.5 H x 10.0 W x 10.0 D in brown/grayStone ...</h3>
+                <p>$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Arlmont-and-Co.--Hummingbird-nests-Woven-from-Straw-X223773722-L696-K~W112662611.html?refid=PSO49-W112662611&utm_source=pinterest&utm_medium=social">
+                <img src="https://i.pinimg.com/originals/ea/c0/29/eac0292a065af251645aded18ae7d396.jpg" alt="Hummingbird nests Woven from Straw">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Hummingbird nests Woven from Straw</h3>
+                <p>$102.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Barrette-Outdoor-Living--Instadeck-Outdoor-Flooring-Kit-5101294-L3597-K~RODL1188.html?refid=GX685262545817-RODL1188_88293760&device=m&ptid=1838971808328&network=g&targetid=pla-1838971808328&channel=GooglePLA&ireid=247883255&fdid=1817&PiID[]=88293760&gad_source=1&gclid=Cj0KCQiAoeGuBhCBARIsAGfKY7zD0eEWpgyGHOS1WdpixZmOrR1DKWyn0Gs0GBWMu08h-mo6n36OwL4aAv84EALw_wcB">
+                <img src="https://i.pinimg.com/originals/f0/ee/04/f0ee04d626f5ccbbb7960bf27257b3f0.jpg" alt="Instadeck Outdoor Flooring Kit">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Instadeck Outdoor Flooring Kit</h3>
+                <p>$251.54</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Sol-72-Outdoor%E2%84%A2--Cogburn-Planter-Box-X117228542-L349-K~W006117431.html?refid=GX549911646127-W006117431_1123550860_1129992202&device=m&ptid=1433567140443&network=g&targetid=pla-1433567140443&channel=GooglePLA&ireid=68184102&fdid=1817&PiID[]=1123550860&PiID[]=1129992202&gbraid=0AAAAAD9ISC5umVrgNcbMQXDiX0rbkjdpM&gclid=EAIaIQobChMI3JuvvoXQ9gIV1Rx9Ch36kg1xEAQYCiABEgKR-fD_BwE">
+                <img src="https://i.pinimg.com/originals/af/96/3e/af963e5601940460283959f13a987d4d.jpg" alt="Cogburn Belmont Rectangle Planter Box">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Cogburn Belmont Rectangle Planter Box</h3>
+                <p>$119.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/outdoor/pdp/latitude-run-metal-planter-box-with-trellis-w111594018.html?piid=2047365322">
+                <img src="https://i.pinimg.com/originals/7f/0e/d1/7f0ed19573b2010fbd5d5d7158e6a5b5.png" alt="Metal Planter Box with Trellis (Set of 2)">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Metal Planter Box with Trellis (Set of 2)</h3>
+                <p>$350</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart icon functionality
+            const heartIcons = document.querySelectorAll('.heart-icon');
+            heartIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                });
+            });
+            
+            // Filter functionality
+            const sourceFilter = document.getElementById('sourceFilter');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                
+                productItems.forEach(item => {
+                    const itemSource = item.getAttribute('data-source');
+                    if (selectedSource === 'all' || itemSource === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

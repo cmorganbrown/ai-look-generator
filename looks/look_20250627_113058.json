@@ -1,0 +1,40 @@
+{
+  "id": "look_20250627_113058",
+  "name": "Nancy Meyers 2 Look",
+  "landing_page": "Nancy Meyers 2",
+  "products": [
+    {
+      "id": "product-1",
+      "description": "Tavel Solid Wood Bed 89.0 H x 77.5 W x 89.25 D in brownWood",
+      "image_url": "https://i.pinimg.com/originals/e4/77/bb/e477bb0607ba98befb6734c98ff56705.jpg",
+      "price": "$4308",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Tavel Solid Wood Bed 89.0 H x 77.5 W x 89.25 D in brownWood",
+      "url": "https://www.wayfair.com/Theodore-Alexander--Tavel-Solid-Wood-Bed-TA8-L12-K~FPLJ7543.html?refid=PSO49-FPLJ7543_89884094_89884096&PiID[]=89884094&PiID[]=89884096"
+    },
+    {
+      "id": "product-5",
+      "description": "Regency Solid Wood Accent Chest",
+      "image_url": "https://i.pinimg.com/originals/6c/68/85/6c6885c797df1014b2541af069e9a620.jpg",
+      "price": "$3239.35",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Jonathan Charles Fine Furniture Regency 4 Drawer Accent Chest | Wayfair",
+      "url": "https://www.wayfair.com/Jonathan-Charles-Fine-Furniture--4-Drawer-Accent-Chest-494844CWM-494844MAH-L157-K~JCFF1620.html?refid=PINTO49-JCFF1620_23515337&PiID[]=23515337"
+    },
+    {
+      "id": "product-6",
+      "description": "Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan",
+      "image_url": "https://i.pinimg.com/originals/20/7e/90/207e90edda06e11df055d3566fa1b05f.jpg",
+      "price": "$155.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan",
+      "url": "https://www.wayfair.com/lighting/pdp/mercer41-thonda-197-modern-feather-shaped-crystal-ceiling-fan-with-lights-flush-mount-smart-celling-fan-w110247918.html"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-06-27T15:30:58.043Z",
+  "image_url": "/static/generated_images/hero_look_20250627_113058_20250627_113152.jpg"
+}

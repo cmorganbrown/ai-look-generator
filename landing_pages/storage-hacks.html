@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Hacks - Trend Landing Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item.selected {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* Product Selection Styles */
+        .product-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-item:hover .product-checkbox {
+            opacity: 1;
+        }
+        
+        .product-item.selected .product-checkbox {
+            opacity: 1;
+        }
+        
+        .selection-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            min-width: 300px;
+        }
+        
+        .selection-counter {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .generate-look-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .generate-look-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .generate-look-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .clear-selection-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .clear-selection-btn:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+        
+        .looks-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .looks-link:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    
+        <a href="/looks" class="looks-link">
+            <i class="fas fa-magic"></i> View All Looks
+        </a>
+        
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Storage Hacks</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="product-grid">
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="0">
+            <input type="checkbox" class="product-checkbox" data-product-index="0"> data-source="Pinterest" data-product-index="0">
+            <a href="https://www.wayfair.com/storage-organization/pdp/latitude-run-21-pair-shoe-storage-cabinet-w100360700.html">
+                <img src="https://i.pinimg.com/originals/07/fa/dd/07fadd7c68f468485c3b6249fe1c0af9.jpg" alt="18 Pair Shoe Storage Cabinet 42.1 H x 35.8 W x 12.6 D in blueBamboo">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>18 Pair Shoe Storage Cabinet 42.1 H x 35.8 W x 12.6 D in blueBamboo</h3>
+                <p>$106.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="1">
+            <input type="checkbox" class="product-checkbox" data-product-index="1"> data-source="Pinterest" data-product-index="1">
+            <a href="https://www.wayfair.com/storage-organization/pdp/trademark-innovations-slim-slide-out-laundry-cart-tqin1293.html?utm_medium=Social&utm_source=Pinterest#2ze3b1qgp16-1">
+                <img src="https://i.pinimg.com/originals/fe/60/cd/fe60cd87554074c67a58ba0a404e9686.jpg" alt="Slim Slide Out Laundry Cart 28.0 H x 5.0 W x 21.0 D in whitePlastic">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Slim Slide Out Laundry Cart 28.0 H x 5.0 W x 21.0 D in whitePlastic</h3>
+                <p>$29.38</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="2">
+            <input type="checkbox" class="product-checkbox" data-product-index="2"> data-source="Pinterest" data-product-index="2">
+            <a href="https://www.wayfair.com/Winston-Porter--Modern-Freestanding-Kitchen-Cabinet-with-12-Door-Shelves-X223411628-L161-K~W112300517.html?refid=PSO49B2B-W112300517_757574047&PiID[]=757574047">
+                <img src="https://i.pinimg.com/originals/bb/53/ce/bb53ced83318bc20ec7926804a0ac615.jpg" alt="Winston Porter Modern Freestanding Kitchen Cabinet w/ 12 Door Shelves brownWood in Painted Red | 41" H X 23.5" W X 11.75" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Winston Porter Modern Freestanding Kitchen Cabinet w/ 12 Door Shelves brownWood in Painted Red | ...</h3>
+                <p>$207.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="3">
+            <input type="checkbox" class="product-checkbox" data-product-index="3"> data-source="Pinterest" data-product-index="3">
+            <a href="https://www.wayfair.com/storage-organization/pdp/rebrilliant-263h-x-1438w-x-1325d-drawer-organizer-w001376386.html?cjevent=ea6e7a93c63c11ec8321a05e0a82b82a&refID=CJ687298-CJ2975314&PID=CJ4441350&clickid=ea6e7a93c63c11ec8321a05e0a82b82a&cjdata=MXxOfDB8WXww">
+                <img src="https://i.pinimg.com/originals/5a/af/fe/5aaffe40e444975cce1d183f47ddf20e.jpg" alt="2.63"H x 14.38"W x 13.25"D Drawer Organizer 2.63 H x 14.38 W x 13.25 D in brownPlastic">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>2.63"H x 14.38"W x 13.25"D Drawer Organizer 2.63 H x 14.38 W x 13.25 D in brownPlastic</h3>
+                <p>$17.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="4">
+            <input type="checkbox" class="product-checkbox" data-product-index="4"> data-source="Pinterest" data-product-index="4">
+            <a href="https://www.wayfair.com/storage-organization/pdp/bekitchen-wood-wall-mounted-laundry-room-organizer-bkit1064.html">
+                <img src="https://i.pinimg.com/originals/65/55/08/6555088ae046f903649937768422075d.jpg" alt="Wood Wall Mounted Laundry Room Organizer 6.5 H x 23.0 W x 11.0 D in brown/grayWood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Wood Wall Mounted Laundry Room Organizer 6.5 H x 23.0 W x 11.0 D in brown/grayWood</h3>
+                <p>$38.25</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="5">
+            <input type="checkbox" class="product-checkbox" data-product-index="5"> data-source="Pinterest" data-product-index="5">
+            <a href="https://www.wayfair.com/Rebrilliant--Mccoll-Scrapbook-5-Drawer-Storage-Chest-X114619295-L365-K~W003508184.html?refid=GX658058020272-W003508184_61948809&device=m&ptid=941385432876&network=g&targetid=pla-941385432876&channel=GooglePLA&ireid=124808787&fdid=1817&PiID[]=61948809&gbraid=0AAAAAD9ISC5aVmeTEd11212owdflhowMq&gclid=CjwKCAjwv8qkBhAnEiwAkY-ahjlaYzzLz7YCvEBo3rQ4HJuKVJo9SkghSSlUAMqYICeypqBJG5SoKRoCmT4QAvD_BwE">
+                <img src="https://i.pinimg.com/originals/33/a3/ae/33a3aeadf62289d3861084d1ed39b2d2.jpg" alt="Drawer Plastic Storage Chest with Casters">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Drawer Plastic Storage Chest with Casters</h3>
+                <p>$47.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="6">
+            <input type="checkbox" class="product-checkbox" data-product-index="6"> data-source="Pinterest" data-product-index="6">
+            <a href="https://www.wayfair.com/Mercer41--Makeup-Organizer-3Tier-Round-Rotating-Skincare-Organizer-Countertop-Customizable-Toiletries-Vanity-Organizer-Lazy-Susan-Gift-Cloud-White-X222406895-L7341-K~W111395784.html?refid=PSO49-W111395784">
+                <img src="https://i.pinimg.com/originals/49/f9/ac/49f9acc039136e2d9515aef6bb037f8e.jpg" alt="Mercer41 Makeup Organizer, 3-Tier Round Rotating Skincare Organizer Countertop, Customizable, Toiletries Vanity Organizer, Lazy…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Mercer41 Makeup Organizer, 3-Tier Round Rotating Skincare Organizer Countertop, Customizable, Toi...</h3>
+                <p>$72.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="7">
+            <input type="checkbox" class="product-checkbox" data-product-index="7"> data-source="Pinterest" data-product-index="7">
+            <a href="https://www.wayfair.com/Rebrilliant--48-Pair-Shoe-Storage-Cabinet-X110377305-L3763-K~W009266294.html?refid=PSO49B2B-W009266294">
+                <img src="https://i.pinimg.com/originals/d5/04/0f/d5040f9e4a9fdcb5a9ffc70a35ea5ddf.jpg" alt="Rebrilliant Pair Shoe Storage Cabinet 50.0 H x 50.0 W x 12.0 D in white in Frosted White | 48 | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rebrilliant Pair Shoe Storage Cabinet 50.0 H x 50.0 W x 12.0 D in white in Frosted White | 48 | W...</h3>
+                <p>$92.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="8">
+            <input type="checkbox" class="product-checkbox" data-product-index="8"> data-source="Pinterest" data-product-index="8">
+            <a href="https://www.wayfair.com/furniture/pdp/ebern-designs-472h-wood-storage-bookcase-with-sliding-door-and-3-removable-drawers-w111760080.html">
+                <img src="https://i.pinimg.com/originals/cc/55/ac/cc55acb6a4932cf117fe2c66dd22d202.jpg" alt="47.2"H Wood Storage Bookcase with Sliding Door and 3 Removable Drawers">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>47.2"H Wood Storage Bookcase with Sliding Door and 3 Removable Drawers</h3>
+                <p>$219.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="9">
+            <input type="checkbox" class="product-checkbox" data-product-index="9"> data-source="Pinterest" data-product-index="9">
+            <a href="https://www.wayfair.com/Nixy-Children--Mysize-51cm-W-Art-Desk-and-Chair-Set-TC83760GN026-L359-K~CBKC1040.html?refid=PSO49B2B-CBKC1040_50293488&PiID[]=50293488">
+                <img src="https://i.pinimg.com/originals/aa/df/8c/aadf8c1642731242252ad859ad468278.jpg" alt="Nixy Children Mysize 51cm W Art Desk & Chair Set 59.0 H x 51.0 W x 58.0 D cm gray, Wood | 23.23" H X 20.08" W X 22.83" D">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Nixy Children Mysize 51cm W Art Desk & Chair Set 59.0 H x 51.0 W x 58.0 D cm gray, Wood | 23.23" ...</h3>
+                <p>$61.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="10">
+            <input type="checkbox" class="product-checkbox" data-product-index="10"> data-source="Pinterest" data-product-index="10">
+            <a href="https://www.wayfair.com/Dotted-Line%E2%84%A2--Albie-Recycling-Bag-Cabinet-Door-Organizer-X119622873-L903-K~W008511762.html?refid=PSO49B2B-W008511762_706925250&PiID[]=706925250">
+                <img src="https://i.pinimg.com/originals/c7/b6/32/c7b632a13be21340c1d6552b98382585.jpg" alt="Dotted Line™ Albie Recycling Bag Cabinet Door Organizer 15.25 H x 8.25 W x 4.25 D in graySteel in Bronze | 15.25" H X 8.25" W X 4.25" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Dotted Line™ Albie Recycling Bag Cabinet Door Organizer 15.25 H x 8.25 W x 4.25 D in graySteel in...</h3>
+                <p>$18.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="11">
+            <input type="checkbox" class="product-checkbox" data-product-index="11"> data-source="Pinterest" data-product-index="11">
+            <a href="https://www.wayfair.com/storage-organization/pdp/rebrilliant-plastic-basket-set-w005093621.html">
+                <img src="https://i.pinimg.com/originals/12/b1/52/12b152a58f349f083be93f9d5119db2d.jpg" alt="Plastic Basket Set 9.9 H x 17.8 W x 13.0 D in brownPlastic">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Plastic Basket Set 9.9 H x 17.8 W x 13.0 D in brownPlastic</h3>
+                <p>$35.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="12">
+            <input type="checkbox" class="product-checkbox" data-product-index="12"> data-source="Pinterest" data-product-index="12">
+            <a href="https://www.wayfair.com/iDesign--Kitchen-Binz-10-x-6-x-5-M4-12106MDK-L1289-K~IDES1847.html?refid=PSO49B2B-IDES1847">
+                <img src="https://i.pinimg.com/originals/0b/f4/63/0bf4634a0d054398baeaf5f1f7dc01a0.jpg" alt="iDesign Kitchen Binz 10 x 6 x 5 M4 in Clear | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>iDesign Kitchen Binz 10 x 6 x 5 M4 in Clear | Wayfair</h3>
+                <p>$34.08</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="13">
+            <input type="checkbox" class="product-checkbox" data-product-index="13"> data-source="Pinterest" data-product-index="13">
+            <a href="https://www.wayfair.com/Rebrilliant--2Pack-54-Litre-Large-Under-Bed-Storage-Box-With-Transparent-Lid-And-Wheels-X223981760-L1223-K~W112870659.html?refid=PSO49-W112870659_2040086409&PiID[]=2040086409">
+                <img src="https://i.pinimg.com/originals/79/3c/60/793c60a396e72b1e8b88e4aab2d19837.jpg" alt="Rebrilliant 2-Pack 54 Litre Large Under Bed Storage Box w/ Transparent Lid & Wheels in Gray | 51 quarts | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rebrilliant 2-Pack 54 Litre Large Under Bed Storage Box w/ Transparent Lid & Wheels in Gray | 51 ...</h3>
+                <p>$144.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="14">
+            <input type="checkbox" class="product-checkbox" data-product-index="14"> data-source="Pinterest" data-product-index="14">
+            <a href="https://www.wayfair.com/furniture/pdp/winston-porter-katracy-3937-sideboard-with-led-light-w100409992.html">
+                <img src="https://i.pinimg.com/originals/cb/6c/73/cb6c739a9459e9d987ccace6fb87b8ab.jpg" alt="Katracy 39.37'' Sideboard Cabinet with RGB LED Lights, Wireless Charging, USB Ports & Motion Sensor">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Katracy 39.37'' Sideboard Cabinet with RGB LED Lights, Wireless Charging, USB Ports & Motion Sensor</h3>
+                <p>$164.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="15">
+            <input type="checkbox" class="product-checkbox" data-product-index="15"> data-source="Pinterest" data-product-index="15">
+            <a href="https://www.wayfair.com/furniture/pdp/21-tech-solutions-step-bookcase-dchs1694.html">
+                <img src="https://i.pinimg.com/originals/2b/f4/db/2bf4db7fcfe39a95357990dcaed1c115.jpg" alt="21 Tech Solutions 21.25" H x 15.74" W Step Bookcase 21.25 H x 15.74 W x 11.81 D in brownWood in Yellow | 21.25" H X 15.74" W X 11.81" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>21 Tech Solutions 21.25" H x 15.74" W Step Bookcase 21.25 H x 15.74 W x 11.81 D in brownWood in Y...</h3>
+                <p>$349.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="16">
+            <input type="checkbox" class="product-checkbox" data-product-index="16"> data-source="Pinterest" data-product-index="16">
+            <a href="https://www.wayfair.com/kitchen-tabletop/pdp/locknlock-pantry-food-storage-container-50-cup-clear-w001853146.html">
+                <img src="https://i.pinimg.com/originals/47/49/25/474925ed07d449e1dd5091d39627f32d.jpg" alt="LocknLock Pantry Food Storage Container, 50-Cup, Clear 10.6 H x 13.8 W x 10.6 D in Plastic">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>LocknLock Pantry Food Storage Container, 50-Cup, Clear 10.6 H x 13.8 W x 10.6 D in Plastic</h3>
+                <p>$27.95</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="17">
+            <input type="checkbox" class="product-checkbox" data-product-index="17"> data-source="Pinterest" data-product-index="17">
+            <a href="https://www.wayfair.com/The-Holiday-Aisle%C2%AE--Ribbon-Storage-Cardboard-Box-X114193073-L1223-K~W003082962.html?refid=PSO49-W003082962">
+                <img src="https://i.pinimg.com/originals/b9/72/d9/b972d925ff9449c62d6a78617c067018.jpg" alt="The Holiday Aisle® Bin">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>The Holiday Aisle® Bin</h3>
+                <p>$31.98</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="18">
+            <input type="checkbox" class="product-checkbox" data-product-index="18"> data-source="Pinterest" data-product-index="18">
+            <a href="https://www.wayfair.com/Hokku-Designs--30-Pair-Shoe-Storage-Cabinet-X122528302-L3763-K~W011417291.html?refid=GX685106929141-W011417291_1486804637&device=c&ptid=371612945420&network=g&targetid=aud-1616885063259:pla-371612945420&channel=GooglePLA&ireid=241977099&fdid=1817&PiID[]=1486804637&gad_source=4&gclid=CjwKCAjw2Je1BhAgEiwAp3KY79l4J5AN_t2QWfqjQZWPilKsiAqHIllYpWfyfPDX1dnbdor1XwiW2hoCF0AQAvD_BwE">
+                <img src="https://i.pinimg.com/originals/cd/f8/fe/cdf8fe7ba42977d3254ed09703322c3d.jpg" alt="30 Pair Shoe Storage Cabinet 70.9 H x 25.6 W x 12.2 D in whiteSolid Wood/Manufactured Wood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>30 Pair Shoe Storage Cabinet 70.9 H x 25.6 W x 12.2 D in whiteSolid Wood/Manufactured Wood</h3>
+                <p>$189.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="19">
+            <input type="checkbox" class="product-checkbox" data-product-index="19"> data-source="Pinterest" data-product-index="19">
+            <a href="https://www.wayfair.com/Rebrilliant--Peyton-PullOut-Pot-Pan-and-Lid-Cabinet-Organizer-X112588040-L903-K~W001477939.html?refid=PSO49B2B-W001477939">
+                <img src="https://i.pinimg.com/originals/98/a6/8d/98a68d26d4917f1436fba6f68c97e7c3.jpg" alt="Rebrilliant Peyton Pull-Out Pot, Pan & Lid Cabinet Organizer 3.0 H x 2.5 W x 22.25 D in graySteel in Acier | 3" H X 2.5" W X 22.25" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rebrilliant Peyton Pull-Out Pot, Pan & Lid Cabinet Organizer 3.0 H x 2.5 W x 22.25 D in graySteel...</h3>
+                <p>$56.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="20">
+            <input type="checkbox" class="product-checkbox" data-product-index="20"> data-source="Pinterest" data-product-index="20">
+            <a href="https://www.wayfair.com/storage-organization/pdp/bay-isle-home-16-pair-shoe-cabinet-4-tier-shoe-storage-cabinet-with-drawer-and-adjustable-shelves-w110226646.html">
+                <img src="https://i.pinimg.com/originals/af/63/9b/af639b830676e5a3348b270ec4c43727.jpg" alt="16 Pair Shoe Cabinet, 4-tier Shoe Storage Cabinet with Drawer and Adjustable Shelves brownManufactured Wood/Solid Wood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>16 Pair Shoe Cabinet, 4-tier Shoe Storage Cabinet with Drawer and Adjustable Shelves brownManufac...</h3>
+                <p>$175.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="21">
+            <input type="checkbox" class="product-checkbox" data-product-index="21"> data-source="Pinterest" data-product-index="21">
+            <a href="http://www.wayfair.com/5-Drawer-Basket-Kit-62425-CLOP1011.html?refid=SBP.">
+                <img src="https://i.pinimg.com/originals/74/e3/3e/74e33efc224862187e1749d3cc1b6a16.jpg" alt="5-Drawer Wire Basket Organizer Storage Chest 40.0 H x 17.75 W x 21.0 D in whiteMetal">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>5-Drawer Wire Basket Organizer Storage Chest 40.0 H x 17.75 W x 21.0 D in whiteMetal</h3>
+                <p>$182.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="22">
+            <input type="checkbox" class="product-checkbox" data-product-index="22"> data-source="Pinterest" data-product-index="22">
+            <a href="https://www.wayfair.com/Lark-Manor%E2%84%A2--Amarieon-Kitchen-Island-Cart-With-Storage-Rolling-Kitchen-Island-Storage-Cabinet-Side-Table-On-Wheels-With-Worktop-3-Open-Shelves-And-3-Drawers-For-Kitchen-Dinning-Room-X122381468-L56-K~W011270357.html?refid=PSO49B2B-W011270357_1883807671&PiID[]=1883807671">
+                <img src="https://i.pinimg.com/originals/b1/60/01/b16001a318ffc855337c39f382f21ebe.jpg" alt="Lark Manor™ Amarieon Kitchen Island Cart w/ Storage, Rolling Kitchen Island Storage Cabinet, Side Table On Wheels w/ Worktop | 33.3" H X 26.57" W X 15" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Lark Manor™ Amarieon Kitchen Island Cart w/ Storage, Rolling Kitchen Island Storage Cabinet, Side...</h3>
+                <p>$104.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="23">
+            <input type="checkbox" class="product-checkbox" data-product-index="23"> data-source="Pinterest" data-product-index="23">
+            <a href="https://www.wayfair.com/storage-organization/pdp/youcopia-storabag-drawer-food-bag-dispenser-4-slot-plastic-sandwich-bags-organizer-zsnr1050.html">
+                <img src="https://i.pinimg.com/originals/75/a1/3c/75a13ccbd25b52e6aa99cc45b929cd18.jpg" alt="YouCopia® StoraBag™ Drawer Food Bag Dispenser, 4-Slot, Plastic Sandwich Bags Organizer 2.8 H x 10.3 W x 12.0 D in whitePlastic">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>YouCopia® StoraBag™ Drawer Food Bag Dispenser, 4-Slot, Plastic Sandwich Bags Organizer 2.8 H x 10...</h3>
+                <p>$24.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+    </div>
+    
+        <div class="selection-controls" id="selectionControls" style="display: none;">
+            <div class="selection-counter" id="selectionCounter">0 products selected</div>
+            <button class="generate-look-btn" id="generateLookBtn" disabled>Generate AI Look</button>
+            <button class="clear-selection-btn" id="clearSelectionBtn">Clear Selection</button>
+        </div>
+        
+    
+        <script>
+        let selectedProducts = [];
+        const products = [{"grid_title": "Latitude Run\u00ae 18 Pair Shoe Storage Cabinet & Reviews | Wayfair", "display_name": "18 Pair Shoe Storage Cabinet 42.1 H x 35.8 W x 12.6 D in blueBamboo", "images:orig:url": "https://i.pinimg.com/originals/07/fa/dd/07fadd7c68f468485c3b6249fe1c0af9.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/latitude-run-21-pair-shoe-storage-cabinet-w100360700.html", "price": "$106.99", "seo_alt_txt": "18 Pair Shoe Storage Cabinet 42.1 H x 35.8 W x 12.6 D in blueBamboo", "Source": "Pinterest"}, {"grid_title": "Trademark Innovations Slim Slide Out Laundry Cart & Reviews | Wayfair", "display_name": "Slim Slide Out Laundry Cart 28.0 H x 5.0 W x 21.0 D in whitePlastic", "images:orig:url": "https://i.pinimg.com/originals/fe/60/cd/fe60cd87554074c67a58ba0a404e9686.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/trademark-innovations-slim-slide-out-laundry-cart-tqin1293.html?utm_medium=Social&utm_source=Pinterest#2ze3b1qgp16-1", "price": "$29.38", "seo_alt_txt": "Slim Slide Out Laundry Cart 28.0 H x 5.0 W x 21.0 D in whitePlastic", "Source": "Pinterest"}, {"grid_title": "Winston Porter Modern Freestanding Kitchen Cabinet w/ 12 Door Shelves brownWood in Painted Red | 41\" H X 23.5\" W X 11.75\" D | Wayfair", "display_name": "Winston Porter Modern Freestanding Kitchen Cabinet w/ 12 Door Shelves brownWood in Painted Red | 41\" H X 23.5\" W X 11.75\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/bb/53/ce/bb53ced83318bc20ec7926804a0ac615.jpg", "link": "https://www.wayfair.com/Winston-Porter--Modern-Freestanding-Kitchen-Cabinet-with-12-Door-Shelves-X223411628-L161-K~W112300517.html?refid=PSO49B2B-W112300517_757574047&PiID[]=757574047", "price": "$207.99", "seo_alt_txt": "Winston Porter Modern Freestanding Kitchen Cabinet w/ 12 Door Shelves brownWood in Painted Red | 41\" H X 23.5\" W X 11.75\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Rebrilliant 2.63\"H x 14.38\"W x 13.25\"D Drawer Organizer & Reviews | Wayfair", "display_name": "2.63\"H x 14.38\"W x 13.25\"D Drawer Organizer 2.63 H x 14.38 W x 13.25 D in brownPlastic", "images:orig:url": "https://i.pinimg.com/originals/5a/af/fe/5aaffe40e444975cce1d183f47ddf20e.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/rebrilliant-263h-x-1438w-x-1325d-drawer-organizer-w001376386.html?cjevent=ea6e7a93c63c11ec8321a05e0a82b82a&refID=CJ687298-CJ2975314&PID=CJ4441350&clickid=ea6e7a93c63c11ec8321a05e0a82b82a&cjdata=MXxOfDB8WXww", "price": "$17.99", "seo_alt_txt": "2.63\"H x 14.38\"W x 13.25\"D Drawer Organizer 2.63 H x 14.38 W x 13.25 D in brownPlastic", "Source": "Pinterest"}, {"grid_title": "Bekitchen Wood Wall Mounted Laundry Room Organizer & Reviews | Wayfair", "display_name": "Wood Wall Mounted Laundry Room Organizer 6.5 H x 23.0 W x 11.0 D in brown/grayWood", "images:orig:url": "https://i.pinimg.com/originals/65/55/08/6555088ae046f903649937768422075d.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/bekitchen-wood-wall-mounted-laundry-room-organizer-bkit1064.html", "price": "$38.25", "seo_alt_txt": "Wood Wall Mounted Laundry Room Organizer 6.5 H x 23.0 W x 11.0 D in brown/grayWood", "Source": "Pinterest"}, {"grid_title": "IRIS Drawer Plastic Storage Chest with Casters | Wayfair", "display_name": "Drawer Plastic Storage Chest with Casters", "images:orig:url": "https://i.pinimg.com/originals/33/a3/ae/33a3aeadf62289d3861084d1ed39b2d2.jpg", "link": "https://www.wayfair.com/Rebrilliant--Mccoll-Scrapbook-5-Drawer-Storage-Chest-X114619295-L365-K~W003508184.html?refid=GX658058020272-W003508184_61948809&device=m&ptid=941385432876&network=g&targetid=pla-941385432876&channel=GooglePLA&ireid=124808787&fdid=1817&PiID[]=61948809&gbraid=0AAAAAD9ISC5aVmeTEd11212owdflhowMq&gclid=CjwKCAjwv8qkBhAnEiwAkY-ahjlaYzzLz7YCvEBo3rQ4HJuKVJo9SkghSSlUAMqYICeypqBJG5SoKRoCmT4QAvD_BwE", "price": "$47.99", "seo_alt_txt": "Drawer Plastic Storage Chest with Casters", "Source": "Pinterest"}, {"grid_title": "Mercer41 Makeup Organizer, 3-Tier Round Rotating Skincare Organizer Countertop, Customizable, Toiletries Vanity Organizer, Lazy\u2026", "display_name": "Mercer41 Makeup Organizer, 3-Tier Round Rotating Skincare Organizer Countertop, Customizable, Toiletries Vanity Organizer, Lazy\u2026", "images:orig:url": "https://i.pinimg.com/originals/49/f9/ac/49f9acc039136e2d9515aef6bb037f8e.jpg", "link": "https://www.wayfair.com/Mercer41--Makeup-Organizer-3Tier-Round-Rotating-Skincare-Organizer-Countertop-Customizable-Toiletries-Vanity-Organizer-Lazy-Susan-Gift-Cloud-White-X222406895-L7341-K~W111395784.html?refid=PSO49-W111395784", "price": "$72.99", "seo_alt_txt": "Mercer41 Makeup Organizer, 3-Tier Round Rotating Skincare Organizer Countertop, Customizable, Toiletries Vanity Organizer, Lazy\u2026", "Source": "Pinterest"}, {"grid_title": "Rebrilliant Pair Shoe Storage Cabinet 50.0 H x 50.0 W x 12.0 D in white in Frosted White | 48 | Wayfair", "display_name": "Rebrilliant Pair Shoe Storage Cabinet 50.0 H x 50.0 W x 12.0 D in white in Frosted White | 48 | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/d5/04/0f/d5040f9e4a9fdcb5a9ffc70a35ea5ddf.jpg", "link": "https://www.wayfair.com/Rebrilliant--48-Pair-Shoe-Storage-Cabinet-X110377305-L3763-K~W009266294.html?refid=PSO49B2B-W009266294", "price": "$92.99", "seo_alt_txt": "Rebrilliant Pair Shoe Storage Cabinet 50.0 H x 50.0 W x 12.0 D in white in Frosted White | 48 | Wayfair", "Source": "Pinterest"}, {"grid_title": "Ebern Designs 47.2\"H Wood Storage Bookcase with Sliding Door and 3 Removable Drawers & Reviews | Wayfair", "display_name": "47.2\"H Wood Storage Bookcase with Sliding Door and 3 Removable Drawers", "images:orig:url": "https://i.pinimg.com/originals/cc/55/ac/cc55acb6a4932cf117fe2c66dd22d202.jpg", "link": "https://www.wayfair.com/furniture/pdp/ebern-designs-472h-wood-storage-bookcase-with-sliding-door-and-3-removable-drawers-w111760080.html", "price": "$219.99", "seo_alt_txt": "47.2\"H Wood Storage Bookcase with Sliding Door and 3 Removable Drawers", "Source": "Pinterest"}, {"grid_title": "Nixy Children Mysize 51cm W Art Desk & Chair Set 59.0 H x 51.0 W x 58.0 D cm gray, Wood in Grey | 23.23\" H X 20.08\" W X 22.83\" D | Wayfair", "display_name": "Nixy Children Mysize 51cm W Art Desk & Chair Set 59.0 H x 51.0 W x 58.0 D cm gray, Wood | 23.23\" H X 20.08\" W X 22.83\" D", "images:orig:url": "https://i.pinimg.com/originals/aa/df/8c/aadf8c1642731242252ad859ad468278.jpg", "link": "https://www.wayfair.com/Nixy-Children--Mysize-51cm-W-Art-Desk-and-Chair-Set-TC83760GN026-L359-K~CBKC1040.html?refid=PSO49B2B-CBKC1040_50293488&PiID[]=50293488", "price": "$61.99", "seo_alt_txt": "Nixy Children Mysize 51cm W Art Desk & Chair Set 59.0 H x 51.0 W x 58.0 D cm gray, Wood | 23.23\" H X 20.08\" W X 22.83\" D", "Source": "Pinterest"}, {"grid_title": "Dotted Line\u2122 Albie Recycling Bag Cabinet Door Organizer 15.25 H x 8.25 W x 4.25 D in graySteel in Bronze | 15.25\" H X 8.25\" W X 4.25\" D | Wayfair", "display_name": "Dotted Line\u2122 Albie Recycling Bag Cabinet Door Organizer 15.25 H x 8.25 W x 4.25 D in graySteel in Bronze | 15.25\" H X 8.25\" W X 4.25\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/c7/b6/32/c7b632a13be21340c1d6552b98382585.jpg", "link": "https://www.wayfair.com/Dotted-Line%E2%84%A2--Albie-Recycling-Bag-Cabinet-Door-Organizer-X119622873-L903-K~W008511762.html?refid=PSO49B2B-W008511762_706925250&PiID[]=706925250", "price": "$18.99", "seo_alt_txt": "Dotted Line\u2122 Albie Recycling Bag Cabinet Door Organizer 15.25 H x 8.25 W x 4.25 D in graySteel in Bronze | 15.25\" H X 8.25\" W X 4.25\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Rebrilliant Plastic Basket Set | Wayfair", "display_name": "Plastic Basket Set 9.9 H x 17.8 W x 13.0 D in brownPlastic", "images:orig:url": "https://i.pinimg.com/originals/12/b1/52/12b152a58f349f083be93f9d5119db2d.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/rebrilliant-plastic-basket-set-w005093621.html", "price": "$35.99", "seo_alt_txt": "Plastic Basket Set 9.9 H x 17.8 W x 13.0 D in brownPlastic", "Source": "Pinterest"}, {"grid_title": "iDesign Kitchen Binz 10 x 6 x 5 M4 in Clear | Wayfair", "display_name": "iDesign Kitchen Binz 10 x 6 x 5 M4 in Clear | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/0b/f4/63/0bf4634a0d054398baeaf5f1f7dc01a0.jpg", "link": "https://www.wayfair.com/iDesign--Kitchen-Binz-10-x-6-x-5-M4-12106MDK-L1289-K~IDES1847.html?refid=PSO49B2B-IDES1847", "price": "$34.08", "seo_alt_txt": "iDesign Kitchen Binz 10 x 6 x 5 M4 in Clear | Wayfair", "Source": "Pinterest"}, {"grid_title": "Rebrilliant 2-Pack 54 Litre Large Under Bed Storage Box w/ Transparent Lid & Wheels in Gray | 51 quarts | Wayfair", "display_name": "Rebrilliant 2-Pack 54 Litre Large Under Bed Storage Box w/ Transparent Lid & Wheels in Gray | 51 quarts | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/79/3c/60/793c60a396e72b1e8b88e4aab2d19837.jpg", "link": "https://www.wayfair.com/Rebrilliant--2Pack-54-Litre-Large-Under-Bed-Storage-Box-With-Transparent-Lid-And-Wheels-X223981760-L1223-K~W112870659.html?refid=PSO49-W112870659_2040086409&PiID[]=2040086409", "price": "$144.99", "seo_alt_txt": "Rebrilliant 2-Pack 54 Litre Large Under Bed Storage Box w/ Transparent Lid & Wheels in Gray | 51 quarts | Wayfair", "Source": "Pinterest"}, {"grid_title": "Winston Porter Katracy 39.37'' Sideboard Cabinet with RGB LED Lights, Wireless Charging, USB Ports & Motion Sensor & Reviews | Wayfair", "display_name": "Katracy 39.37'' Sideboard Cabinet with RGB LED Lights, Wireless Charging, USB Ports & Motion Sensor", "images:orig:url": "https://i.pinimg.com/originals/cb/6c/73/cb6c739a9459e9d987ccace6fb87b8ab.jpg", "link": "https://www.wayfair.com/furniture/pdp/winston-porter-katracy-3937-sideboard-with-led-light-w100409992.html", "price": "$164.99", "seo_alt_txt": "Katracy 39.37'' Sideboard Cabinet with RGB LED Lights, Wireless Charging, USB Ports & Motion Sensor", "Source": "Pinterest"}, {"grid_title": "21 Tech Solutions 21.25\" H x 15.74\" W Step Bookcase | Wayfair", "display_name": "21 Tech Solutions 21.25\" H x 15.74\" W Step Bookcase 21.25 H x 15.74 W x 11.81 D in brownWood in Yellow | 21.25\" H X 15.74\" W X 11.81\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/2b/f4/db/2bf4db7fcfe39a95357990dcaed1c115.jpg", "link": "https://www.wayfair.com/furniture/pdp/21-tech-solutions-step-bookcase-dchs1694.html", "price": "$349.99", "seo_alt_txt": "21 Tech Solutions 21.25\" H x 15.74\" W Step Bookcase 21.25 H x 15.74 W x 11.81 D in brownWood in Yellow | 21.25\" H X 15.74\" W X 11.81\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "LocknLock Pantry Food Storage Container, 50-Cup, Clear & Reviews | Wayfair", "display_name": "LocknLock Pantry Food Storage Container, 50-Cup, Clear 10.6 H x 13.8 W x 10.6 D in Plastic", "images:orig:url": "https://i.pinimg.com/originals/47/49/25/474925ed07d449e1dd5091d39627f32d.jpg", "link": "https://www.wayfair.com/kitchen-tabletop/pdp/locknlock-pantry-food-storage-container-50-cup-clear-w001853146.html", "price": "$27.95", "seo_alt_txt": "LocknLock Pantry Food Storage Container, 50-Cup, Clear 10.6 H x 13.8 W x 10.6 D in Plastic", "Source": "Pinterest"}, {"grid_title": "The Holiday Aisle\u00ae Storage Cardboard Box | Wayfair", "display_name": "The Holiday Aisle\u00ae Bin", "images:orig:url": "https://i.pinimg.com/originals/b9/72/d9/b972d925ff9449c62d6a78617c067018.jpg", "link": "https://www.wayfair.com/The-Holiday-Aisle%C2%AE--Ribbon-Storage-Cardboard-Box-X114193073-L1223-K~W003082962.html?refid=PSO49-W003082962", "price": "$31.98", "seo_alt_txt": "The Holiday Aisle\u00ae Bin", "Source": "Pinterest"}, {"grid_title": "Hokku Designs 30 Pair Shoe Storage Cabinet | Wayfair", "display_name": "30 Pair Shoe Storage Cabinet 70.9 H x 25.6 W x 12.2 D in whiteSolid Wood/Manufactured Wood", "images:orig:url": "https://i.pinimg.com/originals/cd/f8/fe/cdf8fe7ba42977d3254ed09703322c3d.jpg", "link": "https://www.wayfair.com/Hokku-Designs--30-Pair-Shoe-Storage-Cabinet-X122528302-L3763-K~W011417291.html?refid=GX685106929141-W011417291_1486804637&device=c&ptid=371612945420&network=g&targetid=aud-1616885063259:pla-371612945420&channel=GooglePLA&ireid=241977099&fdid=1817&PiID[]=1486804637&gad_source=4&gclid=CjwKCAjw2Je1BhAgEiwAp3KY79l4J5AN_t2QWfqjQZWPilKsiAqHIllYpWfyfPDX1dnbdor1XwiW2hoCF0AQAvD_BwE", "price": "$189.99", "seo_alt_txt": "30 Pair Shoe Storage Cabinet 70.9 H x 25.6 W x 12.2 D in whiteSolid Wood/Manufactured Wood", "Source": "Pinterest"}, {"grid_title": "Rebrilliant Peyton Pull-Out Pot, Pan & Lid Cabinet Organizer 3.0 H x 2.5 W x 22.25 D in graySteel in Acier | 3\" H X 2.5\" W X 22.25\" D | Wayfair", "display_name": "Rebrilliant Peyton Pull-Out Pot, Pan & Lid Cabinet Organizer 3.0 H x 2.5 W x 22.25 D in graySteel in Acier | 3\" H X 2.5\" W X 22.25\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/98/a6/8d/98a68d26d4917f1436fba6f68c97e7c3.jpg", "link": "https://www.wayfair.com/Rebrilliant--Peyton-PullOut-Pot-Pan-and-Lid-Cabinet-Organizer-X112588040-L903-K~W001477939.html?refid=PSO49B2B-W001477939", "price": "$56.99", "seo_alt_txt": "Rebrilliant Peyton Pull-Out Pot, Pan & Lid Cabinet Organizer 3.0 H x 2.5 W x 22.25 D in graySteel in Acier | 3\" H X 2.5\" W X 22.25\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Bay Isle Home\u2122 16 Pair Shoe Cabinet, 4-tier Shoe Storage Cabinet with Drawer and Adjustable Shelves & Reviews | Wayfair", "display_name": "16 Pair Shoe Cabinet, 4-tier Shoe Storage Cabinet with Drawer and Adjustable Shelves brownManufactured Wood/Solid Wood", "images:orig:url": "https://i.pinimg.com/originals/af/63/9b/af639b830676e5a3348b270ec4c43727.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/bay-isle-home-16-pair-shoe-cabinet-4-tier-shoe-storage-cabinet-with-drawer-and-adjustable-shelves-w110226646.html", "price": "$175.99", "seo_alt_txt": "16 Pair Shoe Cabinet, 4-tier Shoe Storage Cabinet with Drawer and Adjustable Shelves brownManufactured Wood/Solid Wood", "Source": "Pinterest"}, {"grid_title": "ClosetMaid 5-Drawer Wire Basket Organizer Storage Chest & Reviews | Wayfair", "display_name": "5-Drawer Wire Basket Organizer Storage Chest 40.0 H x 17.75 W x 21.0 D in whiteMetal", "images:orig:url": "https://i.pinimg.com/originals/74/e3/3e/74e33efc224862187e1749d3cc1b6a16.jpg", "link": "http://www.wayfair.com/5-Drawer-Basket-Kit-62425-CLOP1011.html?refid=SBP.", "price": "$182.99", "seo_alt_txt": "5-Drawer Wire Basket Organizer Storage Chest 40.0 H x 17.75 W x 21.0 D in whiteMetal", "Source": "Pinterest"}, {"grid_title": "Lark Manor\u2122 Amarieon Kitchen Island Cart w/ Storage, Rolling Kitchen Island Storage Cabinet, Side Table On Wheels w/ Worktop | 33.3\" H X 26.57\" W X 15\" D | Wayfair", "display_name": "Lark Manor\u2122 Amarieon Kitchen Island Cart w/ Storage, Rolling Kitchen Island Storage Cabinet, Side Table On Wheels w/ Worktop | 33.3\" H X 26.57\" W X 15\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/b1/60/01/b16001a318ffc855337c39f382f21ebe.jpg", "link": "https://www.wayfair.com/Lark-Manor%E2%84%A2--Amarieon-Kitchen-Island-Cart-With-Storage-Rolling-Kitchen-Island-Storage-Cabinet-Side-Table-On-Wheels-With-Worktop-3-Open-Shelves-And-3-Drawers-For-Kitchen-Dinning-Room-X122381468-L56-K~W011270357.html?refid=PSO49B2B-W011270357_1883807671&PiID[]=1883807671", "price": "$104.99", "seo_alt_txt": "Lark Manor\u2122 Amarieon Kitchen Island Cart w/ Storage, Rolling Kitchen Island Storage Cabinet, Side Table On Wheels w/ Worktop | 33.3\" H X 26.57\" W X 15\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "YouCopia\u00ae StoraBag\u2122 Drawer Food Bag Dispenser, 4-Slot, Plastic Sandwich Bags Organizer & Reviews | Wayfair", "display_name": "YouCopia\u00ae StoraBag\u2122 Drawer Food Bag Dispenser, 4-Slot, Plastic Sandwich Bags Organizer 2.8 H x 10.3 W x 12.0 D in whitePlastic", "images:orig:url": "https://i.pinimg.com/originals/75/a1/3c/75a13ccbd25b52e6aa99cc45b929cd18.jpg", "link": "https://www.wayfair.com/storage-organization/pdp/youcopia-storabag-drawer-food-bag-dispenser-4-slot-plastic-sandwich-bags-organizer-zsnr1050.html", "price": "$24.99", "seo_alt_txt": "YouCopia\u00ae StoraBag\u2122 Drawer Food Bag Dispenser, 4-Slot, Plastic Sandwich Bags Organizer 2.8 H x 10.3 W x 12.0 D in whitePlastic", "Source": "Pinterest"}];
+        
+        // Product selection functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            const selectionControls = document.getElementById('selectionControls');
+            const selectionCounter = document.getElementById('selectionCounter');
+            const generateLookBtn = document.getElementById('generateLookBtn');
+            const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+            const sourceFilter = document.getElementById('sourceFilter');
+            
+            // Handle checkbox changes
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const productIndex = parseInt(this.dataset.productIndex);
+                    const productItem = this.closest('.product-item');
+                    
+                    if (this.checked) {
+                        selectedProducts.push(productIndex);
+                        productItem.classList.add('selected');
+                    } else {
+                        const index = selectedProducts.indexOf(productIndex);
+                        if (index > -1) {
+                            selectedProducts.splice(index, 1);
+                        }
+                        productItem.classList.remove('selected');
+                    }
+                    
+                    updateSelectionUI();
+                });
+            });
+            
+            // Update selection UI
+            function updateSelectionUI() {
+                const count = selectedProducts.length;
+                selectionCounter.textContent = `${count} product${count !== 1 ? 's' : ''} selected`;
+                
+                if (count >= 3) {
+                    selectionControls.style.display = 'block';
+                    generateLookBtn.disabled = false;
+                    generateLookBtn.textContent = `Generate AI Look (${count} products)`;
+                } else if (count > 0) {
+                    selectionControls.style.display = 'block';
+                    generateLookBtn.disabled = true;
+                    generateLookBtn.textContent = `Select at least 3 products (${count}/3)`;
+                } else {
+                    selectionControls.style.display = 'none';
+                }
+            }
+            
+            // Clear selection
+            clearSelectionBtn.addEventListener('click', function() {
+                selectedProducts = [];
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                document.querySelectorAll('.product-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                updateSelectionUI();
+            });
+            
+            // Generate look
+            generateLookBtn.addEventListener('click', function() {
+                if (selectedProducts.length < 3) {
+                    alert('Please select at least 3 products to create a look');
+                    return;
+                }
+                
+                const selectedProductData = selectedProducts.map(index => products[index]);
+                
+                // Show loading state
+                generateLookBtn.textContent = 'Generating...';
+                generateLookBtn.disabled = true;
+                
+                // Send to server
+                fetch('/generate_look', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        products: selectedProductData,
+                        landing_page_name: 'Storage-Hacks.html'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Look generated successfully! Redirecting to view it...');
+                        window.location.href = data.look_url;
+                    } else {
+                        alert('Error generating look: ' + data.error);
+                        generateLookBtn.textContent = 'Generate AI Look';
+                        generateLookBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error generating look. Please try again.');
+                    generateLookBtn.textContent = 'Generate AI Look';
+                    generateLookBtn.disabled = false;
+                });
+            });
+            
+            // Source filter functionality
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                const productItems = document.querySelectorAll('.product-item');
+                
+                productItems.forEach(item => {
+                    const source = item.dataset.source;
+                    if (selectedSource === 'all' || source === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        </script>
+        
+</body>
+</html>

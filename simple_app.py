@@ -434,6 +434,11 @@ def auto_scrape():
     flash('Auto scrape functionality coming soon!', 'info')
     return redirect(url_for('home'))
 
+def encode_image(file_path):
+    with open(file_path, "rb") as f:
+        base64_image = base64.b64encode(f.read()).decode("utf-8")
+    return base64_image
+
 @app.route('/generate_hero_image', methods=['POST'])
 def generate_hero_image():
     """Generate a hero image using ChatGPT API with selected products"""
@@ -464,15 +469,6 @@ def generate_hero_image():
         
         print("🔑 OpenAI API key found")
         
-        # Debug: Log all environment variables that might affect OpenAI client
-        print("🔍 Environment variables before clearing proxies:")
-        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
-        for var in proxy_vars:
-            if var in os.environ:
-                print(f"  {var}: {os.environ[var]}")
-            else:
-                print(f"  {var}: Not set")
-        
         # Clear any proxy environment variables that might cause issues
         proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
         for var in proxy_vars:
@@ -480,28 +476,16 @@ def generate_hero_image():
                 print(f"🗑️ Clearing {var}")
                 del os.environ[var]
         
-        print("🔍 Environment variables after clearing proxies:")
-        for var in proxy_vars:
-            if var in os.environ:
-                print(f"  {var}: {os.environ[var]}")
-            else:
-                print(f"  {var}: Not set")
-        
-        # Try to initialize OpenAI client with explicit error handling
+        # Initialize OpenAI client with custom HTTP client
         try:
             print("🚀 Initializing OpenAI client...")
-            
-            # Import httpx to create a custom client without proxy settings
             import httpx
             
-            # Create a custom HTTP client without any proxy configuration
             custom_http_client = httpx.Client(
                 timeout=httpx.Timeout(30.0),
-                # Explicitly set no proxies
                 proxies=None
             )
             
-            # Initialize OpenAI client with custom HTTP client
             client = openai.OpenAI(
                 api_key=api_key,
                 http_client=custom_http_client
@@ -509,15 +493,12 @@ def generate_hero_image():
             print("✅ OpenAI client initialized successfully")
         except Exception as client_error:
             print(f"❌ Error initializing OpenAI client: {client_error}")
-            print(f"❌ Error type: {type(client_error)}")
-            import traceback
-            print(f"❌ Full traceback: {traceback.format_exc()}")
             return jsonify({'success': False, 'error': f'OpenAI client initialization failed: {str(client_error)}'})
         
-        # Generate the image using DALL-E 3
+        # Generate the image using the correct API
         print("🎨 Calling OpenAI API...")
         
-        # Create a detailed prompt for DALL-E 3
+        # Create a detailed prompt
         dalle_prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these products together in a cohesive, stylish look.
 
 Products to include in the scene:
@@ -532,35 +513,75 @@ Requirements:
 - Warm, inviting lighting
 - Modern, elegant aesthetic
 - 1:1 aspect ratio, landscape orientation"""
+
+        # Prepare content with text and product images
+        content = [{"type": "input_text", "text": dalle_prompt}]
         
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=dalle_prompt,
-            n=1,
-            size="1024x1024",
-            quality="hd",
-            style="natural"
+        # Add product images as reference images (up to 4 products)
+        for i, product in enumerate(products[:4]):
+            image_url = product.get('image_url', '')
+            if image_url:
+                try:
+                    # Download the product image
+                    response = requests.get(image_url)
+                    if response.status_code == 200:
+                        # Save temporarily to encode
+                        temp_image_path = f"temp_product_{i}.jpg"
+                        with open(temp_image_path, "wb") as f:
+                            f.write(response.content)
+                        
+                        # Encode the image
+                        base64_image = encode_image(temp_image_path)
+                        
+                        # Add to content
+                        content.append({
+                            "type": "input_image",
+                            "image_url": f"data:image/jpeg;base64,{base64_image}",
+                        })
+                        
+                        # Clean up temp file
+                        os.remove(temp_image_path)
+                except Exception as e:
+                    print(f"Error processing product image {i}: {e}")
+                    continue
+        
+        # Use the correct API call
+        response = client.responses.create(
+            model="gpt-4.1",
+            input=[
+                {
+                    "role": "user",
+                    "content": content,
+                }
+            ],
+            tools=[{"type": "image_generation"}],
         )
         
         print("✅ API call successful!")
         
-        # Extract the generated image URL
-        image_url = response.data[0].url
-        print(f"🖼️ Generated image received: {image_url}")
+        # Extract image data from response
+        image_generation_calls = [
+            output
+            for output in response.output
+            if output.type == "image_generation_call"
+        ]
+        
+        image_data = [output.result for output in image_generation_calls]
+        
+        if not image_data:
+            raise Exception("No image generated")
         
         # Create images directory if it doesn't exist
         os.makedirs('static/generated_images', exist_ok=True)
         
-        # Save the image
-        filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
+        # Save the generated image
+        filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
         filepath = os.path.join('static/generated_images', filename)
         
-        # Download the image
-        image_response = requests.get(image_url)
-        image_response.raise_for_status()
-        
-        with open(filepath, 'wb') as f:
-            f.write(image_response.content)
+        # Decode and save the base64 image data
+        image_base64 = image_data[0]
+        with open(filepath, "wb") as f:
+            f.write(base64.b64decode(image_base64))
         
         print(f"💾 Saved image to: {filepath}")
         

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dopamine Decor - Pinterest & Google Products</title>
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Dopamine Decor</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="container">
+        <div class="product-grid">
+            
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Brayden-Studio%C2%AE--Bianeth-Wall-D%C3%A9cor-X211530810-L6851-K~W100429709.html?refid=GX655955684298-W100429709&device=c&ptid=2177740022839&network=g&targetid=aud-356699937033:pla-2177740022839&channel=GooglePLA&ireid=252335430&fdid=1817&gad_source=1&gclid=Cj0KCQiAsburBhCIARIsAExmsu7g487nRQ_CqOWxiFIB3gtKmk4KaUcjhQ5AYlW2Iy9YVHEGLymNn0MaAntgEALw_wcB">
+                <img src="https://i.pinimg.com/originals/fd/a3/d2/fda3d25135eebc6b36d58595925d3822.jpg" alt="Bianeth Wall Décor 35.0 H x 59.0 W x 3.0 D in orange/yellowFabric">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bianeth Wall Décor 35.0 H x 59.0 W x 3.0 D in orange/yellowFabric</h3>
+                <p>$153.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Art-Remedy--Colorful-Daybreak-II-Set-Canvas-Dopamine-Decor-by-Art-Remedy-70175__NLC-L1318-K~REMD8524.html?refid=PSO49-REMD8524_112403064_112403069&PiID[]=112403064&PiID[]=112403069">
+                <img src="https://i.pinimg.com/originals/b8/f6/2b/b8f62b8c4ebad4e7f8a2cf9717c107fe.jpg" alt="Colorful Daybreak II Set Canvas Dopamine Decor by Art Remedy Canvas in Wrapped Canvas | 10" H x 15" W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Colorful Daybreak II Set Canvas Dopamine Decor by Art Remedy Canvas in Wrapped Canvas | 10" H x 1...</h3>
+                <p>$88.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/East-Urban-Home--Spacy-Dimensions-9-Wall-Mirror-EBIE3077-L41-K~EBIE3077.html?refid=PINTO49-EBIE3077_40101999&PiID[]=40101999">
+                <img src="https://i.pinimg.com/originals/bd/03/cc/bd03cc4090e082cf9fa636148f347520.jpg" alt="Spacy Dimensions 9 Wall Mirror">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Spacy Dimensions 9 Wall Mirror</h3>
+                <p>$162.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/rugs/pdp/well-woven-apollo-botanical-birds-ushak-multi-modern-floral-flat-pile-rug-xtbs3572.html?piid=96269841">
+                <img src="https://i.pinimg.com/originals/c9/60/f6/c960f646f3e8c1dd5e6962db7e8ece90.jpg" alt="Shanea Botanical Birds Ushak Multi Modern Floral Flat-Pile Rug 156.0 H x 118.0 W x 0.1 D in bluePolyester">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Shanea Botanical Birds Ushak Multi Modern Floral Flat-Pile Rug 156.0 H x 118.0 W x 0.1 D in blueP...</h3>
+                <p>$512.52</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/furniture/pdp/ebern-designs-lansing-403-h-x-245-w-standard-bookcase-w006111698.html?piid=1138249081">
+                <img src="https://i.pinimg.com/originals/68/39/91/683991a0195829e4d18752bb4731614d.jpg" alt="Lansing 40.3" H x 24.5" W Standard Bookcase 40.3 H x 24.5 W x 9.5 D in pinkWood/Manufactured Wood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Lansing 40.3" H x 24.5" W Standard Bookcase 40.3 H x 24.5 W x 9.5 D in pinkWood/Manufactured Wood</h3>
+                <p>$57.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Wrought-Studio%E2%84%A2--Ifza-Plastic-Pedestal-Coffee-Table-X221283391-L441-K~W110172280.html?refid=PSO49-W110172280">
+                <img src="https://i.pinimg.com/originals/66/64/c0/6664c097a689f6ca63966fe11ae881a5.jpg" alt="Ifza Plastic Pedestal Coffee Table 29.9 H x 23.6 W x 23.6 D in blue/brown/pinkPlastic / Acrylic/Wood">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Ifza Plastic Pedestal Coffee Table 29.9 H x 23.6 W x 23.6 D in blue/brown/pinkPlastic / Acrylic/Wood</h3>
+                <p>$169.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/east-urban-home-floral-purple-3d-lotus-exotic-flower-graphic-art-print-on-wrapped-canvas-etuc2683.html">
+                <img src="https://i.pinimg.com/originals/33/d1/5e/33d15e6a58c45a4b9920b1bcebcdf4dd.jpg" alt="" Purple 3D Lotus Exotic Flower "">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>" Purple 3D Lotus Exotic Flower "</h3>
+                <p>$34.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Ivy-Bronx---Multicolor-Swirly-Clouds-I-3-Pieces-on-Canvas-X221016289-L1318-K~W110905178.html?refid=PSO49B2B-W110905178_193240641_193240647&PiID[]=193240641&PiID[]=193240647">
+                <img src="https://i.pinimg.com/originals/d2/e4/25/d2e4251943621303450a1604153b5e3f.jpg" alt="Ivy Bronx " Multicolor Swirly Clouds I " 3 - Pieces on Canvas 32.0 H x 48.0 W x 1.0 D in Metal">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Ivy Bronx " Multicolor Swirly Clouds I " 3 - Pieces on Canvas 32.0 H x 48.0 W x 1.0 D in Metal</h3>
+                <p>$89.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/rugs/pdp/bungalow-rose-blokzijl-hand-tufted-wool-multi-colored-area-rug-bngl8243.html">
+                <img src="https://i.pinimg.com/originals/ea/11/1b/ea111b80324b8259ca23cb6fc44657b7.jpg" alt="Blokzijl Hand Tufted Wool Oriental Rug">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Blokzijl Hand Tufted Wool Oriental Rug</h3>
+                <p>$129.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Harper-Orchard--Oteri-Bunny-Rabbit-Step-Stool-X110955822-L7275-K~W009844711.html?refid=PSO49-W009844711">
+                <img src="https://i.pinimg.com/originals/f2/b0/25/f2b025fab841ac6456e20979bf2942e0.jpg" alt="Oteri Bunny Rabbit Step Stool 12.0 H x 12.0 W x 12.0 D in">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Oteri Bunny Rabbit Step Stool 12.0 H x 12.0 W x 12.0 D in</h3>
+                <p>$79.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Wrought-Studio%E2%84%A2--Multicolor-Op-Art-Spectral-Mirage-I-Op-Art-Wall-Decor-X221609210-L1318-K~W110598109.html?refid=PSO49-W110598109_738245067_738245068&PiID[]=738245067&PiID[]=738245068">
+                <img src="https://i.pinimg.com/originals/8d/63/c4/8d63c47c51befab8c355b4479b34bde2.jpg" alt="Wrought Studio™ Multicolor Op Art Spectral Mirage I - Op Art Wall Decor 24.0 H x 24.0 W x 1.0 D in Canvas, Cotton in Gold Float…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Wrought Studio™ Multicolor Op Art Spectral Mirage I - Op Art Wall Decor 24.0 H x 24.0 W x 1.0 D i...</h3>
+                <p>$73.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Deny-Designs--Three-of-the-Possessed-Credenza-17015cregol-L161-K~NDY18950.html?refid=PINTO49-NDY18950&item_group_id=NDY18950">
+                <img src="https://i.pinimg.com/originals/e8/7a/7f/e87a7f914ba3231c2b15cc083075059b.jpg" alt="Babyboy 38'' Sideboard">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Babyboy 38'' Sideboard</h3>
+                <p>$1179.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Trinx--Tiger-Bathtub-Vibrant-Dopamine-Decor-by-Honey-Island-Studio-Framed-Canvas-Wall-Art-X224849223-L1318-K~W113738112.html?refid=PSO49-W113738112">
+                <img src="https://i.pinimg.com/originals/0f/63/f7/0f63f7c03e67e482da2e8f40b167685c.jpg" alt="Trinx Tiger Bathtub Vibrant Dopamine Decor by Honey Island Studio Framed Canvas Wall Art Canvas in White | 24.00" H X 18.00" W …">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Trinx Tiger Bathtub Vibrant Dopamine Decor by Honey Island Studio Framed Canvas Wall Art Canvas i...</h3>
+                <p>$71.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Bold-Monkey--Figurine-Coffee-Table-BM23032-L441-K~HYSG1217.html?refid=PSO49B2B-HYSG1217_97700254&PiID[]=97700254">
+                <img src="https://i.pinimg.com/originals/87/02/be/8702beceb9eb9cda76d7d20a9808ec10.jpg" alt="Bold Monkey Figurine Coffee Table 16.54 H x 35.43 W x 15.75 D in Pink | 16.54" H X 35.43" W X 15.75" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bold Monkey Figurine Coffee Table 16.54 H x 35.43 W x 15.75 D in Pink | 16.54" H X 35.43" W X 15....</h3>
+                <p>$1962</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/August-Grove%C2%AE--Colorful-Butterfly-1-Insects-and-Bugs-Wall-Art-X222310909-L1318-K~W111209898.html?refid=PSO49-W111209898_961383952_961383959&PiID[]=961383952&PiID[]=961383959">
+                <img src="https://i.pinimg.com/originals/6d/51/fe/6d51fe6340319b50fcbf5e14f67a6b45.jpg" alt="August Grove® Colorful Butterfly 1 - Insects & Bugs Wall Art 36.0 H x 36.0 W x 1.0 D in pink/blue/whiteCanvas, Cotton in Gold S…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>August Grove® Colorful Butterfly 1 - Insects & Bugs Wall Art 36.0 H x 36.0 W x 1.0 D in pink/blue...</h3>
+                <p>$116.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Lark-Manor%E2%84%A2--Gentle-Floral-Sunburst-Canvas-Print-X224036252-L1318-K~W113925141.html?refid=PSO49-W113925141_1193060800_1197476869&PiID[]=1193060800&PiID[]=1197476869">
+                <img src="https://i.pinimg.com/originals/01/e1/a3/01e1a33f3a562387de94dfc3fcb1ae75.jpg" alt="Lark Manor™ Gentle Floral Sunburst Canvas Print Canvas in Wrapped Canvas | 24.75" H x 36.75" W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Lark Manor™ Gentle Floral Sunburst Canvas Print Canvas in Wrapped Canvas | 24.75" H x 36.75" W | ...</h3>
+                <p>$94.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/lighting/pdp/charlton-home-mikac-175-table-lamp-w005485680.html">
+                <img src="https://i.pinimg.com/originals/c3/20/09/c320093904311508e89b9f483c8e4b04.jpg" alt="Mikac Glass Table Lamp">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Mikac Glass Table Lamp</h3>
+                <p>$46</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Design-Art--Multicolor-Swirly-Clouds-II-3-Piece-Wrapped-Canvas-Print-PT569223P-L1318-K~CBOQ1428.html?refid=PSO49-CBOQ1428_87918968&PiID[]=87918968">
+                <img src="https://i.pinimg.com/originals/05/2c/f9/052cf9b7984596bbc0772c83ab38ece0.jpg" alt="Design Art Multicolor Swirly Clouds II - 3 Piece Wrapped Canvas Print 28.0 H x 36.0 W x 1.0 D in whiteCanvas in Green;pink | 28…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Design Art Multicolor Swirly Clouds II - 3 Piece Wrapped Canvas Print 28.0 H x 36.0 W x 1.0 D in ...</h3>
+                <p>$82.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/JINXI--Dopamine-Style-Sofa-Towel-All-Season-Universal-Anti-Cat-Scratch-Sofa-Cover-JINXI-L797-K~CNXI1971.html?refid=PSO49B2B-CNXI1971_112852425&PiID[]=112852425">
+                <img src="https://i.pinimg.com/originals/09/87/cf/0987cfa3deda0e8b5b4c751ce2fd097d.jpg" alt="JINXI Dopamine Style Sofa Towel, All Season Universal Anti Cat Scratch Sofa Cover in Pink | 0.07" H x 70.86" W x 133.85" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>JINXI Dopamine Style Sofa Towel, All Season Universal Anti Cat Scratch Sofa Cover in Pink | 0.07"...</h3>
+                <p>$239.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/east-urban-home-garland-sweet-traditional-frameless-accent-mirror-ebid9953.html?piid=40086035&experiencetype=2&selectedvertical=3">
+                <img src="https://i.pinimg.com/originals/aa/a9/00/aaa900d5bc5fb5260b7effc9fa2cfb00.jpg" alt="Garland Sweet Traditional Frameless Accent Mirror 24.0 H x 32.0 W x 0.24 D in brown/pinkMetal">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Garland Sweet Traditional Frameless Accent Mirror 24.0 H x 32.0 W x 0.24 D in brown/pinkMetal</h3>
+                <p>$162.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Everly-Quinn--Gold-Wall-Sculpture-Wall-Mount-Hands-Sculpture-Vases-Figurines-and-Sculptures-X223600530-L6851-K~W112599429.html?refid=GX712337417192-W112599429&device=c&ptid=2441294025327&network=g&targetid=pla-2441294025327&channel=GooglePLA&ireid=315550922&fdid=1817&gad_source=1&gad_campaignid=15284866713&gbraid=0AAAAAD9ISC7Xg0QARAYnXKbDsysVVVxZo&gclid=CjwKCAjwl_XBBhAUEiwAWK2hznNjmt00Zodq98XdMKpVmbFO_ZKC4PTzDUsruIzscXyLIX6SLkzL8BoCv-IQAvD_BwE">
+                <img src="https://i.pinimg.com/originals/12/c9/b3/12c9b3cd9603e2b3395b4fd99ee4c987.jpg" alt="Gold Wall Sculpture,Wall Mount Hands Sculpture Vases,Figurines & Sculptures  yellowGlass">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Gold Wall Sculpture,Wall Mount Hands Sculpture Vases,Figurines & Sculptures  yellowGlass</h3>
+                <p>$138.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Bungalow-Rose---Modern-Metal-Wall-D%C3%A9cor-X211277401-L1318-K~W100166390.html?refid=PSO49-W100166390_1814203521&PiID[]=1814203521">
+                <img src="https://i.pinimg.com/originals/9a/b2/81/9ab28177eaaae67c7d10da175449f5d5.jpg" alt="Bungalow Rose - Modern Metal Wall Décor 32.0 H x 16.0 W x 1.0 D in Metal">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bungalow Rose - Modern Metal Wall Décor 32.0 H x 16.0 W x 1.0 D in Metal</h3>
+                <p>$84.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest">
+            <a href="https://www.wayfair.com/Wynwood-Studio--Too-Glam-II-On-Canvas-by-Wynwood-Studio-Print-49770_-L1318-K~XBZC7849.html?refid=PSO49-XBZC7849_89017401&PiID[]=89017401">
+                <img src="https://i.pinimg.com/originals/eb/62/43/eb624348f7e3851d2b8ffd6a004ba1b9.jpg" alt="Too Glam II On Canvas by Wynwood Studio Print 54.0 H x 36.0 W x 1.5 D in white/brownCanvas in Blue;pink | Wayfa…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Too Glam II On Canvas by Wynwood Studio Print 54.0 H x 36.0 W x 1.5 D in white/brownCanvas in Blu...</h3>
+                <p>$179.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart icon functionality
+            const heartIcons = document.querySelectorAll('.heart-icon');
+            heartIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                });
+            });
+            
+            // Filter functionality
+            const sourceFilter = document.getElementById('sourceFilter');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                
+                productItems.forEach(item => {
+                    const itemSource = item.getAttribute('data-source');
+                    if (selectedSource === 'all' || itemSource === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

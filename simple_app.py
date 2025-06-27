@@ -464,14 +464,41 @@ def generate_hero_image():
         
         print("🔑 OpenAI API key found")
         
+        # Debug: Log all environment variables that might affect OpenAI client
+        print("🔍 Environment variables before clearing proxies:")
+        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
+        for var in proxy_vars:
+            if var in os.environ:
+                print(f"  {var}: {os.environ[var]}")
+            else:
+                print(f"  {var}: Not set")
+        
         # Clear any proxy environment variables that might cause issues
         proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
         for var in proxy_vars:
             if var in os.environ:
+                print(f"🗑️ Clearing {var}")
                 del os.environ[var]
         
-        # Initialize OpenAI client without any proxy configuration
-        client = openai.OpenAI(api_key=api_key)
+        print("🔍 Environment variables after clearing proxies:")
+        for var in proxy_vars:
+            if var in os.environ:
+                print(f"  {var}: {os.environ[var]}")
+            else:
+                print(f"  {var}: Not set")
+        
+        # Try to initialize OpenAI client with explicit error handling
+        try:
+            print("🚀 Initializing OpenAI client...")
+            # Initialize OpenAI client without any proxy configuration
+            client = openai.OpenAI(api_key=api_key)
+            print("✅ OpenAI client initialized successfully")
+        except Exception as client_error:
+            print(f"❌ Error initializing OpenAI client: {client_error}")
+            print(f"❌ Error type: {type(client_error)}")
+            import traceback
+            print(f"❌ Full traceback: {traceback.format_exc()}")
+            return jsonify({'success': False, 'error': f'OpenAI client initialization failed: {str(client_error)}'})
         
         # Create the prompt
         product_names = [p['title'][:50] for p in products[:3]]

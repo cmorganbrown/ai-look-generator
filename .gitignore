@@ -70,5 +70,8 @@ generated_images/*.jpeg
 # Keep directories but ignore generated images
 !generated_images/.gitkeep
 
+# Local backups (not deployed)
+backups/
+
 # Keep all data files for persistence across deployments
 # uploads/, landing_pages/, and looks/ directories are now tracked 

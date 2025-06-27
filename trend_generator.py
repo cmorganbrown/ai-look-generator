@@ -26,10 +26,10 @@ class TrendLandingPageGenerator:
     def create_landing_page(self, search_term, pinterest_file=None, google_file=None):
         """Create a landing page for a specific search term"""
         
-        # Always look in scraped_data/ if only a filename is provided
+        # Always look in uploads/ if only a filename is provided
         def resolve_path(file):
             if file and not os.path.isabs(file) and not os.path.exists(file):
-                candidate = os.path.join('scraped_data', file)
+                candidate = os.path.join('uploads', file)
                 if os.path.exists(candidate):
                     return candidate
             return file
@@ -82,10 +82,10 @@ class TrendLandingPageGenerator:
     def get_product_data(self, search_term, pinterest_file=None, google_file=None):
         """Get parsed product data without generating HTML"""
         
-        # Always look in scraped_data/ if only a filename is provided
+        # Always look in uploads/ if only a filename is provided
         def resolve_path(file):
             if file and not os.path.isabs(file) and not os.path.exists(file):
-                candidate = os.path.join('scraped_data', file)
+                candidate = os.path.join('uploads', file)
                 if os.path.exists(candidate):
                     return candidate
             return file
@@ -692,11 +692,8 @@ class TrendLandingPageGenerator:
             source = product.get('Source', 'Unknown')
             product_html = self.generate_product_html(product)
             # Add checkbox and data attributes for selection
-            product_html = product_html.replace('<div class="product-item">', 
-                f'<div class="product-item" data-source="{source}" data-product-index="{i}">')
-            # Add checkbox after the opening div
             checkbox_html = f'<input type="checkbox" class="product-checkbox" data-product-index="{i}">'
-            product_html = product_html.replace('<div class="product-item"', 
+            product_html = product_html.replace('<div class="product-item">', 
                 f'<div class="product-item" data-source="{source}" data-product-index="{i}">\n            {checkbox_html}')
             products_html += product_html
         
@@ -760,11 +757,11 @@ class TrendLandingPageGenerator:
                 if (count >= 3) {{
                     selectionControls.style.display = 'block';
                     generateLookBtn.disabled = false;
-                    generateLookBtn.textContent = `Generate AI Look (${count} products)`;
+                    generateLookBtn.textContent = `Generate AI Look (${{count}} products)`;
                 }} else if (count > 0) {{
                     selectionControls.style.display = 'block';
                     generateLookBtn.disabled = true;
-                    generateLookBtn.textContent = `Select at least 3 products (${count}/3)`;
+                    generateLookBtn.textContent = `Select at least 3 products (${{count}}/3)`;
                 }} else {{
                     selectionControls.style.display = 'none';
                 }}

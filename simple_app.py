@@ -101,14 +101,16 @@ def upload_and_generate():
         if 'pinterest_file' in request.files and request.files['pinterest_file'].filename:
             file = request.files['pinterest_file']
             if file.filename.endswith('.json') or file.filename.endswith('.html'):
-                pinterest_file = f"{search_term.lower().replace(' ', '_')}_pinterest{os.path.splitext(file.filename)[1]}"
-                file.save(os.path.join('uploads', pinterest_file))
+                pinterest_filename = f"{search_term.lower().replace(' ', '_')}_pinterest{os.path.splitext(file.filename)[1]}"
+                pinterest_file = os.path.join('uploads', pinterest_filename)
+                file.save(pinterest_file)
         
         if 'google_file' in request.files and request.files['google_file'].filename:
             file = request.files['google_file']
             if file.filename.endswith('.html'):
-                google_file = f"{search_term.lower().replace(' ', '_')}_google.html"
-                file.save(os.path.join('uploads', google_file))
+                google_filename = f"{search_term.lower().replace(' ', '_')}_google.html"
+                google_file = os.path.join('uploads', google_filename)
+                file.save(google_file)
         
         # Generate landing page
         generator = TrendLandingPageGenerator()

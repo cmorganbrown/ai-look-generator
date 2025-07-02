@@ -466,7 +466,7 @@ def generate_hero_image():
         client = OpenAI(api_key=api_key)
         # Build prompt text
         product_titles = [p["title"] for p in products[:3]]
-        prompt = "Create a beautiful, lifestyle shoppable scene that showcases these 3 products together in a cohesive, stylish look.\n"
+        prompt = "Create a beautiful, lifestyle shoppable scene that showcases these 3 products together in a cohesive, stylish look. The image should be square (1:1 aspect ratio) with professional photography styling.\n"
         for i, t in enumerate(product_titles):
             prompt += f"{i+1}. {t}\n"
         # Assemble content list

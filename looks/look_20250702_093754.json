@@ -1,0 +1,40 @@
+{
+  "id": "look_20250702_093754",
+  "name": "Powder Room Look",
+  "landing_page": "Powder Room",
+  "products": [
+    {
+      "id": "product-3",
+      "description": "Diamond 24'' Single Bathroom Vanity with Top",
+      "image_url": "https://i.pinimg.com/originals/c6/2c/44/c62c4482553b30a7098c40dac96bccbd.jpg",
+      "price": "$1259.5",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Diamond 24'' Single Bathroom Vanity with Top",
+      "url": "https://www.wayfair.com/home-improvement/pdp/bemma-diamond-24-bathroom-vanity-set-klzl1151.html"
+    },
+    {
+      "id": "product-6",
+      "description": "Corrigan Studio\u00ae Saihou Speckle 33' L x 27.5\" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/6d/9d/43/6d9d436dfd660b50858f75c9f19bb6f7.jpg",
+      "price": "$99.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Corrigan Studio\u00ae Saihou Speckle 33' L x 27.5\" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair",
+      "url": "https://www.wayfair.com/Corrigan-Studio%C2%AE--Saihou-Speckle-33-L-x-27.5-W-Wallpaper-Roll-X111630938-L6161-K~W000529827.html?refid=PSO49B2B-W000529827_971191298&PiID[]=971191298"
+    },
+    {
+      "id": "product-18",
+      "description": "Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49\" H X 11.81\" W X 6.3\" D | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/a6/0f/a8/a60fa875dcb6e113fe469dead3344d9a.jpg",
+      "price": "$509.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49\" H X 11.81\" W X 6.3\" D | Wayfair",
+      "url": "https://www.wayfair.com/Bloomsbury-Market--Atrice-Gold-Wall-Sconce-X221801084-L6117-K~W110790973.html?refid=PSO49B2B-W110790973_955847328_1000607519&PiID[]=955847328&PiID[]=1000607519"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-07-02T13:37:54.478Z",
+  "image_url": "/static/generated_images/hero_look_20250702_093754_20250702_093915.jpg"
+}

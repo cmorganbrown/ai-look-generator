@@ -1,0 +1,40 @@
+{
+  "id": "look_20250627_141235",
+  "name": "Powder Room Look",
+  "landing_page": "Powder Room",
+  "products": [
+    {
+      "id": "product-11",
+      "description": "Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69\" H x 51.18\" W x 19.69\" D | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/bf/c4/ba/bfc4babf4f0278778e305e6383be0bb3.jpg",
+      "price": "$2169.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69\" H x 51.18\" W x 19.69\" D | Wayfair",
+      "url": "https://www.wayfair.com/Backop--French-retro-style-minimalist-bathroom-cabinet-WBY-L3764-K~BCKU1849.html?refid=PSO49B2B-BCKU1849_111882787_111882790&PiID[]=111882787&PiID[]=111882790"
+    },
+    {
+      "id": "product-19",
+      "description": "Ulah 3 - Light Dimmable Vanity Light",
+      "image_url": "https://i.pinimg.com/originals/1a/c6/b4/1ac6b45d225d89529180bb882084e37c.jpg",
+      "price": "$209.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Ulah 3 - Light Vanity Light 6.5 H x 23.6 W x 8.0 D in yellowGlass",
+      "url": "https://www.wayfair.com/Mercer41--Ulah-3-Light-Vanity-Light-X221364693-L6116-K~W110253582.html?refid=PSO49-W110253582"
+    },
+    {
+      "id": "product-17",
+      "description": "FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0\" L x 24.0\" W x 0.25\" H | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/ce/7d/5d/ce7d5d4514320989c647a968714f4ee5.jpg",
+      "price": "$149.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0\" L x 24.0\" W x 0.25\" H | Wayfair",
+      "url": "https://www.wayfair.com/FromPlainToBeautifulInHours--Shanko-2-ft.-x-2-ft.-DropIn-Tin-Ceiling-Tile-SKPC204gn24x24D6-L7160-K~FPTB1762.html?refid=PSO49B2B-FPTB1762_74555152&PiID[]=74555152"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-06-27T18:12:35.621Z",
+  "image_url": "/static/placeholder_look.jpg"
+}

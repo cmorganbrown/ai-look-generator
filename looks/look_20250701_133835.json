@@ -1,0 +1,40 @@
+{
+  "id": "look_20250701_133835",
+  "name": "Bedding Inspo Look",
+  "landing_page": "Bedding Inspo",
+  "products": [
+    {
+      "id": "product-3",
+      "description": "Linen Blend Bed Canopy",
+      "image_url": "https://i.pinimg.com/originals/30/83/8e/30838e8cea4ba7d27089a55136a17266.jpg",
+      "price": "$36.98",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Make It Real Linen Blend Bed Canopy | Wayfair",
+      "url": "https://www.wayfair.com/home/pdp/make-it-real-linen-blend-bed-canopy-mkei1039.html"
+    },
+    {
+      "id": "product-8",
+      "description": "ABESNA Comforters Cover",
+      "image_url": "https://i.pinimg.com/originals/0e/71/e6/0e71e60fbf1dc066a2f6b78aba985297.jpg",
+      "price": "$179.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "ABESNA Comforters Cover | King Quilt + 2 King Pillowcases | Wayfair",
+      "url": "https://www.wayfair.com/ABESNA--Comforters-Cover-Ultra-Soft-Plush-Bedding-Sets-2-Pieces-1-Faux-Fur-Comforter-Cover-1-Fuzzy-Pillow-Case-Girls-Shaggy-Bed-Set-B0-L1221-K~ACSN1666.html?refid=PSO49B2B-ACSN1666_112398859_112398868&PiID[]=112398859&PiID[]=112398868"
+    },
+    {
+      "id": "product-23",
+      "description": "Gemma Violet Connors Children's Lamp LED Modern Ceiling Light for Children's Room Girls Bedroom Dimmable 2.36 H x 20.47 W x 13.78 D in/whiteAcrylic | 2.36\" H X 20.47\" W X 13.78\" D | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/3a/e7/10/3ae7109a36e67792da4d3bd48eeb4120.jpg",
+      "price": "$127.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Gemma Violet Connors Children's Lamp LED Modern Ceiling Light for Children's Room Girls Bedroom Dimmable 2.36 H x 20.47 W x 13.78 D in/whiteAcrylic | 2.36\" H X 20.47\" W X 13.78\" D | Wayfair",
+      "url": "https://www.wayfair.com/Gemma-Violet--Connors-Childrens-Lamp-LED-Modern-Ceiling-Light-for-Childrens-Room-Girls-Bedroom-Dimmable-X113466548-L6086-K~W002355437.html?refid=PSO49B2B-W002355437"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-07-01T17:38:35.948Z",
+  "image_url": "/static/placeholder_look.jpg"
+}

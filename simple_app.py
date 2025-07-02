@@ -442,153 +442,71 @@ def encode_image(file_path):
 
 @app.route('/generate_hero_image', methods=['POST'])
 def generate_hero_image():
-    """Generate a hero image using ChatGPT API with selected products"""
+    """Generate a hero image using ChatGPT's image generation API."""
     try:
         print("🔍 Starting hero image generation...")
         data = request.get_json()
-        look_id = data.get('look_id')
-        products = data.get('products', [])
-        
+        look_id = data.get("look_id")
+        products = data.get("products", [])
         print(f"📋 Look ID: {look_id}")
         print(f"📦 Number of products: {len(products)}")
-        
         if not look_id or len(products) < 3:
-            return jsonify({'success': False, 'error': 'Need look ID and at least 3 products'})
-        
-        # Load the look data from individual file
-        look_file = os.path.join('looks', f'{look_id}.json')
+            return jsonify({"success": False, "error": "Need look ID and at least 3 products"})
+        # Load look data
+        look_file = os.path.join("looks", f"{look_id}.json")
         if not os.path.exists(look_file):
-            return jsonify({'success': False, 'error': 'Look file not found'})
-        
-        with open(look_file, 'r') as f:
+            return jsonify({"success": False, "error": "Look file not found"})
+        with open(look_file, "r") as f:
             look = json.load(f)
-        
         # Initialize OpenAI client
-        api_key = os.getenv('OPENAI_API_KEY')
+        api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            return jsonify({'success': False, 'error': 'OpenAI API key not configured. Please set OPENAI_API_KEY environment variable.'})
-        
+            return jsonify({"success": False, "error": "OpenAI API key not configured. Please set OPENAI_API_KEY environment variable."})
         print("🔑 OpenAI API key found")
-        client = openai.OpenAI(api_key=api_key)
-        
-        # Create the prompt
-        product_names = [p['title'][:50] for p in products[:3]]
-        prompt = f"""Create a beautiful, lifestyle shoppable scene that showcases these 3 products together 
-in a cohesive, stylish look.
-
-Products to include in the scene:
-1. {product_names[0]}
-2. {product_names[1]} 
-3. {product_names[2]}
-
-Style: The scene should look like a professional photo that would inspire someone to buy these products together. Use warm, inviting colors and create a sense of lifestyle and aspiration.
-
-Requirements:
-- High quality, photorealistic image
-- Professional photography style
-- Products should be naturally integrated into the scene
-- Warm, inviting lighting
-- Modern, elegant aesthetic
-- 1:1 aspect ratio, landscape orientation"""
-        
-        print(f"📝 Generated prompt: {prompt[:200]}...")
-        
-        # Prepare the input content with reference images
-        content = [
-            {"type": "input_text", "text": prompt}
-        ]
-        
-        # Add the reference images
-        for i, product in enumerate(products[:3]):
+        client = OpenAI(api_key=api_key)
+        # Build prompt text
+        product_titles = [p["title"] for p in products[:3]]
+        prompt = "Create a beautiful, lifestyle shoppable scene that showcases these 3 products together in a cohesive, stylish look.\n"
+        for i, t in enumerate(product_titles):
+            prompt += f"{i+1}. {t}\n"
+        # Assemble content list
+        contents = [{"type": "input_text", "text": prompt}]
+        # Add input_image entries
+        for prod in products[:3]:
             try:
-                # Download and encode the image
-                response = requests.get(product['image_url'])
-                if response.status_code == 200:
-                    # Convert to base64
-                    image_data = base64.b64encode(response.content).decode('utf-8')
-                    content.append({
-                        "type": "input_image",
-                        "image_url": f"data:image/jpeg;base64,{image_data}"
-                    })
-                    print(f"  ✅ Added reference image {i+1}")
+                resp = requests.get(prod["image_url"], timeout=10)
+                if resp.status_code == 200:
+                    img_b64 = base64.b64encode(resp.content).decode("utf-8")
+                    contents.append({"type": "input_image", "image_url": f"data:image/jpeg;base64,{img_b64}"})
                 else:
-                    print(f"  ❌ Failed to download image {i+1}: HTTP {response.status_code}")
+                    print(f"❌ Failed to fetch image: {prod['image_url']}")
             except Exception as e:
-                print(f"  ❌ Error processing image {i+1}: {e}")
-                continue
-        
-        print(f"🖼️ Prepared {len(content)-1} reference images")
-        
-        # Log the API call parameters
-        print("🚀 API call parameters:")
-        print(f"  Model: gpt-4.1")
-        print(f"  Content items: {len(content)}")
-        print(f"  Reference images: {len(content)-1}")
-        
-        # Generate the image using GPT-4.1 with reference images
-        print("🎨 Calling OpenAI API...")
+                print(f"❌ Error fetching image: {e}")
+        print("🎨 Calling ChatGPT image generation API...")
         response = client.responses.create(
             model="gpt-4.1",
-            input=[
-                {
-                    "role": "user",
-                    "content": content
-                }
-            ],
+            input=[{"role": "user", "content": contents}],
             tools=[{"type": "image_generation"}]
         )
-        
-        print("✅ API call successful!")
-        
-        # Extract the generated image
-        image_generation_calls = [
-            output
-            for output in response.output
-            if output.type == "image_generation_call"
-        ]
-        
-        image_data = [output.result for output in image_generation_calls]
-        
-        if image_data:
-            # Get the first generated image
-            image_base64 = image_data[0]
-            print(f"🖼️ Generated image received")
-            
-            # Create images directory if it doesn't exist
-            os.makedirs('static/generated_images', exist_ok=True)
-            
-            # Save the image
-            filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
-            filepath = os.path.join('static/generated_images', filename)
-            
-            with open(filepath, 'wb') as f:
-                f.write(base64.b64decode(image_base64))
-            
-            print(f"💾 Saved image to: {filepath}")
-            
-            # Update the look with the new image URL
-            look['image_url'] = f'/static/generated_images/{filename}'
-            
-            # Save updated look
-            with open(look_file, 'w') as f:
-                json.dump(look, f, indent=2)
-            
-            print("✅ Hero image generation completed successfully!")
-            return jsonify({
-                'success': True, 
-                'image_url': look['image_url'],
-                'message': 'Hero image generated successfully!'
-            })
-        else:
-            print(f"❌ No image generated: {response.output.content}")
-            return jsonify({'success': False, 'error': 'No image was generated'})
-            
+        # Parse image generation output
+        image_calls = [o for o in response.output if o.type == "image_generation_call"]
+        if not image_calls:
+            return jsonify({"success": False, "error": "No image generated"})
+        img_b64 = image_calls[0].result
+        # Save generated image
+        os.makedirs("static/generated_images", exist_ok=True)
+        filename = f"hero_{look_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
+        save_path = os.path.join("static/generated_images", filename)
+        with open(save_path, "wb") as imgf:
+            imgf.write(base64.b64decode(img_b64))
+        look['image_url'] = f"/static/generated_images/{filename}"
+        with open(look_file, "w") as f:
+            json.dump(look, f, indent=2)
+        return jsonify({"success": True, "image_url": look['image_url'], "message": "Hero image generated successfully!"})
     except Exception as e:
         print(f"❌ Error generating hero image: {e}")
-        print(f"❌ Error type: {type(e)}")
-        import traceback
-        print(f"❌ Full traceback: {traceback.format_exc()}")
-        return jsonify({'success': False, 'error': str(e)})
+        import traceback; traceback.print_exc()
+        return jsonify({"success": False, "error": str(e)})
 
 if __name__ == '__main__':
     print("🚀 Starting Simple Flask App...")

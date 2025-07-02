@@ -1,0 +1,40 @@
+{
+  "id": "look_20250627_145521",
+  "name": "Nancy Meyers 2 Look",
+  "landing_page": "Nancy Meyers 2",
+  "products": [
+    {
+      "id": "product-3",
+      "description": "Magnolia Farmhouse / Country Cotton Floral Comforter",
+      "image_url": "https://i.pinimg.com/originals/fd/eb/2e/fdeb2e94592f4230ed4f84b57c6d313f.jpg",
+      "price": "$720",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Eastern Accents Magnolia Reversible Comforter | Wayfair",
+      "url": "https://www.wayfair.com/Eastern-Accents--Magnolia-Comforter-EAN7001-L1221-K~EAN7001.html?item_group_id=EAN7001"
+    },
+    {
+      "id": "product-8",
+      "description": "Alcott Hill\u00ae Chaviano Nightstand 26.0 H x 27.3 W x 17.3 D in brown/greenWood in Natural;natural Wood | 26\" H X 27.3\" W X 17.3\" D | Wayfair",
+      "image_url": "https://i.pinimg.com/originals/b1/57/8e/b1578e4fe5628b89cc3bc8a9e7f273f8.jpg",
+      "price": "$445.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Alcott Hill\u00ae Chaviano Nightstand 26.0 H x 27.3 W x 17.3 D in brown/greenWood in Natural;natural Wood | 26\" H X 27.3\" W X 17.3\" D | Wayfair",
+      "url": "https://www.wayfair.com/Alcott-Hill%C2%AE--Chaviano-Nightstand-X221369174-L14-K~W110258063.html?refid=PSO49B2B-W110258063"
+    },
+    {
+      "id": "product-10",
+      "description": "Woodford",
+      "image_url": "https://i.pinimg.com/originals/7b/ed/4e/7bed4e9ace189992e01daf6eff66e01e.jpg",
+      "price": "$1259.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Canora Grey Woodford | Wayfair",
+      "url": "https://www.wayfair.com/furniture/pdp/canora-grey-woodford-w112820447.html"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-06-27T18:55:21.349Z",
+  "image_url": "/static/placeholder_look.jpg"
+}

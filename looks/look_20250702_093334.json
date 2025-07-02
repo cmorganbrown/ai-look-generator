@@ -1,0 +1,40 @@
+{
+  "id": "look_20250702_093334",
+  "name": "Nancy Meyers 2 Look",
+  "landing_page": "Nancy Meyers 2",
+  "products": [
+    {
+      "id": "product-3",
+      "description": "Magnolia Farmhouse / Country Cotton Floral Comforter",
+      "image_url": "https://i.pinimg.com/originals/fd/eb/2e/fdeb2e94592f4230ed4f84b57c6d313f.jpg",
+      "price": "$720",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Eastern Accents Magnolia Reversible Comforter | Wayfair",
+      "url": "https://www.wayfair.com/Eastern-Accents--Magnolia-Comforter-EAN7001-L1221-K~EAN7001.html?item_group_id=EAN7001"
+    },
+    {
+      "id": "product-4",
+      "description": "Bedroom Retro All Solid Wood Entrance Cabinet 62.9'' W 8 - Drawer Dresser",
+      "image_url": "https://i.pinimg.com/originals/78/5b/a1/785ba1b974379f3f633771aaf17744fa.jpg",
+      "price": "$3299.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Dream cabinet Bedroom Retro All Solid Wood Entrance Cabinet Solid Wood Accent Chest | Wayfair",
+      "url": "https://www.wayfair.com/furniture/pdp/dream-cabinet-bedroom-retro-all-solid-wood-entrance-cabinet-solid-wood-accent-chest-xeam1438.html"
+    },
+    {
+      "id": "product-6",
+      "description": "Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan",
+      "image_url": "https://i.pinimg.com/originals/20/7e/90/207e90edda06e11df055d3566fa1b05f.jpg",
+      "price": "$155.99",
+      "source": "Pinterest",
+      "source_logo": "https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png",
+      "title": "Thonda 19.7'' Modern Feather Shaped Crystal Ceiling Fan with Lights ,Flush Mount Smart Celling Fan",
+      "url": "https://www.wayfair.com/lighting/pdp/mercer41-thonda-197-modern-feather-shaped-crystal-ceiling-fan-with-lights-flush-mount-smart-celling-fan-w110247918.html"
+    }
+  ],
+  "product_count": 3,
+  "created_at": "2025-07-02T13:33:34.887Z",
+  "image_url": "/static/generated_images/hero_look_20250702_093334_20250702_093512.jpg"
+}

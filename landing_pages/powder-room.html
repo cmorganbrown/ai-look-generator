@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powder Room - Trend Landing Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+        <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-item.selected {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .product-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .product-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .product-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 8px;
+            min-height: 2.5em;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .product-item p {
+            font-size: 1.3em;
+            color: rgb(153,14,53);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-button {
+            background-color: transparent;
+            color: purple;
+            border: 2px solid purple;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart-button:hover {
+            background-color: purple;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(128, 0, 128, 0.3);
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            border: 2px solid purple;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            background-color: rgba(255, 105, 180, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .heart-icon svg {
+            fill: purple;
+            width: 22px;
+            height: 22px;
+            transition: fill 0.3s ease;
+        }
+        
+        .source-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .source-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* Product Selection Styles */
+        .product-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-item:hover .product-checkbox {
+            opacity: 1;
+        }
+        
+        .product-item.selected .product-checkbox {
+            opacity: 1;
+        }
+        
+        .selection-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            min-width: 300px;
+        }
+        
+        .selection-counter {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .generate-look-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .generate-look-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .generate-look-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .clear-selection-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .clear-selection-btn:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+        
+        .looks-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .looks-link:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        </style>
+        
+</head>
+<body>
+    
+        <a href="/looks" class="looks-link">
+            <i class="fas fa-magic"></i> View All Looks
+        </a>
+        
+    <div style="text-align: center; padding: 20px; background: white; border-bottom: 1px solid #e0e0e0;">
+            <a href="https://www.wayfair.com" style="text-decoration: none;">
+                <svg viewBox="0 0 629.52 150" xmlns="http://www.w3.org/2000/svg" role="img" height="60" width="200" style="display: inline-block;">
+                    <title>Wayfair</title>
+                    <path fill="#7b189f" stroke-width="0px" d="M624.09,42.29c0-0.77-0.42-1.54-1.47-1.54h-1.89v4.96h0.7V43.9h0.63l1.26,1.81h0.84l-1.33-1.89 C623.74,43.76,624.09,42.99,624.09,42.29L624.09,42.29z M621.44,43.2v-1.81h1.26c0.56,0,0.77,0.49,0.77,0.91 c0,0.42-0.21,0.91-0.84,0.91L621.44,43.2L621.44,43.2z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M622.27,38.94c-2.38,0-4.26,1.89-4.26,4.26c0,2.38,1.89,4.26,4.26,4.26s4.26-1.89,4.26-4.26 C626.54,40.82,624.58,38.94,622.27,38.94z M622.27,46.83c-2.03,0-3.63-1.61-3.63-3.63c-0.07-2.03,1.61-3.63,3.63-3.63 s3.63,1.61,3.63,3.63C625.91,45.23,624.3,46.83,622.27,46.83z"></path>
+                    <ellipse fill="#7b189f" stroke-width="0px" cx="541.78" cy="15.8" rx="11.49" ry="11.2"></ellipse>
+                    <rect x="-42.72" y="-20.74" fill="none" stroke-width="0px" width="945.79" height="191.47"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M53.15,111.51L19.41,77.76L7.77,89.4c-1.17,1.17-1.31,2.04-0.87,3.49l5.53,21.53 c0.58,2.33,1.74,3.49,4.07,4.07l21.53,5.53c1.45,0.44,2.33,0.29,3.49-0.87L53.15,111.51L53.15,111.51z M58.68,111.51l11.64,11.64 c1.17,1.17,2.04,1.31,3.49,0.87l21.53-5.53c2.33-0.58,3.49-1.74,4.07-4.07l5.53-21.53c0.44-1.45,0.29-2.33-0.87-3.49L92.43,77.76 L58.68,111.51L58.68,111.51z M58.68,38.49l33.75,33.75l11.64-11.64c1.17-1.17,1.31-2.04,0.87-3.49l-5.53-21.53 c-0.58-2.33-1.74-3.49-4.07-4.07l-21.53-5.53c-1.45-0.44-2.33-0.29-3.49,0.87L58.68,38.49L58.68,38.49z M53.15,38.49L41.52,26.85 c-1.17-1.17-2.04-1.31-3.49-0.87L16.5,31.51c-2.33,0.58-3.49,1.74-4.07,4.07L6.9,57.1c-0.44,1.45-0.29,2.33,0.87,3.49l11.64,11.64 L53.15,38.49L53.15,38.49z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M437.35,53.47h-17.9v52.64c0,2.74-2.22,4.96-4.96,4.96h-13.95v-57.6h-16.28l-21.6,61.24 c-8.73,24.58-17.31,30.98-32.58,30.98c-2.91,0-7.56-0.58-12.22-1.45l4.12-13.53h6.65c7.34,0,11.21-2.28,13.75-8.68 c2.53-6.41,2.59-7.4,2.62-7.46L319.1,38.93h16.41c2.18,0,4.1,1.42,4.74,3.5l14.63,47.55L370.3,43c1.02-2.91,2.33-4.07,5.24-4.07 h25.01v-2.04c0-21.38,9.89-32.58,28.66-32.58c2.91,0,9.49,0.52,13.42,1.4l-4.15,13.58h-5.49c-7.47,0-13.53,6.06-13.53,13.53v6.11 h22.31L437.35,53.47L437.35,53.47z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M200.36,89.4l-14.54-47.27c-0.73-2.47-1.74-3.2-4.22-3.2h-13.82c-2.47,0-3.49,0.73-4.22,3.2L148.87,89.4 l-13.09-50.47h-20.8l20.95,68.95c0.73,2.47,1.74,3.2,4.22,3.2h14.4c2.47,0,3.49-0.73,4.22-3.2l15.27-48.58l15.42,48.58 c0.73,2.47,1.74,3.2,4.22,3.2h12.95c2.47,0,3.49-0.73,4.22-3.2l20.95-68.95H213.6L200.36,89.4L200.36,89.4z"></path>
+                    <rect x="532.32" y="38.93" fill="#7b189f" stroke-width="0px" width="18.91" height="72.15"></rect>
+                    <path fill="#7b189f" stroke-width="0px" d="M291.9,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C293.21,38.93,291.9,40.23,291.9,43L291.9,43z M272.39,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S291.14,62.5,291.14,75S284.32,97.44,272.39,97.44L272.39,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M497.64,43l-0.44,8.3c-4.51-10.77-13.67-13.82-24.44-13.82c-19.78,0-32.15,17.89-32.15,37.53 s12.36,37.53,32.15,37.53c10.77,0,19.93-3.06,24.44-13.82l0.44,8.3c0,2.76,1.31,4.07,3.64,4.07h15.13V38.93h-15.13 C498.96,38.93,497.64,40.23,497.64,43L497.64,43z M478.14,97.44c-11.93,0-18.75-9.94-18.75-22.44s6.81-22.44,18.75-22.44 S496.89,62.5,496.89,75S490.07,97.44,478.14,97.44z"></path>
+                    <path fill="#7b189f" stroke-width="0px" d="M608.98,38.2c-11.2,0-19.2,3.44-22.69,16.82L586,43c0-2.76-1.31-4.07-3.64-4.07h-15.13v72.15h18.91V75 c0-12.65,7.27-20.8,19.78-20.8h3.41l4.59-15.09C612.16,38.36,610.29,38.2,608.98,38.2L608.98,38.2z"></path>
+                </svg>
+            </a>
+        </div>
+    <div style="text-align: center; padding: 30px 20px; background: white;">
+            <h1 style="color: #7b189f; font-size: 3em; margin: 0 0 20px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Powder Room</h1>
+            <div style="margin-bottom: 20px;">
+                <label for="sourceFilter" style="font-weight: 600; color: #333; margin-right: 10px;">Filter by Source:</label>
+                <select id="sourceFilter" style="padding: 8px 16px; border: 2px solid #7b189f; border-radius: 6px; font-size: 16px; background: white; color: #333; cursor: pointer;">
+                    <option value="all">All Sources</option>
+                    <option value="Pinterest">Pinterest Only</option>
+                    <option value="Google">Google Only</option>
+                </select>
+            </div>
+        </div>
+    <div class="product-grid">
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="0">
+            <input type="checkbox" class="product-checkbox" data-product-index="0">
+            <a href="https://www.wayfair.com/Corrigan-Studio%C2%AE--Saihou-Speckle-33-L-x-27.5-W-Wallpaper-Roll-X111630938-L6161-K~W000529827.html?refid=PSO49B2B-W000529827_971191298&PiID[]=971191298">
+                <img src="https://i.pinimg.com/originals/6d/9d/43/6d9d436dfd660b50858f75c9f19bb6f7.jpg" alt="Corrigan Studio® Saihou Speckle 33' L x 27.5" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Corrigan Studio® Saihou Speckle 33' L x 27.5" W Wallpaper Roll 27.5 W in blackNon-Woven in Charco...</h3>
+                <p>$99.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="1">
+            <input type="checkbox" class="product-checkbox" data-product-index="1">
+            <a href="https://www.wayfair.com/Canora-Grey--20-Bathroom-Vanity-with-Sink-Solid-Wood-and-MDF-Twotier-Shelf-and-Adjustable-Shelf-X224134716-L3764-K~W113023605.html?refid=PSO49-W113023605">
+                <img src="https://i.pinimg.com/originals/a3/a9/52/a3a952e988dc69a304b0bd15077533a3.jpg" alt="Canora Grey 20" Bathroom Vanity w/ Sink: Solid Wood & MDF, Two-tier Shelf & Adjustable Shelf black/brownSolid Wood/Manufactured…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Canora Grey 20" Bathroom Vanity w/ Sink: Solid Wood & MDF, Two-tier Shelf & Adjustable Shelf blac...</h3>
+                <p>$216.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="2">
+            <input type="checkbox" class="product-checkbox" data-product-index="2">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Bathroom-Toilet-Dreamy-Reflections-Bath-and-Laundry-Print-on-Metal-X221135447-L1318-K~W110024336.html?refid=PSO49B2B-W110024336_1448669658&PiID[]=1448669658">
+                <img src="https://i.pinimg.com/originals/79/c0/e7/79c0e73cdef56cac6896d7253417049c.jpg" alt="Red Barrel Studio® Bathroom Toilet Dreamy Reflections - Bath & Laundry Print on Metal 16.0 H x 32.0 W x 1.0 D in indigo/pinkMetal in Pink;purple">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Red Barrel Studio® Bathroom Toilet Dreamy Reflections - Bath & Laundry Print on Metal 16.0 H x 32...</h3>
+                <p>$74.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="3">
+            <input type="checkbox" class="product-checkbox" data-product-index="3">
+            <a href="https://www.wayfair.com/Rosdorf-Park--Yedidal-3-Light-Dimmable-BlackBrass-Vanity-Light-X119954760-L6116-K~W008843659.html?refid=PSO49B2B-W008843659">
+                <img src="https://i.pinimg.com/originals/ae/0e/34/ae0e341bf13b3ba7751e8259ef3d85e6.jpg" alt="Rosdorf Park Yedidal 3 - Light Dimmable Black/Brass Vanity Light 8.0 H x 21.5 W x 6.5 D in black/brown/yellowGlass | 8" H X 21.5" W X 6.5" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Rosdorf Park Yedidal 3 - Light Dimmable Black/Brass Vanity Light 8.0 H x 21.5 W x 6.5 D in black/...</h3>
+                <p>$169.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="4">
+            <input type="checkbox" class="product-checkbox" data-product-index="4">
+            <a href="https://www.wayfair.com/Modern-Luxe-Furniture--36-Single-Bathroom-Vanity-Set-WH900004AAE-L151-K~MLFE2851.html?refid=PSO49B2B-MLFE2851_105702092&PiID[]=105702092">
+                <img src="https://i.pinimg.com/originals/dd/7e/fd/dd7efddb9aa8ee02b9089981a3331524.jpg" alt="Modern Luxe Furniture 36" Single Bathroom Vanity Set 33.0 H x 36.0 W x 18.0 D in/brownCeramic in Black | 34" H X 36" W X 18.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Modern Luxe Furniture 36" Single Bathroom Vanity Set 33.0 H x 36.0 W x 18.0 D in/brownCeramic in ...</h3>
+                <p>$412.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="5">
+            <input type="checkbox" class="product-checkbox" data-product-index="5">
+            <a href="https://www.wayfair.com/FromPlainToBeautifulInHours--Shanko-2-ft.-x-2-ft.-DropIn-Tin-Ceiling-Tile-SKPC204gn24x24D6-L7160-K~FPTB1762.html?refid=PSO49B2B-FPTB1762_74555152&PiID[]=74555152">
+                <img src="https://i.pinimg.com/originals/ce/7d/5d/ce7d5d4514320989c647a968714f4ee5.jpg" alt="FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0" L x 24.0" W x 0.25" H | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 ...</h3>
+                <p>$149.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="6">
+            <input type="checkbox" class="product-checkbox" data-product-index="6">
+            <a href="https://www.wayfair.com/home-improvement/pdp/bemma-gracie-24-single-bathroom-vanity-set-klzl1012.html?piid=51573317,51573318&categoryid=527058&placement=3&slot=1&sponsoredid=d33fbc97e0a63a035772e799b5d47f5ddf4137b3b61c678bca0ce279823c7192&_txid=I%2BF9OmTZnxmp94OA0lGzAg%3D%3D&isB2b=0&auctionId=16ab2b14-aa19-47b7-b723-6e596c125114">
+                <img src="https://i.pinimg.com/originals/23/8e/48/238e48aceabfa5ec9d68ddef79743520.jpg" alt="Gracie 24'' Single Bathroom Vanity with Top">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Gracie 24'' Single Bathroom Vanity with Top</h3>
+                <p>$1473.4</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="7">
+            <input type="checkbox" class="product-checkbox" data-product-index="7">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/red-barrel-studio-33-l-x-21-w-wallpaper-roll-w008701387.html?piid=248314762">
+                <img src="https://i.pinimg.com/originals/15/49/db/1549db37262866db06b65780be105731.png" alt="Dutch Wallcoverings - Tree - 33''L x 21"W Wallpaper Roll 21.0 W in black/yellowNon-Woven">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Dutch Wallcoverings - Tree - 33''L x 21"W Wallpaper Roll 21.0 W in black/yellowNon-Woven</h3>
+                <p>$111.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="8">
+            <input type="checkbox" class="product-checkbox" data-product-index="8">
+            <a href="https://www.wayfair.com/Winston-Porter--Elegant-Floral-Bathroom-Harmony-Bath-and-Laundry-Wall-Art-X222323445-L1318-K~W111212334.html?refid=PSO49B2B-W111212334_413639438&PiID[]=413639438">
+                <img src="https://i.pinimg.com/originals/34/20/e3/3420e368f2e680bc0f64e63fb2c43906.jpg" alt="Winston Porter Elegant Floral Bathroom Harmony - Bath & Laundry Wall Art whiteCanvas, Cotton in Blue;pink">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Winston Porter Elegant Floral Bathroom Harmony - Bath & Laundry Wall Art whiteCanvas, Cotton in B...</h3>
+                <p>$71.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="9">
+            <input type="checkbox" class="product-checkbox" data-product-index="9">
+            <a href="https://www.wayfair.com/The-Holiday-Aisle%C2%AE--Macungie-X222547221-L2243-K~W111436110.html?refid=PSO49B2B-W111436110_1555009697&PiID[]=1555009697">
+                <img src="https://i.pinimg.com/originals/77/8e/65/778e651f104ee2dd76578c54ff615411.jpg" alt="The Holiday Aisle® Macungie black/brownPolyester | 74"H x 71"W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>The Holiday Aisle® Macungie black/brownPolyester | 74"H x 71"W | Wayfair</h3>
+                <p>$54.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="10">
+            <input type="checkbox" class="product-checkbox" data-product-index="10">
+            <a href="https://www.wayfair.com/Mercer41--Ulah-3-Light-Vanity-Light-X221364693-L6116-K~W110253582.html?refid=PSO49-W110253582">
+                <img src="https://i.pinimg.com/originals/1a/c6/b4/1ac6b45d225d89529180bb882084e37c.jpg" alt="Ulah 3 - Light Dimmable Vanity Light">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Ulah 3 - Light Dimmable Vanity Light</h3>
+                <p>$209.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="11">
+            <input type="checkbox" class="product-checkbox" data-product-index="11">
+            <a href="https://www.wayfair.com/Backop--French-vintage-style-rock-plate-bathroom-cabinet-LSF-L151-K~BCKU1770.html?refid=PSO49B2B-BCKU1770_111690593&PiID[]=111690593">
+                <img src="https://i.pinimg.com/originals/0a/9d/ad/0a9dadddb810f57fe4695f516fa4ac6a.jpg" alt="Backop French vintage style rock plate bathroom cabinet in Black | 51.18" | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Backop French vintage style rock plate bathroom cabinet in Black | 51.18" | Wayfair</h3>
+                <p>$3599.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="12">
+            <input type="checkbox" class="product-checkbox" data-product-index="12">
+            <a href="https://www.wayfair.com/East-Urban-Home--Night-Flutter-1-Piece-Standard-Shower-Curtain-X223383901-L2243-K~W112272890.html?refid=PSO49B2B-W112272890_1979190429&PiID[]=1979190429">
+                <img src="https://i.pinimg.com/originals/e4/87/d9/e487d9202802bc9c4e3961e8a130fceb.jpg" alt="East Urban Home Night Flutter - 1 Piece Standard Shower Curtain blackPolyester | 74"H x 71"W | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>East Urban Home Night Flutter - 1 Piece Standard Shower Curtain blackPolyester | 74"H x 71"W | Wa...</h3>
+                <p>$54.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="13">
+            <input type="checkbox" class="product-checkbox" data-product-index="13">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Enajiah-Dark-Cream-Floral-Wallpaper-X121695533-L6161-K~W010584422.html?refid=PSO49B2B-W010584422_1270959854&PiID[]=1270959854">
+                <img src="https://i.pinimg.com/originals/4e/4f/f8/4e4ff88a59462989b392179107202a6a.jpg" alt="Red Barrel Studio® Enajiah Dark Cream Floral Wallpaper 24.0 W in Vinyl in Black Gray">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Red Barrel Studio® Enajiah Dark Cream Floral Wallpaper 24.0 W in Vinyl in Black Gray</h3>
+                <p>$99.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="14">
+            <input type="checkbox" class="product-checkbox" data-product-index="14">
+            <a href="https://www.wayfair.com/Winston-Porter--Bathroom-Midnight-Serenade-Print-X211790872-L1318-K~W100689761.html?refid=PSO49-W100689761_1142539650_1206714684&PiID[]=1142539650&PiID[]=1206714684">
+                <img src="https://i.pinimg.com/originals/ed/bb/38/edbb38bed67ef81315e995cf4a5d6241.jpg" alt="Winston Porter Bathroom Midnight Serenade - Print indigoMetal in Silver Floater Framed | 16" H x 32" W x 1" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Winston Porter Bathroom Midnight Serenade - Print indigoMetal in Silver Floater Framed | 16" H x ...</h3>
+                <p>$76.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="15">
+            <input type="checkbox" class="product-checkbox" data-product-index="15">
+            <a href="https://www.wayfair.com/Jeltyprey--24-Bathroom-Vanity-with-a-Drawer-and-Two-SoftClosing-Doors-Painted-Modern-Bathroom-Storage-Cabinet-with-Ceramic-Sink-Stylish-Single-Sink-Cabinet-for-Small-Spaces-JeltypreyZN710P276692B-L151-K~JLTY7999.html?refid=PSO49B2B-JLTY7999">
+                <img src="https://i.pinimg.com/originals/14/b5/8b/14b58b26d9c3e5750cba82a6850b13ee.jpg" alt="Jeltyprey 24" Bathroom Vanity w/ a Drawer & Two Soft-Closing Doors, Painted Modern Bathroom Storage Cabinet w/ Ceramic Sink | 33.89" H X 24.01" W X 18.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Jeltyprey 24" Bathroom Vanity w/ a Drawer & Two Soft-Closing Doors, Painted Modern Bathroom Stora...</h3>
+                <p>$499.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="16">
+            <input type="checkbox" class="product-checkbox" data-product-index="16">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Golden-Toilet-Oasis-Metallic-II-Print-X211835042-L1318-K~W100724931.html?refid=PSO49-W100724931_124225942_124225943&PiID[]=124225942&PiID[]=124225943">
+                <img src="https://i.pinimg.com/originals/17/3a/59/173a5959914abf3b5b32bb2a406d0215.jpg" alt="Red Barrel Studio® Golden Toilet Oasis Metallic II - Print 16.0 H x 16.0 W in brownCanvas | 16" H x 16" W x 1…">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Red Barrel Studio® Golden Toilet Oasis Metallic II - Print 16.0 H x 16.0 W in brownCanvas | 16" H...</h3>
+                <p>$34.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="17">
+            <input type="checkbox" class="product-checkbox" data-product-index="17">
+            <a href="https://www.wayfair.com/Bloomsbury-Market--Atrice-Gold-Wall-Sconce-X221801084-L6117-K~W110790973.html?refid=PSO49B2B-W110790973_955847328_1000607519&PiID[]=955847328&PiID[]=1000607519">
+                <img src="https://i.pinimg.com/originals/a6/0f/a8/a60fa875dcb6e113fe469dead3344d9a.jpg" alt="Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49" H X 11.81" W X 6.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19...</h3>
+                <p>$509.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="18">
+            <input type="checkbox" class="product-checkbox" data-product-index="18">
+            <a href="https://www.wayfair.com/Everly-Quinn--Straughter-Crocodile-33-L-x-1.75-W-Texture-Wallpaper-Roll-X114649470-L6161-K~W003538369.html?refid=PSO49-W003538369&utm_source=pinterest&utm_medium=social">
+                <img src="https://i.pinimg.com/originals/f3/d3/ff/f3d3ff073dfd891280ea7cde11297d64.jpg" alt="Straughter Crocodile Vinyl Black Copper Metallic Textured Wallpaper Modern 3D">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Straughter Crocodile Vinyl Black Copper Metallic Textured Wallpaper Modern 3D</h3>
+                <p>$129.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="19">
+            <input type="checkbox" class="product-checkbox" data-product-index="19">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Laundry-Room-Art-Deco-I-Print-on-Canvas-X211823564-L1318-K~W100712453.html?refid=PSO49B2B-W100712453_51710355_51710365&PiID[]=51710355&PiID[]=51710365">
+                <img src="https://i.pinimg.com/originals/49/39/4f/49394f23030ca007d4449237c31841b2.jpg" alt="Red Barrel Studio® Laundry Room Art Deco I - Print on Canvas 16.0 H x 32.0 W x 1.0 D in blue/blackMetal">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Red Barrel Studio® Laundry Room Art Deco I - Print on Canvas 16.0 H x 32.0 W x 1.0 D in blue/blac...</h3>
+                <p>$44.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="20">
+            <input type="checkbox" class="product-checkbox" data-product-index="20">
+            <a href="https://www.wayfair.com/decor-pillows/pdp/ivy-bronx-wall-mounted-dimmable-semicircular-led-mirror-anti-fog-backlit-lighted-bathroom-vanity-mirror-w111137010.html">
+                <img src="https://i.pinimg.com/originals/5a/05/35/5a05355c4b6b4f7b2102e4aba3367a14.jpg" alt="Wall Mounted Dimmable Semicircular LED Mirror Anti-Fog Backlit Lighted Bathroom Vanity Mirror">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Wall Mounted Dimmable Semicircular LED Mirror Anti-Fog Backlit Lighted Bathroom Vanity Mirror</h3>
+                <p>$183.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="21">
+            <input type="checkbox" class="product-checkbox" data-product-index="21">
+            <a href="https://www.wayfair.com/home-improvement/pdp/bemma-diamond-24-bathroom-vanity-set-klzl1151.html">
+                <img src="https://i.pinimg.com/originals/c6/2c/44/c62c4482553b30a7098c40dac96bccbd.jpg" alt="Diamond 24'' Single Bathroom Vanity with Top">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Diamond 24'' Single Bathroom Vanity with Top</h3>
+                <p>$1259.5</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="22">
+            <input type="checkbox" class="product-checkbox" data-product-index="22">
+            <a href="https://www.wayfair.com/RandM-Furniture--Charming-Bathroom-Vanity-with-Multiple-Storage-Options-and-Stylish-Design-RMN759P226000N759-L151-K~RFUR5659.html?refid=PSO49B2B-RFUR5659_108525990&PiID[]=108525990">
+                <img src="https://i.pinimg.com/originals/f4/62/91/f46291dc22a8c2cee9058e41fbde2632.jpg" alt="R&M Furniture Charming Bathroom Vanity w/ Multiple Storage Options & Stylish Design Wood in Black | 33.7" H X 30" W X 18.3" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>R&M Furniture Charming Bathroom Vanity w/ Multiple Storage Options & Stylish Design Wood in Black...</h3>
+                <p>$489.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="23">
+            <input type="checkbox" class="product-checkbox" data-product-index="23">
+            <a href="https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Bathroom-Golden-Luxe-II-On-Canvas-Print-X211793721-L1318-K~W100682610.html?refid=PSO49B2B-W100682610_1831145222_1859245236&PiID[]=1831145222&PiID[]=1859245236">
+                <img src="https://i.pinimg.com/originals/90/8e/f0/908ef01561ffe52d7ee046b5e362c319.jpg" alt="Red Barrel Studio® Bathroom Golden Luxe II On Canvas Print blue/brownMetal in Brown Floater Framed | 30" H x 40" W x 1.5" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Red Barrel Studio® Bathroom Golden Luxe II On Canvas Print blue/brownMetal in Brown Floater Frame...</h3>
+                <p>$124.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-item" data-source="Pinterest" data-product-index="24">
+            <input type="checkbox" class="product-checkbox" data-product-index="24">
+            <a href="https://www.wayfair.com/Backop--French-retro-style-minimalist-bathroom-cabinet-WBY-L3764-K~BCKU1849.html?refid=PSO49B2B-BCKU1849_111882787_111882790&PiID[]=111882787&PiID[]=111882790">
+                <img src="https://i.pinimg.com/originals/bf/c4/ba/bfc4babf4f0278778e305e6383be0bb3.jpg" alt="Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69" H x 51.18" W x 19.69" D | Wayfair">
+            </a>
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="source-logo"><img src="https://1000logos.net/wp-content/uploads/2018/03/Pinterest-Logo-2011-2016.png" alt="Pinterest Logo"></div>
+            <div class="product-details">
+                <h3>Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black ...</h3>
+                <p>$2169.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+        </div>
+        
+    </div>
+    
+        <div class="selection-controls" id="selectionControls" style="display: none;">
+            <div class="selection-counter" id="selectionCounter">0 products selected</div>
+            <button class="generate-look-btn" id="generateLookBtn" disabled>Generate AI Look</button>
+            <button class="clear-selection-btn" id="clearSelectionBtn">Clear Selection</button>
+        </div>
+        
+    
+        <script>
+        let selectedProducts = [];
+        const products = [{"grid_title": "Corrigan Studio\u00ae Saihou Speckle 33' L x 27.5\" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair", "display_name": "Corrigan Studio\u00ae Saihou Speckle 33' L x 27.5\" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/6d/9d/43/6d9d436dfd660b50858f75c9f19bb6f7.jpg", "link": "https://www.wayfair.com/Corrigan-Studio%C2%AE--Saihou-Speckle-33-L-x-27.5-W-Wallpaper-Roll-X111630938-L6161-K~W000529827.html?refid=PSO49B2B-W000529827_971191298&PiID[]=971191298", "price": "$99.99", "seo_alt_txt": "Corrigan Studio\u00ae Saihou Speckle 33' L x 27.5\" W Wallpaper Roll 27.5 W in blackNon-Woven in Charcoal | Wayfair", "Source": "Pinterest"}, {"grid_title": "Canora Grey 20\" Bathroom Vanity w/ Sink: Solid Wood & MDF, Two-tier Shelf & Adjustable Shelf black/brownSolid Wood/Manufactured\u2026", "display_name": "Canora Grey 20\" Bathroom Vanity w/ Sink: Solid Wood & MDF, Two-tier Shelf & Adjustable Shelf black/brownSolid Wood/Manufactured\u2026", "images:orig:url": "https://i.pinimg.com/originals/a3/a9/52/a3a952e988dc69a304b0bd15077533a3.jpg", "link": "https://www.wayfair.com/Canora-Grey--20-Bathroom-Vanity-with-Sink-Solid-Wood-and-MDF-Twotier-Shelf-and-Adjustable-Shelf-X224134716-L3764-K~W113023605.html?refid=PSO49-W113023605", "price": "$216.99", "seo_alt_txt": "Canora Grey 20\" Bathroom Vanity w/ Sink: Solid Wood & MDF, Two-tier Shelf & Adjustable Shelf black/brownSolid Wood/Manufactured\u2026", "Source": "Pinterest"}, {"grid_title": "Red Barrel Studio\u00ae Bathroom Toilet Dreamy Reflections - Bath & Laundry Print on Metal 16.0 H x 32.0 W x 1.0 D in indigo/pinkMetal in Pink;purple | 16\" H x 32\" W x 1\" D | Wayfair", "display_name": "Red Barrel Studio\u00ae Bathroom Toilet Dreamy Reflections - Bath & Laundry Print on Metal 16.0 H x 32.0 W x 1.0 D in indigo/pinkMetal in Pink;purple", "images:orig:url": "https://i.pinimg.com/originals/79/c0/e7/79c0e73cdef56cac6896d7253417049c.jpg", "link": "https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Bathroom-Toilet-Dreamy-Reflections-Bath-and-Laundry-Print-on-Metal-X221135447-L1318-K~W110024336.html?refid=PSO49B2B-W110024336_1448669658&PiID[]=1448669658", "price": "$74.99", "seo_alt_txt": "Red Barrel Studio\u00ae Bathroom Toilet Dreamy Reflections - Bath & Laundry Print on Metal 16.0 H x 32.0 W x 1.0 D in indigo/pinkMetal in Pink;purple", "Source": "Pinterest"}, {"grid_title": "Rosdorf Park Yedidal 3 - Light Dimmable Black/Brass Vanity Light 8.0 H x 21.5 W x 6.5 D in black/brown/yellowGlass | 8\" H X 21.5\" W X 6.5\" D | Wayfair", "display_name": "Rosdorf Park Yedidal 3 - Light Dimmable Black/Brass Vanity Light 8.0 H x 21.5 W x 6.5 D in black/brown/yellowGlass | 8\" H X 21.5\" W X 6.5\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/ae/0e/34/ae0e341bf13b3ba7751e8259ef3d85e6.jpg", "link": "https://www.wayfair.com/Rosdorf-Park--Yedidal-3-Light-Dimmable-BlackBrass-Vanity-Light-X119954760-L6116-K~W008843659.html?refid=PSO49B2B-W008843659", "price": "$169.99", "seo_alt_txt": "Rosdorf Park Yedidal 3 - Light Dimmable Black/Brass Vanity Light 8.0 H x 21.5 W x 6.5 D in black/brown/yellowGlass | 8\" H X 21.5\" W X 6.5\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Modern Luxe Furniture 36\" Single Bathroom Vanity Set 33.0 H x 36.0 W x 18.0 D in/brownCeramic in Black | 34\" H X 36\" W X 18.3\" D | Wayfair", "display_name": "Modern Luxe Furniture 36\" Single Bathroom Vanity Set 33.0 H x 36.0 W x 18.0 D in/brownCeramic in Black | 34\" H X 36\" W X 18.3\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/dd/7e/fd/dd7efddb9aa8ee02b9089981a3331524.jpg", "link": "https://www.wayfair.com/Modern-Luxe-Furniture--36-Single-Bathroom-Vanity-Set-WH900004AAE-L151-K~MLFE2851.html?refid=PSO49B2B-MLFE2851_105702092&PiID[]=105702092", "price": "$412.99", "seo_alt_txt": "Modern Luxe Furniture 36\" Single Bathroom Vanity Set 33.0 H x 36.0 W x 18.0 D in/brownCeramic in Black | 34\" H X 36\" W X 18.3\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0\" L x 24.0\" W x 0.25\" H | Wayfair", "display_name": "FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0\" L x 24.0\" W x 0.25\" H | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/ce/7d/5d/ce7d5d4514320989c647a968714f4ee5.jpg", "link": "https://www.wayfair.com/FromPlainToBeautifulInHours--Shanko-2-ft.-x-2-ft.-DropIn-Tin-Ceiling-Tile-SKPC204gn24x24D6-L7160-K~FPTB1762.html?refid=PSO49B2B-FPTB1762_74555152&PiID[]=74555152", "price": "$149.99", "seo_alt_txt": "FromPlainToBeautifulInHours Shanko 2 ft. x 2 ft. Drop-In Tin Ceiling Tile 0.25 H x 24.0 W x 24.0 D in Tin in Black | 24.0\" L x 24.0\" W x 0.25\" H | Wayfair", "Source": "Pinterest"}, {"grid_title": "Gracie 24'' Single Bathroom Vanity with Ceramic Top", "display_name": "Gracie 24'' Single Bathroom Vanity with Top", "images:orig:url": "https://i.pinimg.com/originals/23/8e/48/238e48aceabfa5ec9d68ddef79743520.jpg", "link": "https://www.wayfair.com/home-improvement/pdp/bemma-gracie-24-single-bathroom-vanity-set-klzl1012.html?piid=51573317,51573318&categoryid=527058&placement=3&slot=1&sponsoredid=d33fbc97e0a63a035772e799b5d47f5ddf4137b3b61c678bca0ce279823c7192&_txid=I%2BF9OmTZnxmp94OA0lGzAg%3D%3D&isB2b=0&auctionId=16ab2b14-aa19-47b7-b723-6e596c125114", "price": "$1473.4", "seo_alt_txt": "Gracie 24'' Single Bathroom Vanity with Top", "Source": "Pinterest"}, {"grid_title": "Dutch Wallcoverings - Tree - 33''L x 21\"W Wallpaper Roll", "display_name": "Dutch Wallcoverings - Tree - 33''L x 21\"W Wallpaper Roll 21.0 W in black/yellowNon-Woven", "images:orig:url": "https://i.pinimg.com/originals/15/49/db/1549db37262866db06b65780be105731.png", "link": "https://www.wayfair.com/decor-pillows/pdp/red-barrel-studio-33-l-x-21-w-wallpaper-roll-w008701387.html?piid=248314762", "price": "$111.99", "seo_alt_txt": "Dutch Wallcoverings - Tree - 33''L x 21\"W Wallpaper Roll 21.0 W in black/yellowNon-Woven", "Source": "Pinterest"}, {"grid_title": "Winston Porter Elegant Floral Bathroom Harmony - Bath & Laundry Wall Art whiteCanvas, Cotton in Blue;pink | 36\" H x 36\" W x 1.5\" D | Wayfair", "display_name": "Winston Porter Elegant Floral Bathroom Harmony - Bath & Laundry Wall Art whiteCanvas, Cotton in Blue;pink", "images:orig:url": "https://i.pinimg.com/originals/34/20/e3/3420e368f2e680bc0f64e63fb2c43906.jpg", "link": "https://www.wayfair.com/Winston-Porter--Elegant-Floral-Bathroom-Harmony-Bath-and-Laundry-Wall-Art-X222323445-L1318-K~W111212334.html?refid=PSO49B2B-W111212334_413639438&PiID[]=413639438", "price": "$71.99", "seo_alt_txt": "Winston Porter Elegant Floral Bathroom Harmony - Bath & Laundry Wall Art whiteCanvas, Cotton in Blue;pink", "Source": "Pinterest"}, {"grid_title": "The Holiday Aisle\u00ae Macungie black/brownPolyester | 74\"H x 71\"W | Wayfair", "display_name": "The Holiday Aisle\u00ae Macungie black/brownPolyester | 74\"H x 71\"W | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/77/8e/65/778e651f104ee2dd76578c54ff615411.jpg", "link": "https://www.wayfair.com/The-Holiday-Aisle%C2%AE--Macungie-X222547221-L2243-K~W111436110.html?refid=PSO49B2B-W111436110_1555009697&PiID[]=1555009697", "price": "$54.99", "seo_alt_txt": "The Holiday Aisle\u00ae Macungie black/brownPolyester | 74\"H x 71\"W | Wayfair", "Source": "Pinterest"}, {"grid_title": "Ulah 3 - Light Vanity Light 6.5 H x 23.6 W x 8.0 D in yellowGlass", "display_name": "Ulah 3 - Light Dimmable Vanity Light", "images:orig:url": "https://i.pinimg.com/originals/1a/c6/b4/1ac6b45d225d89529180bb882084e37c.jpg", "link": "https://www.wayfair.com/Mercer41--Ulah-3-Light-Vanity-Light-X221364693-L6116-K~W110253582.html?refid=PSO49-W110253582", "price": "$209.99", "seo_alt_txt": "Ulah 3 - Light Dimmable Vanity Light", "Source": "Pinterest"}, {"grid_title": "Backop French vintage style rock plate bathroom cabinet in Black | 51.18\" | Wayfair", "display_name": "Backop French vintage style rock plate bathroom cabinet in Black | 51.18\" | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/0a/9d/ad/0a9dadddb810f57fe4695f516fa4ac6a.jpg", "link": "https://www.wayfair.com/Backop--French-vintage-style-rock-plate-bathroom-cabinet-LSF-L151-K~BCKU1770.html?refid=PSO49B2B-BCKU1770_111690593&PiID[]=111690593", "price": "$3599.99", "seo_alt_txt": "Backop French vintage style rock plate bathroom cabinet in Black | 51.18\" | Wayfair", "Source": "Pinterest"}, {"grid_title": "East Urban Home Night Flutter - 1 Piece Standard Shower Curtain blackPolyester | 74\"H x 71\"W | Wayfair", "display_name": "East Urban Home Night Flutter - 1 Piece Standard Shower Curtain blackPolyester | 74\"H x 71\"W | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/e4/87/d9/e487d9202802bc9c4e3961e8a130fceb.jpg", "link": "https://www.wayfair.com/East-Urban-Home--Night-Flutter-1-Piece-Standard-Shower-Curtain-X223383901-L2243-K~W112272890.html?refid=PSO49B2B-W112272890_1979190429&PiID[]=1979190429", "price": "$54.99", "seo_alt_txt": "East Urban Home Night Flutter - 1 Piece Standard Shower Curtain blackPolyester | 74\"H x 71\"W | Wayfair", "Source": "Pinterest"}, {"grid_title": "Red Barrel Studio\u00ae Enajiah Dark Cream Floral Wallpaper 24.0 W in Vinyl in Black Gray | 6' L X 2' W | Wayfair", "display_name": "Red Barrel Studio\u00ae Enajiah Dark Cream Floral Wallpaper 24.0 W in Vinyl in Black Gray", "images:orig:url": "https://i.pinimg.com/originals/4e/4f/f8/4e4ff88a59462989b392179107202a6a.jpg", "link": "https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Enajiah-Dark-Cream-Floral-Wallpaper-X121695533-L6161-K~W010584422.html?refid=PSO49B2B-W010584422_1270959854&PiID[]=1270959854", "price": "$99.99", "seo_alt_txt": "Red Barrel Studio\u00ae Enajiah Dark Cream Floral Wallpaper 24.0 W in Vinyl in Black Gray", "Source": "Pinterest"}, {"grid_title": "Winston Porter Bathroom Midnight Serenade - Print indigoMetal in Silver Floater Framed | 16\" H x 32\" W x 1\" D | Wayfair", "display_name": "Winston Porter Bathroom Midnight Serenade - Print indigoMetal in Silver Floater Framed | 16\" H x 32\" W x 1\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/ed/bb/38/edbb38bed67ef81315e995cf4a5d6241.jpg", "link": "https://www.wayfair.com/Winston-Porter--Bathroom-Midnight-Serenade-Print-X211790872-L1318-K~W100689761.html?refid=PSO49-W100689761_1142539650_1206714684&PiID[]=1142539650&PiID[]=1206714684", "price": "$76.99", "seo_alt_txt": "Winston Porter Bathroom Midnight Serenade - Print indigoMetal in Silver Floater Framed | 16\" H x 32\" W x 1\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Jeltyprey 24\" Bathroom Vanity w/ a Drawer & Two Soft-Closing Doors, Painted Modern Bathroom Storage Cabinet w/ Ceramic Sink | 33.89\" H X 24.01\" W X 18.3\" D | Wayfair", "display_name": "Jeltyprey 24\" Bathroom Vanity w/ a Drawer & Two Soft-Closing Doors, Painted Modern Bathroom Storage Cabinet w/ Ceramic Sink | 33.89\" H X 24.01\" W X 18.3\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/14/b5/8b/14b58b26d9c3e5750cba82a6850b13ee.jpg", "link": "https://www.wayfair.com/Jeltyprey--24-Bathroom-Vanity-with-a-Drawer-and-Two-SoftClosing-Doors-Painted-Modern-Bathroom-Storage-Cabinet-with-Ceramic-Sink-Stylish-Single-Sink-Cabinet-for-Small-Spaces-JeltypreyZN710P276692B-L151-K~JLTY7999.html?refid=PSO49B2B-JLTY7999", "price": "$499.99", "seo_alt_txt": "Jeltyprey 24\" Bathroom Vanity w/ a Drawer & Two Soft-Closing Doors, Painted Modern Bathroom Storage Cabinet w/ Ceramic Sink | 33.89\" H X 24.01\" W X 18.3\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Red Barrel Studio\u00ae Golden Toilet Oasis Metallic II - Print 16.0 H x 16.0 W in brownCanvas in Wrapped Canvas | 16\" H x 16\" W x 1\u2026", "display_name": "Red Barrel Studio\u00ae Golden Toilet Oasis Metallic II - Print 16.0 H x 16.0 W in brownCanvas | 16\" H x 16\" W x 1\u2026", "images:orig:url": "https://i.pinimg.com/originals/17/3a/59/173a5959914abf3b5b32bb2a406d0215.jpg", "link": "https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Golden-Toilet-Oasis-Metallic-II-Print-X211835042-L1318-K~W100724931.html?refid=PSO49-W100724931_124225942_124225943&PiID[]=124225942&PiID[]=124225943", "price": "$34.99", "seo_alt_txt": "Red Barrel Studio\u00ae Golden Toilet Oasis Metallic II - Print 16.0 H x 16.0 W in brownCanvas | 16\" H x 16\" W x 1\u2026", "Source": "Pinterest"}, {"grid_title": "Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49\" H X 11.81\" W X 6.3\" D | Wayfair", "display_name": "Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49\" H X 11.81\" W X 6.3\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/a6/0f/a8/a60fa875dcb6e113fe469dead3344d9a.jpg", "link": "https://www.wayfair.com/Bloomsbury-Market--Atrice-Gold-Wall-Sconce-X221801084-L6117-K~W110790973.html?refid=PSO49B2B-W110790973_955847328_1000607519&PiID[]=955847328&PiID[]=1000607519", "price": "$509.99", "seo_alt_txt": "Bloomsbury Market Atrice Gold Wall Sconce yellow/black/brownGlass/Metal in Amber Matte Black | 19.49\" H X 11.81\" W X 6.3\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Everly Quinn Straughter Crocodile Vinyl Black Copper Metallic Textured Wallpaper Modern 3D | Wayfair", "display_name": "Straughter Crocodile Vinyl Black Copper Metallic Textured Wallpaper Modern 3D", "images:orig:url": "https://i.pinimg.com/originals/f3/d3/ff/f3d3ff073dfd891280ea7cde11297d64.jpg", "link": "https://www.wayfair.com/Everly-Quinn--Straughter-Crocodile-33-L-x-1.75-W-Texture-Wallpaper-Roll-X114649470-L6161-K~W003538369.html?refid=PSO49-W003538369&utm_source=pinterest&utm_medium=social", "price": "$129.99", "seo_alt_txt": "Straughter Crocodile Vinyl Black Copper Metallic Textured Wallpaper Modern 3D", "Source": "Pinterest"}, {"grid_title": "Red Barrel Studio\u00ae Laundry Room Art Deco I - Print on Canvas 16.0 H x 32.0 W x 1.0 D in blue/blackMetal in Wrapped Canvas | 16\" H x 32\" W x 1\" D | Wayfair", "display_name": "Red Barrel Studio\u00ae Laundry Room Art Deco I - Print on Canvas 16.0 H x 32.0 W x 1.0 D in blue/blackMetal", "images:orig:url": "https://i.pinimg.com/originals/49/39/4f/49394f23030ca007d4449237c31841b2.jpg", "link": "https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Laundry-Room-Art-Deco-I-Print-on-Canvas-X211823564-L1318-K~W100712453.html?refid=PSO49B2B-W100712453_51710355_51710365&PiID[]=51710355&PiID[]=51710365", "price": "$44.99", "seo_alt_txt": "Red Barrel Studio\u00ae Laundry Room Art Deco I - Print on Canvas 16.0 H x 32.0 W x 1.0 D in blue/blackMetal", "Source": "Pinterest"}, {"grid_title": "Ivy Bronx Wall Mounted Dimmable Semicircular LED Mirror Anti-Fog Backlit Lighted Bathroom Vanity Mirror & Reviews | Wayfair", "display_name": "Wall Mounted Dimmable Semicircular LED Mirror Anti-Fog Backlit Lighted Bathroom Vanity Mirror", "images:orig:url": "https://i.pinimg.com/originals/5a/05/35/5a05355c4b6b4f7b2102e4aba3367a14.jpg", "link": "https://www.wayfair.com/decor-pillows/pdp/ivy-bronx-wall-mounted-dimmable-semicircular-led-mirror-anti-fog-backlit-lighted-bathroom-vanity-mirror-w111137010.html", "price": "$183.99", "seo_alt_txt": "Wall Mounted Dimmable Semicircular LED Mirror Anti-Fog Backlit Lighted Bathroom Vanity Mirror", "Source": "Pinterest"}, {"grid_title": "Diamond 24'' Single Bathroom Vanity with Top", "display_name": "Diamond 24'' Single Bathroom Vanity with Top", "images:orig:url": "https://i.pinimg.com/originals/c6/2c/44/c62c4482553b30a7098c40dac96bccbd.jpg", "link": "https://www.wayfair.com/home-improvement/pdp/bemma-diamond-24-bathroom-vanity-set-klzl1151.html", "price": "$1259.5", "seo_alt_txt": "Diamond 24'' Single Bathroom Vanity with Top", "Source": "Pinterest"}, {"grid_title": "R&M Furniture Charming Bathroom Vanity w/ Multiple Storage Options & Stylish Design Wood in Black | 33.7\" H X 30\" W X 18.3\" D | Wayfair", "display_name": "R&M Furniture Charming Bathroom Vanity w/ Multiple Storage Options & Stylish Design Wood in Black | 33.7\" H X 30\" W X 18.3\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/f4/62/91/f46291dc22a8c2cee9058e41fbde2632.jpg", "link": "https://www.wayfair.com/RandM-Furniture--Charming-Bathroom-Vanity-with-Multiple-Storage-Options-and-Stylish-Design-RMN759P226000N759-L151-K~RFUR5659.html?refid=PSO49B2B-RFUR5659_108525990&PiID[]=108525990", "price": "$489.99", "seo_alt_txt": "R&M Furniture Charming Bathroom Vanity w/ Multiple Storage Options & Stylish Design Wood in Black | 33.7\" H X 30\" W X 18.3\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Red Barrel Studio\u00ae Bathroom Golden Luxe II On Canvas Print blue/brownMetal in Brown Floater Framed | 30\" H x 40\" W x 1.5\" D | Wayfair", "display_name": "Red Barrel Studio\u00ae Bathroom Golden Luxe II On Canvas Print blue/brownMetal in Brown Floater Framed | 30\" H x 40\" W x 1.5\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/90/8e/f0/908ef01561ffe52d7ee046b5e362c319.jpg", "link": "https://www.wayfair.com/Red-Barrel-Studio%C2%AE--Bathroom-Golden-Luxe-II-On-Canvas-Print-X211793721-L1318-K~W100682610.html?refid=PSO49B2B-W100682610_1831145222_1859245236&PiID[]=1831145222&PiID[]=1859245236", "price": "$124.99", "seo_alt_txt": "Red Barrel Studio\u00ae Bathroom Golden Luxe II On Canvas Print blue/brownMetal in Brown Floater Framed | 30\" H x 40\" W x 1.5\" D | Wayfair", "Source": "Pinterest"}, {"grid_title": "Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69\" H x 51.18\" W x 19.69\" D | Wayfair", "display_name": "Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69\" H x 51.18\" W x 19.69\" D | Wayfair", "images:orig:url": "https://i.pinimg.com/originals/bf/c4/ba/bfc4babf4f0278778e305e6383be0bb3.jpg", "link": "https://www.wayfair.com/Backop--French-retro-style-minimalist-bathroom-cabinet-WBY-L3764-K~BCKU1849.html?refid=PSO49B2B-BCKU1849_111882787_111882790&PiID[]=111882787&PiID[]=111882790", "price": "$2169.99", "seo_alt_txt": "Backop French retro style minimalist bathroom cabinet brownSolid Wood/Manufactured Wood in Black | 19.69\" H x 51.18\" W x 19.69\" D | Wayfair", "Source": "Pinterest"}];
+        
+        // Product selection functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            const selectionControls = document.getElementById('selectionControls');
+            const selectionCounter = document.getElementById('selectionCounter');
+            const generateLookBtn = document.getElementById('generateLookBtn');
+            const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+            const sourceFilter = document.getElementById('sourceFilter');
+            
+            // Handle checkbox changes
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const productIndex = parseInt(this.dataset.productIndex);
+                    const productItem = this.closest('.product-item');
+                    
+                    if (this.checked) {
+                        selectedProducts.push(productIndex);
+                        productItem.classList.add('selected');
+                    } else {
+                        const index = selectedProducts.indexOf(productIndex);
+                        if (index > -1) {
+                            selectedProducts.splice(index, 1);
+                        }
+                        productItem.classList.remove('selected');
+                    }
+                    
+                    updateSelectionUI();
+                });
+            });
+            
+            // Update selection UI
+            function updateSelectionUI() {
+                const count = selectedProducts.length;
+                selectionCounter.textContent = `${count} product${count !== 1 ? 's' : ''} selected`;
+                
+                if (count >= 3) {
+                    selectionControls.style.display = 'block';
+                    generateLookBtn.disabled = false;
+                    generateLookBtn.textContent = `Generate AI Look (${count} products)`;
+                } else if (count > 0) {
+                    selectionControls.style.display = 'block';
+                    generateLookBtn.disabled = true;
+                    generateLookBtn.textContent = `Select at least 3 products (${count}/3)`;
+                } else {
+                    selectionControls.style.display = 'none';
+                }
+            }
+            
+            // Clear selection
+            clearSelectionBtn.addEventListener('click', function() {
+                selectedProducts = [];
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                document.querySelectorAll('.product-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                updateSelectionUI();
+            });
+            
+            // Generate look
+            generateLookBtn.addEventListener('click', function() {
+                if (selectedProducts.length < 3) {
+                    alert('Please select at least 3 products to create a look');
+                    return;
+                }
+                
+                const selectedProductData = selectedProducts.map(index => products[index]);
+                
+                // Show loading state
+                generateLookBtn.textContent = 'Generating...';
+                generateLookBtn.disabled = true;
+                
+                // Send to server
+                fetch('/generate_look', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        products: selectedProductData,
+                        landing_page_name: 'powder-room.html'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Look generated successfully! Redirecting to view it...');
+                        window.location.href = data.look_url;
+                    } else {
+                        alert('Error generating look: ' + data.error);
+                        generateLookBtn.textContent = 'Generate AI Look';
+                        generateLookBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error generating look. Please try again.');
+                    generateLookBtn.textContent = 'Generate AI Look';
+                    generateLookBtn.disabled = false;
+                });
+            });
+            
+            // Source filter functionality
+            sourceFilter.addEventListener('change', function() {
+                const selectedSource = this.value;
+                const productItems = document.querySelectorAll('.product-item');
+                
+                productItems.forEach(item => {
+                    const source = item.dataset.source;
+                    if (selectedSource === 'all' || source === selectedSource) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        </script>
+        
+</body>
+</html>
